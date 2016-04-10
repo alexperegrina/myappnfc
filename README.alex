@@ -1,3 +1,0 @@
-
-1_ Para que funcione el ssh hay que entrar una vez por comando y poner el password "vagrant"
-    ssh vagrant@127.0.0.1 -p 2222

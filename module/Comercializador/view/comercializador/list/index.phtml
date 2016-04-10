@@ -1,0 +1,11 @@
+<!-- Filename: /module/Blog/view/blog/list/index.phtml -->
+<h1>Comercializador</h1>
+
+<?php foreach ($this->comercializadores as $comercializador): ?>
+    <article>
+        <h1 id="comercializador<?= $comercializador->getId() ?>"><?= $comercializador->getUsername() ?></h1>
+        <p>
+            <?= $comercializador->getMail() ?>
+        </p>
+    </article>
+<?php endforeach ?>
