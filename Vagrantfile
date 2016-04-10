@@ -16,6 +16,8 @@ sudo apt-get install python-software-properties
 sudo apt-get update
 sudo apt-get install php5
 
+sudo apt-get install php5-mysql
+
 echo "
 <VirtualHost *:80>
     ServerName skeleton-zf.local
