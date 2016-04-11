@@ -8,6 +8,7 @@
 
 namespace Comercializador\Mapper;
 
+use Comercializador\Model\ComercializadorInterface;
 
 interface ComercializadorMapperInterface
 {
@@ -31,7 +32,7 @@ interface ComercializadorMapperInterface
      * @return ComercializadorInterface
      * @throws \Exception
      */
-    //public function save(ComercializadorInterface $comercializadorObject);
+    public function save(ComercializadorInterface $comercializadorObject);
 
     /**
      * @param ComercializadorInterface $comercializadorObject
@@ -39,5 +40,5 @@ interface ComercializadorMapperInterface
      * @return bool
      * @throws \Exception
      */
-    //public function delete(ComercializadorInterface $comercializadorObject);
+    public function delete(ComercializadorInterface $comercializadorObject);
 }

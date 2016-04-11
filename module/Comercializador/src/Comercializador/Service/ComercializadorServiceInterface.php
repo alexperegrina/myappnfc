@@ -8,6 +8,7 @@
 
 namespace Comercializador\Service;
 
+use Comercializador\Model\ComercializadorInterface;
 
 interface ComercializadorServiceInterface
 {

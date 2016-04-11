@@ -19,6 +19,8 @@ return array(
 //        ),
         'factories' => array(
             'Comercializador\Controller\List' => 'Comercializador\Factory\ListControllerFactory',
+            'Comercializador\Controller\Write' => 'Comercializador\Factory\WriteControllerFactory',
+            'Comercializador\Controller\Delete' => 'Comercializador\Factory\DeleteControllerFactory'
         )
     ),
 
@@ -44,21 +46,58 @@ return array(
                         'controller' => 'List',
                         'action' => 'index',
                     )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            )
+                        )
+                    ),
+                    'add' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/add',
+                            'defaults' => array(
+                                'controller' => 'Comercializador\Controller\Write',
+                                'action'     => 'add'
+                            )
+                        )
+                    ),
+                    'edit' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/edit/:id',
+                            'defaults' => array(
+                                'controller' => 'Comercializador\Controller\Write',
+                                'action'     => 'edit'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'delete' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/delete/:id',
+                            'defaults' => array(
+                                'controller' => 'Comercializador\Controller\Delete',
+                                'action'     => 'delete'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
                 )
             )
         ),
-        'may_terminate' => true,
-        'child_routes' => array(
-            'default' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/[:controller[/:action]]',
-                    'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    )
-                )
-            )
-        )
+
     )
 );

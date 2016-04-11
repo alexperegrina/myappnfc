@@ -36,16 +36,6 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
      */
     protected $comercializadorPrototype;
 
-//    /**
-//     * ZendDbSqlMapper constructor.
-//     * @param AdapterInterface $dbAdapter
-//     * @param HydratorInterface $hydrator
-//     * @param \Comercializador\Model\ComercializadorInterface $comercializadorPrototype
-//     */
-//    public function __construct()
-//    {
-//    }
-
     /**
      * @param AdapterInterface  $dbAdapter
      * @param HydratorInterface $hydrator
@@ -60,13 +50,11 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         $this->hydrator       = $hydrator;
         $this->comercializadorPrototype  = $comercializadorPrototype;
     }
-
-    
     
     /**
      * @param int|string $id
      *
-     * @return ComercialzadorInterface
+     * @return ComercializadorInterface
      * @throws \InvalidArgumentException
      */
     public function find($id)
@@ -86,7 +74,7 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
     }
 
     /**
-     * @return array|ComercialzadorInterface[]
+     * @return array|ComercializadorInterface[]
      */
     public function findAll()
     {
@@ -106,4 +94,56 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         return array();
     }
 
+    /**
+     * @param ComercializadorInterface $comercializadorObject
+     *
+     * @return ComercializadorInterface
+     * @throws \Exception
+     */
+    public function save(ComercializadorInterface $comercializadorObject)
+    {
+        $comercializadorData = $this->hydrator->extract($comercializadorObject);
+        unset($comercializadorData['id']); // Neither Insert nor Update needs the ID in the array
+
+        if ($comercializadorObject->getId()) {
+            // ID present, it's an Update
+            $action = new Update('users');
+            $action->set($comercializadorData);
+            $action->where(array('id = ?' => $comercializadorObject->getId()));
+        } else {
+            // ID NOT present, it's an Insert
+            $action = new Insert('users');
+            $action->values($comercializadorData);
+        }
+
+        $sql    = new Sql($this->dbAdapter);
+        $stmt   = $sql->prepareStatementForSqlObject($action);
+        $result = $stmt->execute();
+
+        if ($result instanceof ResultInterface) {
+            if ($newId = $result->getGeneratedValue()) {
+                // When a value has been generated, set it on the object
+                $comercializadorObject->setId($newId);
+            }
+
+            return $comercializadorObject;
+        }
+
+        throw new \Exception("Database error");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(ComercializadorInterface $comercializadorObject)
+    {
+        $action = new Delete('users');
+        $action->where(array('id = ?' => $comercializadorObject->getId()));
+
+        $sql    = new Sql($this->dbAdapter);
+        $stmt   = $sql->prepareStatementForSqlObject($action);
+        $result = $stmt->execute();
+
+        return (bool)$result->getAffectedRows();
+    }
 }

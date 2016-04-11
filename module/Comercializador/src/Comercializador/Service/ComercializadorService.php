@@ -10,6 +10,7 @@ namespace Comercializador\Service;
 
 
 use Comercializador\Mapper\ComercializadorMapperInterface;
+use Comercializador\Model\ComercializadorInterface;
 
 class ComercializadorService implements ComercializadorServiceInterface
 {
@@ -26,6 +27,7 @@ class ComercializadorService implements ComercializadorServiceInterface
     public function __construct(ComercializadorMapperInterface $comercializadorMapper)
     {
         $this->comercializadorMapper = $comercializadorMapper;
+
     }
 
     /**
@@ -39,20 +41,20 @@ class ComercializadorService implements ComercializadorServiceInterface
      * {@inheritDoc}
      */
     public function findComercializador($id) {
-
+        return $this->comercializadorMapper->find($id);
     }
 
     /**
      * {@inheritDoc}
      */
     public function saveComercializador(ComercializadorInterface $comercializador) {
-
+        return $this->comercializadorMapper->save($comercializador);
     }
 
     /**
      * {@inheritDoc}
      */
     public function deleteComercializador(ComercializadorInterface $comercializador) {
-
+        return $this->comercializadorMapper->delete($comercializador);
     }
 }
