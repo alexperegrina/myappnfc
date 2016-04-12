@@ -14,17 +14,17 @@ return array(
 
     'controllers' => array(
         'factories' => array(
-            'Servicio\Controller\List' => 'Servicio\Factory\ListControllerFactory',
-            'Servicio\Controller\Write' => 'Servicio\Factory\WriteControllerFactory',
-            //'Servicio\Controller\Delete' => 'Servicio\Factory\DeleteControllerFactory'
+            'Servicio\Controller\List'      => 'Servicio\Factory\ListControllerFactory',
+            'Servicio\Controller\Write'     => 'Servicio\Factory\WriteControllerFactory',
+            'Servicio\Controller\Delete'    => 'Servicio\Factory\DeleteControllerFactory',
         )
     ),
 
     'service_manager' => array(
         'factories' => array(
-            'Servicio\Mapper\ServicioMapperInterface' => 'Servicio\Factory\ZendDbSqlMapperFactory',
+            'Servicio\Mapper\ServicioMapperInterface'   => 'Servicio\Factory\ZendDbSqlMapperFactory',
             'Servicio\Service\ServicioServiceInterface' => 'Servicio\Factory\ServicioServiceFactory',
-            'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory'
+            'Zend\Db\Adapter\Adapter'                   => 'Zend\Db\Adapter\AdapterServiceFactory'
         )
     ),
 
@@ -71,24 +71,28 @@ return array(
                                 'controller' => 'Servicio\Controller\Write',
                                 'action'     => 'edit'
                             ),
+//                            'defaults' => array(
+//                                'controller' => 'Servicio\Controller\Delete',
+//                                'action'     => 'delete'
+//                            ),
                             'constraints' => array(
                                 'id' => '\d+'
                             )
                         )
                     ),
-//                    'delete' => array(
-//                        'type' => 'segment',
-//                        'options' => array(
-//                            'route'    => '/delete/:id',
-//                            'defaults' => array(
-//                                'controller' => 'Servicio\Controller\Delete',
-//                                'action'     => 'delete'
-//                            ),
-//                            'constraints' => array(
-//                                'id' => '\d+'
-//                            )
-//                        )
-//                    ),
+                    'delete' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/delete/:id',
+                            'defaults' => array(
+                                'controller' => 'Servicio\Controller\Delete',
+                                'action'     => 'delete'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
                 )
             )
         ),

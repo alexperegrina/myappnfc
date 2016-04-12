@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: alex
- * Date: 11/4/16
- * Time: 18:43
+ * Date: 12/4/16
+ * Time: 20:50
  */
 
 namespace Servicio\Controller;
@@ -32,8 +32,6 @@ class WriteController extends AbstractActionController
 
     public function addAction()
     {
-        //die("DEBUG");
-        
         $request = $this->getRequest();
 
         if ($request->isPost()) {
