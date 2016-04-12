@@ -106,6 +106,9 @@ class ZendDbSqlMapper implements ServicioMapperInterface
         $servicioData = $this->hydrator->extract($servicioObject);
         unset($servicioData['id']); // Neither Insert nor Update needs the ID in the array
 
+        //insertamos el tipo de user
+        $servicioData['tipo'] = 'servicio';
+
         if ($servicioObject->getId()) {
             // ID present, it's an Update
             $action = new Update('users');

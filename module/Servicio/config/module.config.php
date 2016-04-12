@@ -15,7 +15,7 @@ return array(
     'controllers' => array(
         'factories' => array(
             'Servicio\Controller\List' => 'Servicio\Factory\ListControllerFactory',
-            //'Servicio\Controller\Write' => 'Servicio\Factory\WriteControllerFactory',
+            'Servicio\Controller\Write' => 'Servicio\Factory\WriteControllerFactory',
             //'Servicio\Controller\Delete' => 'Servicio\Factory\DeleteControllerFactory'
         )
     ),
@@ -53,29 +53,29 @@ return array(
                             )
                         )
                     ),
-//                    'add' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route'    => '/add',
-//                            'defaults' => array(
-//                                'controller' => 'Servicio\Controller\Write',
-//                                'action'     => 'add'
-//                            )
-//                        )
-//                    ),
-//                    'edit' => array(
-//                        'type' => 'segment',
-//                        'options' => array(
-//                            'route'    => '/edit/:id',
-//                            'defaults' => array(
-//                                'controller' => 'Servicio\Controller\Write',
-//                                'action'     => 'edit'
-//                            ),
-//                            'constraints' => array(
-//                                'id' => '\d+'
-//                            )
-//                        )
-//                    ),
+                    'add' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/add',
+                            'defaults' => array(
+                                'controller' => 'Servicio\Controller\Write',
+                                'action'     => 'add'
+                            )
+                        )
+                    ),
+                    'edit' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/edit/:id',
+                            'defaults' => array(
+                                'controller' => 'Servicio\Controller\Write',
+                                'action'     => 'edit'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
 //                    'delete' => array(
 //                        'type' => 'segment',
 //                        'options' => array(

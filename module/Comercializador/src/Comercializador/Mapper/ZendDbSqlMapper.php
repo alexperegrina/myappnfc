@@ -105,6 +105,9 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         $comercializadorData = $this->hydrator->extract($comercializadorObject);
         unset($comercializadorData['id']); // Neither Insert nor Update needs the ID in the array
 
+        //insertamos el tipo de user
+        $servicioData['tipo'] = 'comercializador';
+
         if ($comercializadorObject->getId()) {
             // ID present, it's an Update
             $action = new Update('users');
