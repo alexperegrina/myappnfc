@@ -22,7 +22,8 @@ return array(
         'ZF\Rpc',
         'ZF\Versioning',
         'ZF\DevelopmentMode',
-        'Comercializador'
+        'Comercializador',
+        'Servicio'
     ),
 
     // These are various options for the listeners attached to the ModuleManager

@@ -3,29 +3,30 @@
  * Created by PhpStorm.
  * User: alex
  * Date: 11/4/16
- * Time: 0:38
+ * Time: 0:34
  */
 
-namespace Comercializador\Factory;
+namespace Servicio\Factory;
 
-use Comercializador\Service\ComercializadorService;
+use Servicio\Controller\ListController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ComercializadorServiceFactory implements FactoryInterface
+class ListControllerFactory implements FactoryInterface
 {
 
     /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
+     *
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new ComercializadorService(
-            $serviceLocator->get('Comercializador\Mapper\ComercializadorMapperInterface')
-        );
+        $realServiceLocator = $serviceLocator->getServiceLocator();
+        
+        $servicioService = $realServiceLocator->get('Servicio\Service\ServicioServiceInterface');
+        return new ListController($servicioService);
     }
-
 }

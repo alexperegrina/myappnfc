@@ -39,7 +39,7 @@ interface ComercializadorServiceInterface
     /**
      * Elimina un comercializador y si no devuelve false.
      *
-     * @param  ComercializadorInterface $blog
+     * @param  ComercializadorInterface $comercializador
      * @return bool
      */
     public function deleteComercializador(ComercializadorInterface $comercializador);

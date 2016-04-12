@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: alex
- * Date: 11/4/16
- * Time: 0:02
+ * Date: 12/4/16
+ * Time: 16:21
  */
 
-namespace Comercializador\Mapper;
+namespace Servicio\Mapper;
 
-use Comercializador\Model\ComercializadorInterface;
+use Servicio\Model\ServicioInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
@@ -18,7 +18,7 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Update;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
-class ZendDbSqlMapper implements ComercializadorMapperInterface
+class ZendDbSqlMapper implements ServicioMapperInterface
 {
 
     /**
@@ -32,29 +32,30 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
     protected $hydrator;
 
     /**
-     * @var \Comercializador\Model\ComercializadorInterface
+     * @var \Servicio\Model\ServicioInterface
      */
-    protected $comercializadorPrototype;
+    protected $servicioPrototype;
 
     /**
      * @param AdapterInterface  $dbAdapter
      * @param HydratorInterface $hydrator
-     * @param ComercializadorInterface    $comercializadorPrototype
+     * @param ServicioInterface    $servicioPrototype
      */
     public function __construct(
         AdapterInterface $dbAdapter,
         HydratorInterface $hydrator,
-        ComercializadorInterface $comercializadorPrototype
+        ServicioInterface $servicioPrototype
     ) {
+        
         $this->dbAdapter      = $dbAdapter;
         $this->hydrator       = $hydrator;
-        $this->comercializadorPrototype  = $comercializadorPrototype;
+        $this->servicioPrototype  = $servicioPrototype;
     }
-    
+
     /**
      * @param int|string $id
      *
-     * @return ComercializadorInterface
+     * @return ServicioInterface
      * @throws \InvalidArgumentException
      */
     public function find($id)
@@ -67,26 +68,26 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         $result = $stmt->execute();
 
         if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
-            return $this->hydrator->hydrate($result->current(), $this->comercializadorPrototype);
+            return $this->hydrator->hydrate($result->current(), $this->servicioPrototype);
         }
-        
-        throw new \InvalidArgumentException("Comercializador con ID:{$id} no existe.");
+
+        throw new \InvalidArgumentException("Servicio con ID:{$id} no existe.");
     }
 
     /**
-     * @return array|ComercializadorInterface[]
+     * @return array|ServicioInterface[]
      */
     public function findAll()
     {
 
         $sql    = new Sql($this->dbAdapter);
         $select = $sql->select('users');
-        $select->where(array('tipo = "comercializador"'));
+        $select->where(array('tipo = "servicio"'));
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
 
         if ($result instanceof ResultInterface && $result->isQueryResult()) {
-            $resultSet = new HydratingResultSet($this->hydrator, $this->comercializadorPrototype);
+            $resultSet = new HydratingResultSet($this->hydrator, $this->servicioPrototype);
 
             return $resultSet->initialize($result);
         }
@@ -95,25 +96,25 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
     }
 
     /**
-     * @param ComercializadorInterface $comercializadorObject
+     * @param ServicioInterface $servicioObject
      *
-     * @return ComercializadorInterface
+     * @return ServicioInterface
      * @throws \Exception
      */
-    public function save(ComercializadorInterface $comercializadorObject)
+    public function save(ServicioInterface $servicioObject)
     {
-        $comercializadorData = $this->hydrator->extract($comercializadorObject);
-        unset($comercializadorData['id']); // Neither Insert nor Update needs the ID in the array
+        $servicioData = $this->hydrator->extract($servicioObject);
+        unset($servicioData['id']); // Neither Insert nor Update needs the ID in the array
 
-        if ($comercializadorObject->getId()) {
+        if ($servicioObject->getId()) {
             // ID present, it's an Update
             $action = new Update('users');
-            $action->set($comercializadorData);
-            $action->where(array('id = ?' => $comercializadorObject->getId()));
+            $action->set($servicioData);
+            $action->where(array('id = ?' => $servicioObject->getId()));
         } else {
             // ID NOT present, it's an Insert
             $action = new Insert('users');
-            $action->values($comercializadorData);
+            $action->values($servicioData);
         }
 
         $sql    = new Sql($this->dbAdapter);
@@ -123,10 +124,10 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         if ($result instanceof ResultInterface) {
             if ($newId = $result->getGeneratedValue()) {
                 // When a value has been generated, set it on the object
-                $comercializadorObject->setId($newId);
+                $servicioObject->setId($newId);
             }
 
-            return $comercializadorObject;
+            return $servicioObject;
         }
 
         throw new \Exception("Database error");
@@ -135,10 +136,10 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
     /**
      * {@inheritDoc}
      */
-    public function delete(ComercializadorInterface $comercializadorObject)
+    public function delete(ServicioInterface $servicioObject)
     {
         $action = new Delete('users');
-        $action->where(array('id = ?' => $comercializadorObject->getId()));
+        $action->where(array('id = ?' => $servicioObject->getId()));
 
         $sql    = new Sql($this->dbAdapter);
         $stmt   = $sql->prepareStatementForSqlObject($action);

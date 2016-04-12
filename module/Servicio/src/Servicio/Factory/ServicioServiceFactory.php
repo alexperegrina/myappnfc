@@ -2,19 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: alex
- * Date: 11/4/16
- * Time: 0:38
+ * Date: 12/4/16
+ * Time: 17:27
  */
 
-namespace Comercializador\Factory;
+namespace Servicio\Factory;
 
-use Comercializador\Service\ComercializadorService;
+use Servicio\Service\ServicioService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ComercializadorServiceFactory implements FactoryInterface
+class ServicioServiceFactory implements FactoryInterface
 {
-
     /**
      * Create service
      *
@@ -23,9 +22,8 @@ class ComercializadorServiceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new ComercializadorService(
-            $serviceLocator->get('Comercializador\Mapper\ComercializadorMapperInterface')
+        return new ServicioService(
+            $serviceLocator->get('Servicio\Mapper\ServicioMapperInterface')
         );
     }
-
 }
