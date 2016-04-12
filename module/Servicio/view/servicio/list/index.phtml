@@ -1,11 +1,12 @@
 <?php
 // module/Album/view/album/album/index.phtml:
-$title = 'Srvicios';
+$title = 'Servicios';
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-<!--    <a href="--><?php //echo $this->url('album', array('action' => 'add')); ?><!--">Add new comercializador</a>-->
+    <!--    <a href="--><?php //echo $this->url('servicio', array('action' => 'add'); ?><!--">Add new servicio</a>-->
+    <a href="<?php echo $this->url('servicio/add'); ?>">Add new servicio</a>
 </p>
 <table class="table">
     <tr>
@@ -19,11 +20,12 @@ $this->headTitle($title);
             <td><?php echo $this->escapeHtml($servicio->getId()); ?></td>
             <td><?php echo $this->escapeHtml($servicio->getUsername()); ?></td>
             <td><?php echo $this->escapeHtml($servicio->getMail()); ?></td>
-<!--            <td>-->
-<!--                <a href="--><?php //echo $this->url('album', array('action' => 'edit', 'id' => $album->id)); ?><!--">Edit</a>-->
-<!--                <a href="--><?php //echo $this->url('album',
-//                    array('action' => 'delete', 'id' => $album->id)); ?><!--">Delete</a>-->
-<!--            </td>-->
+            <td>
+                <!--                <a href="--><?php //echo $this->url('servicio', array('action' => 'edit', 'id' => $servicio->getId())); ?><!--">Edit</a>-->
+                <!--                <a href="--><?php //echo $this->url('servicio', array('action' => 'delete', 'id' => $servicio->getId())); ?><!--">Delete</a>-->
+                <a href=servicio/edit/<?php echo $servicio->getId(); ?>>Edit</a>
+                <a href=servicio/delete/<?php echo $servicio->getId(); ?>>Delete</a>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>

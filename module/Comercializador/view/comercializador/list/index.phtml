@@ -5,7 +5,8 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-<!--    <a href="--><?php //echo $this->url('album', array('action' => 'add')); ?><!--">Add new comercializador</a>-->
+    <!--    <a href="--><?php //echo $this->url('comercializador', array('action' => 'add'); ?><!--">Add new comercializador</a>-->
+    <a href="<?php echo $this->url('comercializador/add'); ?>">Add new comercializador</a>
 </p>
 <table class="table">
     <tr>
@@ -19,11 +20,12 @@ $this->headTitle($title);
             <td><?php echo $this->escapeHtml($comercializador->getId()); ?></td>
             <td><?php echo $this->escapeHtml($comercializador->getUsername()); ?></td>
             <td><?php echo $this->escapeHtml($comercializador->getMail()); ?></td>
-<!--            <td>-->
-<!--                <a href="--><?php //echo $this->url('album', array('action' => 'edit', 'id' => $album->id)); ?><!--">Edit</a>-->
-<!--                <a href="--><?php //echo $this->url('album',
-//                    array('action' => 'delete', 'id' => $album->id)); ?><!--">Delete</a>-->
-<!--            </td>-->
+            <td>
+                <!--                <a href="--><?php //echo $this->url('comercializador', array('action' => 'edit', 'id' => $comercializador->getId())); ?><!--">Edit</a>-->
+                <!--                <a href="--><?php //echo $this->url('comercializador', array('action' => 'delete', 'id' => $comercializador->getId())); ?><!--">Delete</a>-->
+                <a href=comercializador/edit/<?php echo $comercializador->getId(); ?>>Edit</a>
+                <a href=comercializador/delete/<?php echo $comercializador->getId(); ?>>Delete</a>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>

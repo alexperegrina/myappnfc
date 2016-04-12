@@ -82,6 +82,7 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         $sql    = new Sql($this->dbAdapter);
         $select = $sql->select('users');
         $select->where(array('tipo = "comercializador"'));
+
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
 
@@ -106,7 +107,7 @@ class ZendDbSqlMapper implements ComercializadorMapperInterface
         unset($comercializadorData['id']); // Neither Insert nor Update needs the ID in the array
 
         //insertamos el tipo de user
-        $servicioData['tipo'] = 'comercializador';
+        $comercializadorData['tipo'] = 'comercializador';
 
         if ($comercializadorObject->getId()) {
             // ID present, it's an Update
