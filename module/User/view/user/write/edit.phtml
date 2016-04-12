@@ -1,10 +1,10 @@
 <h1>WriteController::editAction()</h1>
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url('servicio/edit', array(), true));
+$form->setAttribute('action', $this->url('user/edit', array(), true));
 $form->prepare();
 
-$form->get('submit')->setValue('Update Servicio');
+$form->get('submit')->setValue('Update User');
 
 echo $this->form()->openTag($form);
 

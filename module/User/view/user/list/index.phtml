@@ -5,7 +5,8 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-<!--    <a href="--><?php //echo $this->url('album', array('action' => 'add')); ?><!--">Add new comercializador</a>-->
+<!--    <a href="--><?php //echo $this->url('user', array('action' => 'add'); ?><!--">Add new user</a>-->
+    <a href="<?php echo $this->url('user/add'); ?>">Add new user</a>
 </p>
 <table class="table">
     <tr>
@@ -19,11 +20,12 @@ $this->headTitle($title);
             <td><?php echo $this->escapeHtml($user->getId()); ?></td>
             <td><?php echo $this->escapeHtml($user->getUsername()); ?></td>
             <td><?php echo $this->escapeHtml($user->getMail()); ?></td>
-<!--            <td>-->
-<!--                <a href="--><?php //echo $this->url('album', array('action' => 'edit', 'id' => $album->id)); ?><!--">Edit</a>-->
-<!--                <a href="--><?php //echo $this->url('album',
-//                    array('action' => 'delete', 'id' => $album->id)); ?><!--">Delete</a>-->
-<!--            </td>-->
+            <td>
+<!--                <a href="--><?php //echo $this->url('user', array('action' => 'edit', 'id' => $user->getId())); ?><!--">Edit</a>-->
+<!--                <a href="--><?php //echo $this->url('user', array('action' => 'delete', 'id' => $user->getId())); ?><!--">Delete</a>-->
+                <a href=user/edit/<?php echo $user->getId(); ?>>Edit</a>
+                <a href=user/delete/<?php echo $user->getId(); ?>>Delete</a>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>

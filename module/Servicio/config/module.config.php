@@ -71,10 +71,6 @@ return array(
                                 'controller' => 'Servicio\Controller\Write',
                                 'action'     => 'edit'
                             ),
-//                            'defaults' => array(
-//                                'controller' => 'Servicio\Controller\Delete',
-//                                'action'     => 'delete'
-//                            ),
                             'constraints' => array(
                                 'id' => '\d+'
                             )

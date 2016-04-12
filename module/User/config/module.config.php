@@ -15,8 +15,8 @@ return array(
     'controllers' => array(
         'factories' => array(
             'User\Controller\List'      => 'User\Factory\ListControllerFactory',
-//            'User\Controller\Write'     => 'User\Factory\WriteControllerFactory',
-//            'User\Controller\Delete'    => 'User\Factory\DeleteControllerFactory',
+            'User\Controller\Write'     => 'User\Factory\WriteControllerFactory',
+            'User\Controller\Delete'    => 'User\Factory\DeleteControllerFactory',
         )
     ),
 
@@ -43,16 +43,16 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            )
-                        )
-                    ),
+//                    'default' => array(
+//                        'type' => 'Segment',
+//                        'options' => array(
+//                            'route' => '/[:controller[/:action]]',
+//                            'constraints' => array(
+//                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                            )
+//                        )
+//                    ),
                     'add' => array(
                         'type' => 'literal',
                         'options' => array(
@@ -60,6 +60,32 @@ return array(
                             'defaults' => array(
                                 'controller' => 'User\Controller\Write',
                                 'action'     => 'add'
+                            )
+                        )
+                    ),
+                    'edit' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/edit/:id',
+                            'defaults' => array(
+                                'controller' => 'User\Controller\Write',
+                                'action'     => 'edit'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'delete' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/delete/:id',
+                            'defaults' => array(
+                                'controller' => 'User\Controller\Delete',
+                                'action'     => 'delete'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
                             )
                         )
                     ),
