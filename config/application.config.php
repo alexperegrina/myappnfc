@@ -23,7 +23,8 @@ return array(
         'ZF\Versioning',
         'ZF\DevelopmentMode',
         'Comercializador',
-        'Servicio'
+        'Servicio',
+        'User'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
