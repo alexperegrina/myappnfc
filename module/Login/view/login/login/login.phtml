@@ -1,0 +1,32 @@
+<h1>Login en Zend Framework 2</h1>
+<hr/>
+
+<?php
+$this->headTitle("Login usuarios");
+$form = $this->form;
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<div class="form_element">
+    <?php
+    $email = $form->get('email');
+    echo "Correo: ".$this->formInput($email);
+    if(isset($error["mail"])){
+        echo $error["mail"]['emailAddressInvalidHostname'];
+    }
+    ?>
+</div>
+<div class="form_element">
+    <?php
+    $pass = $form->get('password');
+    echo "Contraseña: ".$this->formInput($pass);
+    echo $this->formElementErrors($pass);
+    ?>
+</div>
+
+<?php
+echo $this->flashMessenger()->render();
+
+echo $this->formElement($form->get('submit'));
+echo $this->form()->closeTag();
+?>

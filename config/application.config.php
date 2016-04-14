@@ -24,7 +24,8 @@ return array(
         'ZF\DevelopmentMode',
         'Comercializador',
         'Servicio',
-        'User'
+        'User',
+        'Login'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
