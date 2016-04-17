@@ -25,11 +25,6 @@ return array(
         'Comercializador',
         'Servicio',
         'User',
-        'Login',
-        'LoginAlex',
-        'Alex',
-        'Album',
-        'Test',
         'Authenticate'
     ),
 
