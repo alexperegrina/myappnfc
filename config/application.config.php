@@ -25,7 +25,12 @@ return array(
         'Comercializador',
         'Servicio',
         'User',
-        'Login'
+        'Login',
+        'LoginAlex',
+        'Alex',
+        'Album',
+        'Test',
+        'Authenticate'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
