@@ -20,8 +20,49 @@ return array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
     ),
+    'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Home',
+                'route' => 'home',
+            ),
+            array(
+                'label' => 'Servicio', //Page #1
+                'route' => 'servicio', //page-1
+                'pages' => array(
+                    array(
+                        'label' => 'Add',
+                        'route' => 'servicio/add',
+                    ),
+                ),
+            ),
+            array(
+                'label' => 'User', //Page #2
+                'route' => 'user',
+                'pages' => array(
+                    array(
+                        'label' => 'Add',
+                        'route' => 'user/add',
+                    ),
+                ),
+            ),
+            array(
+                'label' => 'Comercializador', //Page #3
+                'route' => 'comercializador',
+                'pages' => array(
+                    array(
+                        'label' => 'Add',
+                        'route' => 'comercializador/add',
+                    ),
+                ),
+            ),
+
+        ),
+    ),
     'service_manager' => array(
-        'factories' => array( 'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+        'factories' => array(
+            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
     ),
 );
