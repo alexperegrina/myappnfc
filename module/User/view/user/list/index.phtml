@@ -25,6 +25,7 @@ $this->headTitle($title);
 <!--                <a href="--><?php //echo $this->url('user', array('action' => 'delete', 'id' => $user->getId())); ?><!--">Delete</a>-->
                 <a href=user/edit/<?php echo $user->getId(); ?>>Edit</a>
                 <a href=user/delete/<?php echo $user->getId(); ?>>Delete</a>
+                <a href=user/profile/<?php echo $user->getId(); ?>>Profile</a>
             </td>
         </tr>
     <?php endforeach; ?>

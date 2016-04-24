@@ -30,4 +30,19 @@ interface UserInterface
      * @return string
      */
     public function getMail();
+
+    /**
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * @return string
+     */
+    public function getSurname();
+
+    /**
+     * @return int
+     */
+    public function getBirthDate();
 }

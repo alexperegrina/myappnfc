@@ -1,18 +1,18 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: alex
- * Date: 13/4/16
- * Time: 0:04
+ * User: irinavasilieva
+ * Date: 23/04/16
+ * Time: 13:11
  */
 
 namespace User\Factory;
 
-use User\Controller\ListController;
+use User\Controller\ProfileController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ListControllerFactory implements FactoryInterface
+class ProfileControllerFactory implements FactoryInterface
 {
 
     /**
@@ -24,10 +24,10 @@ class ListControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $realServiceLocator = $serviceLocator->getServiceLocator();
-
-        $userService = $realServiceLocator->get('User\Service\UserServiceInterface');
         
-        return new ListController($userService);
+        $realServiceLocator = $serviceLocator->getServiceLocator();
+        $userService = $realServiceLocator->get('User\Service\UserServiceInterface');
+
+        return new ProfileController($userService);
     }
 }

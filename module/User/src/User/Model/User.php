@@ -8,8 +8,6 @@
 
 namespace User\Model;
 
-use User\Model\UserInterface;
-
 class User implements UserInterface
 {
     /**
@@ -31,6 +29,21 @@ class User implements UserInterface
      * @var string
      */
     protected $mail;
+
+    /**
+     * @var string
+     */
+    public $nombre;
+
+    /**
+     * @var string
+     */
+    public $apellidos;
+
+    /**
+     * @var int
+     */
+    public $fecha_nacimiento;
 
     /**
      * {@inheritDoc}
@@ -94,5 +107,53 @@ class User implements UserInterface
     public function setMail($mail)
     {
         $this->mail = $mail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * @param string
+     */
+    public function setName($name)
+    {
+        $this->nombre = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->apellidos;
+    }
+
+    /**
+     * @param string
+     */
+    public function setSurname($apellidos)
+    {
+        $this->apellidos = $apellidos;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBirthDate()
+    {
+        return $this->fecha_nacimiento;
+    }
+
+    /**
+     * @param int
+     */
+    public function setBirthDate($fecha_nacimiento)
+    {
+        $this->fecha_nacimiento = $fecha_nacimiento;
     }
 }

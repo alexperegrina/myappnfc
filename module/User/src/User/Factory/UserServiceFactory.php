@@ -25,5 +25,6 @@ class UserServiceFactory implements FactoryInterface
         return new UserService(
             $serviceLocator->get('User\Mapper\UserMapperInterface')
         );
+
     }
 }

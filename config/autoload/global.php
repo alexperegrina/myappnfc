@@ -56,7 +56,10 @@ return array(
                     ),
                 ),
             ),
-
+            array(
+                'label' => 'Authenticate',
+                'route' => 'authenticate',
+            ),
         ),
     ),
     'service_manager' => array(

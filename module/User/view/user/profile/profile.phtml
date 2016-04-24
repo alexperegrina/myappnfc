@@ -1,0 +1,23 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'Profile';
+$this->headTitle($title);
+?>
+<h1 xmlns="http://www.w3.org/1999/html"><?php echo $this->escapeHtml($title); ?></h1>
+<a href=#>Edit</a>
+<p>
+    <dd><h5><?php echo "Name" ?></h5></dd>
+    <dd><h5><?php echo "Surname" ?></h5></dd>
+    <dd><h5><?php echo "Date of birth" ?></h5></dd>
+    <!--php
+        if ($this->user->getName().isNull()) echo "Name is not set";
+        else echo $this->escapeHtml($this->user->getName()); ?>
+
+    <!--php
+        if ($this->user->getSurname().isNull()) echo "Surname is not set";
+        echo $this->escapeHtml($this->user->getSurname()); ?>
+
+    <!--php
+        if ($this->user->getBirthDate() == NULL) echo "Birthday date is not set";
+        echo $this->escapeHtml($this->user->getBirthDate()); ?>-->
+</p>

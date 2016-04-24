@@ -16,7 +16,6 @@ class SuccessController extends AbstractActionController
 {
     public function indexAction()
     {
-        
         //here for test only, you should check session
         //for real application
     }

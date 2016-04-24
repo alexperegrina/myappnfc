@@ -17,6 +17,7 @@ return array(
             'User\Controller\List'      => 'User\Factory\ListControllerFactory',
             'User\Controller\Write'     => 'User\Factory\WriteControllerFactory',
             'User\Controller\Delete'    => 'User\Factory\DeleteControllerFactory',
+            'User\Controller\Profile'   => 'User\Factory\ProfileControllerFactory',
         )
     ),
 
@@ -83,6 +84,19 @@ return array(
                             'defaults' => array(
                                 'controller' => 'User\Controller\Delete',
                                 'action'     => 'delete'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'profile' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/profile/:id',
+                            'defaults' => array(
+                                'controller' => 'User\Controller\Profile',
+                                'action'     => 'profile'
                             ),
                             'constraints' => array(
                                 'id' => '\d+'
