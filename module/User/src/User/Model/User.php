@@ -33,17 +33,17 @@ class User implements UserInterface
     /**
      * @var string
      */
-    public $nombre;
+    protected $nombre;
 
     /**
      * @var string
      */
-    public $apellidos;
+    protected $apellidos;
 
     /**
      * @var int
      */
-    public $fecha_nacimiento;
+    protected $fecha_nacimiento;
 
     /**
      * {@inheritDoc}

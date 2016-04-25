@@ -49,5 +49,29 @@ class UserFieldset extends Fieldset
                 'label' => 'Mail'
             )
         ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'nombre',
+            'options' => array(
+                'label' => 'Name'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'apellidos',
+            'options' => array(
+                'label' => 'Surname'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'fecha_nacimiento',
+            'options' => array(
+                'label' => 'Date of Birth'
+            )
+        ));
     }
 }

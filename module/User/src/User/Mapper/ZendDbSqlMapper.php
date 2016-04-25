@@ -60,7 +60,7 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function find($id)
     {
         $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('users', 'info_user');
+        $select = $sql->select('users');
         $select->where(array('id = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
@@ -80,7 +80,7 @@ class ZendDbSqlMapper implements UserMapperInterface
     {
 
         $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('users', 'info_user');
+        $select = $sql->select('users');
         $select->where(array('tipo = "user"'));
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();

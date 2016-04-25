@@ -101,10 +101,10 @@ return array(
                             'constraints' => array(
                                 'id' => '\d+'
                             )
-                        )
-                    ),
+                        ),
+                    )
                 )
-            )
-        ),
+            ),
+        )
     )
 );
