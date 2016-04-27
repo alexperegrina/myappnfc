@@ -102,9 +102,21 @@ return array(
                                 'id' => '\d+'
                             )
                         ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'edit' => array(
+                                'type' => 'literal',
+                                'options' => array(
+                                    'route' => '/edit',
+                                    'defaults' => array(
+                                        'action' => 'edit',
+                                    )
+                                )
+                            ),
+                        )
                     )
-                )
-            ),
+                ),
+            )
         )
     )
 );

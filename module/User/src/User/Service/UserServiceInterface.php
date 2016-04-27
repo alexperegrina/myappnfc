@@ -36,6 +36,12 @@ interface UserServiceInterface
     public function saveUser(UserInterface $user);
 
     /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function saveInfoUser(UserInterface $user);
+
+    /**
      * Elimina un User y si no devuelve false.
      *
      * @param  UserInterface $user

@@ -40,4 +40,13 @@ interface UserMapperInterface
      * @throws \Exception
      */
     public function delete(UserInterface $userObject);
+
+    /**
+     * @param UserInterface $userObject
+     *
+     * @param UserInterface $userObject
+     * @return UserInterface
+     * @throws \Exception
+     */
+    public function saveInfoUser(UserInterface $userObject);
 }

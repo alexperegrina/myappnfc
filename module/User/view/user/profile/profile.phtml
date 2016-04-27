@@ -1,23 +1,22 @@
 <?php
-// module/Album/view/album/album/index.phtml:
+
 $title = 'Profile';
 $this->headTitle($title);
-
 ?>
 <h1 xmlns="http://www.w3.org/1999/html"><?php echo $this->escapeHtml($title); ?></h1>
-<a href="<?php echo "/user/profile/" . $this->user->getId() . "/change" ; ?>">Editar</a>
+<a href="<?php echo "/user/profile/" . $this->user->getId() . "/edit"; ?>">Editar</a>
 <p>
     <h5><?php echo "Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($this->user->getName())) echo "Not set";
-        else echo $this->escapeHtml($this->user->getName());?></h5>
+        if (is_null($user->getNombre())) echo "Not set";
+        else echo $this->escapeHtml($user->getNombre());?></h5>
 
     <h5><?php echo "Surname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($this->user->getName())) echo "Not set";
-        else echo $this->escapeHtml($this->user->getSurname());?></h5>
+        if (is_null($this->user->getApellidos())) echo "Not set";
+        else echo $this->escapeHtml($this->user->getApellidos());?></h5>
 
     <h5><?php echo "Date of birth &nbsp;&nbsp;";
-        if (is_null($this->user->getBirthDate())) echo "Not set";
-        echo $this->escapeHtml($this->user->getBirthDate());?></h5>
+        if (is_null($this->user->getFecha_nacimiento())) echo "Not set";
+        else echo $this->escapeHtml($this->user->getFecha_nacimiento());?></h5>
 
 
 <h1><?php echo "Mis etiquetas NFC" ?></h1>

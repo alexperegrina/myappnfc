@@ -30,6 +30,8 @@ class User implements UserInterface
      */
     protected $mail;
 
+    protected $id_user;
+
     /**
      * @var string
      */
@@ -109,10 +111,20 @@ class User implements UserInterface
         $this->mail = $mail;
     }
 
+    public function getId_user()
+    {
+        return $this->id_user;
+    }
+
+    public function setId_user($id_user)
+    {
+        $this->id_user = $id_user;
+    }
+
     /**
      * @return string
      */
-    public function getName()
+    public function getNombre()
     {
         return $this->nombre;
     }
@@ -120,15 +132,15 @@ class User implements UserInterface
     /**
      * @param string
      */
-    public function setName($name)
+    public function setNombre($nombre)
     {
-        $this->nombre = $name;
+        $this->nombre = $nombre;
     }
 
     /**
      * @return string
      */
-    public function getSurname()
+    public function getApellidos()
     {
         return $this->apellidos;
     }
@@ -136,7 +148,7 @@ class User implements UserInterface
     /**
      * @param string
      */
-    public function setSurname($apellidos)
+    public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
     }
@@ -144,7 +156,7 @@ class User implements UserInterface
     /**
      * @return int
      */
-    public function getBirthDate()
+    public function getFecha_nacimiento()
     {
         return $this->fecha_nacimiento;
     }
@@ -152,7 +164,7 @@ class User implements UserInterface
     /**
      * @param int
      */
-    public function setBirthDate($fecha_nacimiento)
+    public function setFecha_nacimiento($fecha_nacimiento)
     {
         $this->fecha_nacimiento = $fecha_nacimiento;
     }

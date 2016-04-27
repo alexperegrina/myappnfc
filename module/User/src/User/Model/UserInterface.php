@@ -32,17 +32,21 @@ interface UserInterface
     public function getMail();
 
     /**
+     * @return mixed
+     */
+    public function getId_user();
+    /**
      * @return string
      */
-    public function getName();
+    public function getNombre();
 
     /**
      * @return string
      */
-    public function getSurname();
+    public function getApellidos();
 
     /**
      * @return int
      */
-    public function getBirthDate();
+    public function getFecha_nacimiento();
 }

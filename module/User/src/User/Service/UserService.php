@@ -23,9 +23,7 @@ class UserService implements UserServiceInterface
      */
     public function __construct(UserMapperInterface $userMapper)
     {
-
         $this->userMapper = $userMapper;
-
     }
 
     /**
@@ -47,6 +45,13 @@ class UserService implements UserServiceInterface
      */
     public function saveUser(UserInterface $user) {
         return $this->userMapper->save($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function saveInfoUser(UserInterface $user) {
+        return $this->userMapper->saveInfoUser($user);
     }
 
     /**

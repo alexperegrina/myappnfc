@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: alex
- * Date: 13/4/16
- * Time: 0:23
+ * User: irinavasilieva
+ * Date: 26/04/16
+ * Time: 01:26
  */
 
 namespace User\Form;
@@ -12,7 +12,7 @@ use User\Model\User;
 use Zend\Form\Fieldset;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
-class UserFieldset extends Fieldset
+class ProfileFieldset extends Fieldset
 {
     public function __construct($name = null, $options = array())
     {
@@ -23,30 +23,30 @@ class UserFieldset extends Fieldset
 
         $this->add(array(
             'type' => 'hidden',
-            'name' => 'id'
+            'name' => 'id_user',
         ));
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'username',
+            'name' => 'nombre',
             'options' => array(
-                'label' => 'Username'
+                'label' => 'Name'
             )
         ));
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'password',
+            'name' => 'apellidos',
             'options' => array(
-                'label' => 'Password'
+                'label' => 'Surname'
             )
         ));
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'mail',
+            'name' => 'fecha_nacimiento',
             'options' => array(
-                'label' => 'Mail'
+                'label' => 'Date of Birth'
             )
         ));
     }
