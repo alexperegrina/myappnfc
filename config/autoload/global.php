@@ -68,4 +68,11 @@ return array(
             'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
     ),
+    'zf-mvc-auth' => array(
+        'authentication' => array(
+            'map' => array(
+                'Status\\V1' => 'status',
+            ),
+        ),
+    ),
 );
