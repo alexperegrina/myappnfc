@@ -116,9 +116,9 @@ class User implements UserInterface
         return $this->id_user;
     }
 
-    public function setId_user($id_user)
+    public function setId_user()
     {
-        $this->id_user = $id_user;
+        $this->id_user = $this->id;
     }
 
     /**
