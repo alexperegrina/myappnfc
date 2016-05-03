@@ -20,13 +20,10 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
-        'ZF\\ContentNegotiation',
         'Comercializador',
         'Servicio',
         'User',
         'Authenticate',
-        'Test',
-        'Test_ii',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

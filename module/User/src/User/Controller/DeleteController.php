@@ -48,9 +48,4 @@ class DeleteController extends AbstractActionController
             'user' => $user
         ));
     }
-
-    public function deleteItemAction()
-    {
-        
-    }
 }

@@ -41,7 +41,6 @@ class WriteController extends AbstractActionController
                 try {
 
                     $this->userService->saveUser($this->userForm->getData());
-                    $this->userService->saveInfoUser($this->userForm->getData());
 
                     return $this->redirect()->toRoute('user');
                 } catch (\Exception $e) {

@@ -20,11 +20,13 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
-        'ZF\\ContentNegotiation',
         'Comercializador',
         'Servicio',
         'User',
         'Authenticate',
+        'Status',
+        'ZF\\Apigility\\Documentation',
+        'StatusLib',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

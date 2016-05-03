@@ -117,6 +117,7 @@ class ZendDbSqlMapper implements UserMapperInterface
             // ID NOT present, it's an Insert
             $action = new Insert('users');
             $action->values($userData);
+            $userObject->setId_user($userObject->getId());
         }
         $sql = new Sql($this->dbAdapter);
         $stmt = $sql->prepareStatementForSqlObject($action);
@@ -159,33 +160,41 @@ class ZendDbSqlMapper implements UserMapperInterface
         $userData = $this->hydrator->extract($userObject);
         unset($userData['id_user']); // Neither Insert nor Update needs the ID in the array
         $userData = array_slice($userData, 4);
+        
+        //$userObject->setId_user($userObject->getId());
 
         if ($userObject->getId_user()) {
+    echo "update";
             // ID present, it's an Update
             $action = new Update('info_user');
             $action->set($userData);
-            $action->where(array('id_user = ?' => $userObject->getId_user()));
-            \Zend\Debug\Debug::dump($userData);die();
+            $action->where(array('id_user = ?' => $userObject->getId()));
+            //\Zend\Debug\Debug::dump($action);die();
+            echo print_r($this->find($userObject->getId_user()));
         } else {
+            echo "insert";
             // ID NOT present, it's an Insert
             $action = new Insert('info_user');
             $action->values($userData);
+
+            echo print_r($userData);
         }
 
         $sql    = new Sql($this->dbAdapter);
         $stmt   = $sql->prepareStatementForSqlObject($action);
-
         $result = $stmt->execute();
+
 
         if ($result instanceof ResultInterface) {
             if ($newId = $result->getGeneratedValue()) {
                 // When a value has been generated, set it on the object
                 $userObject->setId_user($newId);
+                $userObject->setId($newId);
             }
             //\Zend\Debug\Debug::dump($userObject);die();
             return $userObject;
         }
-
+        //\Zend\Debug\Debug::dump('info_user');die();
         throw new \Exception("Database error");
     }
 }
