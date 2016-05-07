@@ -168,4 +168,9 @@ class User implements UserInterface
     {
         $this->fecha_nacimiento = $fecha_nacimiento;
     }
+
+    public function toArray() {
+        return get_object_vars($this);
+    }
+    
 }
