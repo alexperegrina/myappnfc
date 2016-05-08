@@ -4,11 +4,11 @@ $title = 'Profile';
 $this->headTitle($title);
 ?>
 <h1 xmlns="http://www.w3.org/1999/html"><?php echo $this->escapeHtml($title); ?></h1>
-<a href="<?php echo "/user/profile/" . $this->user->getId() . "/edit"; ?>">Editar</a>
+<a href="<?php echo "/user/profile/" . $user->getId() . "/edit"; ?>">Editar</a>
 <p>
     <h5><?php echo "Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($user->getNombre())) echo "Not set";
-        else echo $this->escapeHtml($user->getNombre());?></h5>
+        if (is_null($this->user->getNombre())) echo "Not set";
+        else echo $this->escapeHtml($this->user->getNombre());?></h5>
 
     <h5><?php echo "Surname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         if (is_null($this->user->getApellidos())) echo "Not set";

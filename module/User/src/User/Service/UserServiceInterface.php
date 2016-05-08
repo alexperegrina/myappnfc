@@ -48,4 +48,18 @@ interface UserServiceInterface
      * @return bool
      */
     public function deleteUser(UserInterface $user);
+    
+
+    public function registerItem(UserInterface $user);
+
+    public function deleteItem(UserInterface $user);
+
+    //funciona
+    public function changeServiceStatus($id);
+    //funciona
+    public function listUserServices($id);
+
+    public function addPrivateKey(UserInterface $user);
+
+    public function deletePrivateKey(UserInterface $user);
 }

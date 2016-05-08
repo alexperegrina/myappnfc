@@ -46,6 +46,7 @@ class ProfileController extends AbstractActionController
 
     public function editAction()
     {
+
         $request = $this->getRequest();
         $user    = $this->userService->findUser($this->params('id'));
 
@@ -57,9 +58,8 @@ class ProfileController extends AbstractActionController
             if ($this->profileForm->isValid()) {
                 try {
                     $this->userService->saveInfoUser($user);
-                    //\Zend\Debug\Debug::dump($user);die();
 
-                    return $this->redirect()->toRoute('user/profile',array('action' => 'profile','id'=> $user->getId()));
+                    return $this->redirect()->toRoute('user/profile',array('action' => 'profile','id'=> $user->getId_user()));
                     
                 } catch (\Exception $e) {
                     die($e->getMessage());
