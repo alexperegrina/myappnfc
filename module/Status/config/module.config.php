@@ -75,15 +75,45 @@ return array(
         'Status\\V1\\Rpc\\Ping\\Controller' => array(
             'input_filter' => 'Status\\V1\\Rpc\\Ping\\Validator',
         ),
+        'Status\\V1\\Rest\\Status\\Controller' => array(
+            'input_filter' => 'Status\\V1\\Rest\\Status\\Validator',
+        ),
     ),
     'input_filter_specs' => array(
         'Status\\V1\\Rpc\\Ping\\Validator' => array(
             0 => array(
                 'required' => true,
                 'validators' => array(),
-                'filters' => array(),
+                'filters' => array(
+                    0 => array(
+                        'name' => 'Zend\\Filter\\StringTrim',
+                        'options' => array(),
+                    ),
+                ),
                 'name' => 'ack',
                 'description' => 'Acknowledge the request with a timestamp',
+            ),
+        ),
+        'Status\\V1\\Rest\\Status\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'message',
+                'description' => 'A status message of no more than 140 characters',
+                'error_message' => 'A status message must contain between 1 and 140 characters',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'user',
+            ),
+            2 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'timestamp',
             ),
         ),
     ),
