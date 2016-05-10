@@ -5,6 +5,9 @@ class LoginControllerFactory
 {
     public function __invoke($controllers)
     {
-        return new LoginController();
+        $authService = $controllers->getServiceLocator()->get('Authenticate\Service\AuthServiceInterface');
+        
+//        die("hoal");
+        return new LoginController($authService);
     }
 }

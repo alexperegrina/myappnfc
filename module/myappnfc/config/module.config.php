@@ -6,6 +6,15 @@ return array(
             'myappnfc\\V1\\Rpc\\Login\\Controller' => 'myappnfc\\V1\\Rpc\\Login\\LoginControllerFactory',
         ),
     ),
+
+    'service_manager' => array(
+        'factories' => array(
+            'AuthStorage' => 'Authenticate\Factory\Storage\AuthStorageFactory',
+            'AuthService' => 'Authenticate\Factory\Storage\AuthenticationServiceFactory',
+            'Authenticate\Service\AuthServiceInterface' => 'Authenticate\Factory\Service\AuthServiceFactory',
+        ),
+    ),
+    
     'router' => array(
         'routes' => array(
             'myappnfc.rpc.infousertoid' => array(
