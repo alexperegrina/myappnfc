@@ -25,10 +25,9 @@ $default =  array(
 
     'service_manager' => array(
         'factories' => array(
-            'AuthStorage' =>
-                'Authenticate\Factory\Storage\AuthStorageFactory',
-            'AuthService' =>
-                'Authenticate\Factory\Storage\AuthenticationServiceFactory',
+            'AuthStorage' => 'Authenticate\Factory\Storage\AuthStorageFactory',
+            'AuthService' => 'Authenticate\Factory\Storage\AuthenticationServiceFactory',
+            'Authenticate\Service\AuthServiceInterface' => 'Authenticate\Factory\Service\AuthServiceFactory',
         ),
     ),
 

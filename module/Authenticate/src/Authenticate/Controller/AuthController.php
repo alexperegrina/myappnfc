@@ -12,8 +12,8 @@
 
 namespace Authenticate\Controller;
 
+use Authenticate\Service\AuthServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Authentication\AuthenticationService;
 use Zend\View\Model\ViewModel;
 
 class AuthController extends AbstractActionController
@@ -21,7 +21,7 @@ class AuthController extends AbstractActionController
     protected $authService;
 
     //we will inject authService via factory
-    public function __construct(AuthenticationService $authService)
+    public function __construct(AuthServiceInterface $authService)
     {
         $this->authService = $authService;
     }
@@ -29,13 +29,7 @@ class AuthController extends AbstractActionController
     public function indexAction()
     {
 
-
-        if ($this->authService->getStorage()->getSessionManager()
-            ->getSaveHandler()
-            ->read($this->authService->getStorage()->getSessionId())) {
-            //redirect to success controller...
-            //die("index");
-
+        if ($this->authService->logged()) {
             return $this->redirect()->toRoute('authenticate/success');
         }
 
@@ -51,12 +45,10 @@ class AuthController extends AbstractActionController
 
         $viewModel->setVariable('form', $form);
 
-        //print_r($viewModel);
-        //die();
         return $viewModel;
     }
 
-    /** this function called by indexAction to reduce complexity of function */
+
     protected function authenticate($form, $viewModel)
     {
         $request = $this->getRequest();
@@ -65,21 +57,22 @@ class AuthController extends AbstractActionController
             if ($form->isValid()) {
                 $dataform = $form->getData();
 
-                $this->authService->getAdapter()
-                    ->setIdentity($dataform['username'])
-                    ->setCredential($dataform['password']);
-                $result = $this->authService->authenticate();
-                if ($result->isValid()) {
+                if ($this->authService->isValid($dataform['username'], $dataform['password'])) {
                     //authentication success
-                    $resultRow = $this->authService->getAdapter()->getResultRowObject();
+                    $user = $this->authService->getUserRow();
 
-                    $this->authService->getStorage()->write(
-                        array('id'          => $resultRow->id,
-                            'username'   => $dataform['username'],
-                            'ip_address' => $this->getRequest()->getServer('REMOTE_ADDR'),
-                            'user_agent'    => $request->getServer('HTTP_USER_AGENT'))
+                    $this->authService->write(
+                        $user->id,
+                        $dataform['username'],
+                        $this->getRequest()->getServer('REMOTE_ADDR'),
+                        $request->getServer('HTTP_USER_AGENT')
                     );
 
+                    /**
+                     * Aqui hay que hacer el routing segun el tipo de usuario
+                     *
+                     * $user->tipo = {user, service, comercializador}
+                     */
                     return $this->redirect()->toRoute('authenticate/success');
                     //return $this->redirect()->toRoute('success', array('action' => 'index'));
                 } else {
@@ -91,7 +84,7 @@ class AuthController extends AbstractActionController
 
     public function logoutAction()
     {
-        $this->authService->getStorage()->clear();
+        $this->authService->clear();
         return $this->redirect()->toRoute('authenticate');
     }
 }
