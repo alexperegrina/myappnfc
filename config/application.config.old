@@ -24,6 +24,11 @@ return array(
         'Servicio',
         'User',
         'Authenticate',
+        'Status',
+        'ZF\\Apigility\\Documentation',
+        'StatusLib',
+        'myappnfc',
+        'test',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

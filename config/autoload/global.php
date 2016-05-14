@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Global Configuration Override
  *
  * You can use this file for overriding configuration values from modules, etc.
@@ -17,7 +17,7 @@ return array(
         'driver' => 'Pdo',
         'dsn' => 'mysql:dbname=myappnfc;host=127.0.0.1',
         'driver_options' => array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'',
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
     ),
     'navigation' => array(
@@ -72,6 +72,7 @@ return array(
         'authentication' => array(
             'map' => array(
                 'Status\\V1' => 'status',
+                'myappnfc\\V1' => 'status',
             ),
         ),
     ),
