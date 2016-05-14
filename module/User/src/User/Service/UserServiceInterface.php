@@ -94,6 +94,15 @@ interface UserServiceInterface
      */
     public function deletePrivateKey(UserInterface $user);
 
+    /**
+     * @param $userid
+     * @param $passwd
+     * @return mixed
+     */
     public function loginUser($userid, $passwd);
+
+    
+
+
 
 }

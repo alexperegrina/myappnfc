@@ -37,7 +37,7 @@ class ProfileController extends AbstractActionController
         } catch (\InvalidArgumentException $e) {
             return $this->redirect()->toRoute('user');
         }
-        
+
         return new ViewModel(array(
             'user' => $user,
             'profile' => $this->userService->getUserProfile($this->params('id')),

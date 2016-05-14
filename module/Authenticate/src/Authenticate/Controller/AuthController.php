@@ -15,6 +15,7 @@ namespace Authenticate\Controller;
 use Authenticate\Service\AuthServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use User\Model\User;
 
 class AuthController extends AbstractActionController
 {
@@ -64,6 +65,10 @@ class AuthController extends AbstractActionController
 
                 if ($this->authService->isValid($dataform['username'], $dataform['password'])) {
                     //authentication success
+
+                    /**
+                     * @var \User\Model\UserInterface
+                     */
                     $user = $this->authService->getUserRow();
 
                     $this->authService->write(
@@ -72,14 +77,9 @@ class AuthController extends AbstractActionController
                         $this->getRequest()->getServer('REMOTE_ADDR'),
                         $request->getServer('HTTP_USER_AGENT')
                     );
+                    
+                    $this->authService->redireccionByType($this, $user->tipo);
 
-                    /**
-                     * Aqui hay que hacer el routing segun el tipo de usuario
-                     *
-                     * $user->tipo = {user, service, comercializador}
-                     */
-                    return $this->redirect()->toRoute('authenticate/success');
-                    //return $this->redirect()->toRoute('success', array('action' => 'index'));
                 } else {
                     $viewModel->setVariable('error', 'Login Error');
                 }

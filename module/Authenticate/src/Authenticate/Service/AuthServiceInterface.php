@@ -8,8 +8,8 @@
 
 namespace Authenticate\Service;
 
+use Zend\Mvc\Controller\AbstractActionController;
 
-use Zend\Db\Sql\Ddl\Column\Integer;
 
 interface AuthServiceInterface
 {
@@ -62,4 +62,13 @@ interface AuthServiceInterface
      * @return mixed
      */
     public function clear();
+
+    /**
+     * @param AbstractActionController $controller
+     * @param $type
+     * @return mixed
+     */
+    public function redireccionByType(AbstractActionController $controller, $type);
+    
+    
 }

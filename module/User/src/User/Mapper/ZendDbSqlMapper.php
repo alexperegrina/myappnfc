@@ -15,6 +15,8 @@ use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
+use Zend\Db\Sql\Join;
+use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Update;
@@ -65,13 +67,17 @@ class ZendDbSqlMapper implements UserMapperInterface
         //$select = $sql->select('users');
         //$select->where(array('id = ?' => $id));
 
+//        die(Join::JOIN_LEFT);
         $select = $sql->select()
             ->from(array('u' => 'users'))
-            ->join(array('i' => 'info_user'), 'u.id = i.id_user')
+//            ->join()
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
             ->where(array('u.id = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
+//        print_r($stmt);die();
         $result = $stmt->execute();
+//        die("debug");
 
         if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
             return $this->hydrator->hydrate($result->current(), $this->userPrototype);
@@ -267,7 +273,14 @@ class ZendDbSqlMapper implements UserMapperInterface
 
         $resultSet = new ResultSet();
 
-        return $resultSet->initialize($result)->toArray()[0];
+//        print_r($result->count());die();
+
+        if ($result->count() == 1) {
+            return $resultSet->initialize($result)->toArray()[0];
+        }
+        else {
+            throw new \Exception("The user doesn't info");
+        }
     }
 
 

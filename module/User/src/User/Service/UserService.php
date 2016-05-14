@@ -61,24 +61,21 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param UserInterface $user
-     * @return mixed
+     * {@inheritDoc}
      */
     public function addItem(UserInterface $user) {
         return $this->userMapper->addUserItem($user);
     }
 
     /**
-     * @param UserInterface $user
-     * @return mixed
+     * {@inheritDoc}
      */
     public function deleteItem(UserInterface $user) {
         return $this->userMapper->deleteUserItem($user);
     }
 
     /**
-     * @param UserInterface $user
-     * @return mixed
+     * {@inheritDoc}
      */
      public function getUserProfile($id){
          return $this->userMapper->getProfile($id);
@@ -93,20 +90,21 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * {@inheritDoc}
      */
     public function listUserServices($id) {
         return $this->userMapper->listServices($id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function listUserCompanies($id) {
         return $this->userMapper->listCompanies($id);
     }
 
     /**
-     * @param UserInterface $user
-     * @return mixed
+     * {@inheritDoc}
      */
     public function addPrivateKey(UserInterface $user) {
         return $this->userMapper->addKey();
@@ -120,9 +118,12 @@ class UserService implements UserServiceInterface
         return $this->userMapper->deleteKey();
     }
 
+    
     public function loginUser($userid, $passwd){
         return $this->userMapper->login($userid, $passwd);
     }
+    
+    
 
 
 }
