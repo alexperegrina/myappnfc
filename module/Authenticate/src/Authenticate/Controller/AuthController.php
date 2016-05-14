@@ -29,6 +29,8 @@ class AuthController extends AbstractActionController
     public function indexAction()
     {
 
+
+
         if ($this->authService->logged()) {
             return $this->redirect()->toRoute('authenticate/success');
         }
@@ -44,6 +46,9 @@ class AuthController extends AbstractActionController
         $this->authenticate($form, $viewModel);
 
         $viewModel->setVariable('form', $form);
+
+//        $viewModel->setTemplate('layout/auth');
+        $this->layout('layout/auth');
 
         return $viewModel;
     }

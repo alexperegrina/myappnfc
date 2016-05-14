@@ -18,8 +18,29 @@ $form->setAttribute('action', $this->url('authenticate/auth'));
 //die("phtml");
 $form->prepare();
 
-echo $this->form()->openTag($form);
-echo $this->formCollection($form);
-echo $this->form()->closeTag();
+//echo $this->form()->openTag($form);
+//echo $this->formCollection($form);
+//echo $this->form()->closeTag();
+//
+//echo $this->error;
 
-echo $this->error;
+
+// Render the opening tag
+echo $this->form()->openTag($form);
+?>
+    <div class="form_element">
+        <?php
+        $name = $form->get('username');
+        echo $this->formRow($name);
+        ?></div>
+
+    <div class="form_element">
+        <?php
+        $subject = $form->get('password');
+        echo $this->formRow($subject);
+        ?></div>
+
+<?php echo $this->formElement($form->get('Loginsubmit')) ?>
+
+<?php echo $this->form()->closeTag() ?>
+<?php echo $this->error; ?>

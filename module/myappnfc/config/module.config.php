@@ -6,15 +6,13 @@ return array(
             'myappnfc\\V1\\Rpc\\Login\\Controller' => 'myappnfc\\V1\\Rpc\\Login\\LoginControllerFactory',
         ),
     ),
-
     'service_manager' => array(
         'factories' => array(
-            'AuthStorage' => 'Authenticate\Factory\Storage\AuthStorageFactory',
-            'AuthService' => 'Authenticate\Factory\Storage\AuthenticationServiceFactory',
-            'Authenticate\Service\AuthServiceInterface' => 'Authenticate\Factory\Service\AuthServiceFactory',
+            'AuthStorage' => 'Authenticate\\Factory\\Storage\\AuthStorageFactory',
+            'AuthService' => 'Authenticate\\Factory\\Storage\\AuthenticationServiceFactory',
+            'Authenticate\\Service\\AuthServiceInterface' => 'Authenticate\\Factory\\Service\\AuthServiceFactory',
         ),
     ),
-    
     'router' => array(
         'routes' => array(
             'myappnfc.rpc.infousertoid' => array(
@@ -57,6 +55,7 @@ return array(
             'service_name' => 'Login',
             'http_methods' => array(
                 0 => 'GET',
+                1 => 'POST',
             ),
             'route_name' => 'myappnfc.rpc.login',
         ),
@@ -129,7 +128,7 @@ return array(
                 'actions' => array(
                     'Login' => array(
                         'GET' => true,
-                        'POST' => false,
+                        'POST' => true,
                         'PUT' => false,
                         'PATCH' => false,
                         'DELETE' => false,
