@@ -47,6 +47,52 @@ interface UserMapperInterface
      * @param UserInterface $userObject
      * @return UserInterface
      * @throws \Exception
+
+    public function saveInfo(UserInterface $userObject);*/
+
+    public function getProfile($id);
+
+    /**
+     * @param $id
+     * @param $nfc
+     * @return mixed
      */
-    public function saveInfoUser(UserInterface $userObject);
+    public function addUserItem($id, $nfc);
+
+    /**
+     * @param $id
+     * @param $nfc
+     * @return mixed
+     */
+    public function deleteUserItem($id, $nfc);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function activeService($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function listServices($id);
+
+    /**
+     * @param $id
+     * @param $clave
+     * @return mixed
+     */
+    public function addKey($id, $clave);
+
+    /**
+     * @param $id
+     * @param $clave
+     * @return mixed
+     */
+    public function deleteKey($id, $clave);
+
+
+    public function login($userid, $passwd);
+
 }

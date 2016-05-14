@@ -5,7 +5,7 @@
  * Date: 26/04/16
  * Time: 01:26
  */
-
+/*
 namespace User\Form;
 
 use User\Model\User;
@@ -28,25 +28,17 @@ class ProfileFieldset extends Fieldset
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'nombre',
+            'name' => 'username',
             'options' => array(
-                'label' => 'Name'
+                'label' => 'Username'
             )
         ));
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'apellidos',
+            'name' => 'password',
             'options' => array(
-                'label' => 'Surname'
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'text',
-            'name' => 'fecha_nacimiento',
-            'options' => array(
-                'label' => 'Date of Birth'
+                'label' => 'Password'
             )
         ));
     }

@@ -21,8 +21,7 @@ class UserService implements UserServiceInterface
     /**
      * @param UserMapperInterface $userMapper
      */
-    public function __construct(UserMapperInterface $userMapper)
-    {
+    public function __construct(UserMapperInterface $userMapper){
         $this->userMapper = $userMapper;
     }
 
@@ -49,10 +48,10 @@ class UserService implements UserServiceInterface
 
     /**
      * {@inheritDoc}
-     */
+
     public function saveInfoUser(UserInterface $user) {
-        return $this->userMapper->saveInfoUser($user);
-    }
+        return $this->userMapper->saveInfo($user);
+    }*/
 
     /**
      * {@inheritDoc}
@@ -60,4 +59,70 @@ class UserService implements UserServiceInterface
     public function deleteUser(UserInterface $user) {
         return $this->userMapper->delete($user);
     }
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function addItem(UserInterface $user) {
+        return $this->userMapper->addUserItem($user);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function deleteItem(UserInterface $user) {
+        return $this->userMapper->deleteUserItem($user);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+     public function getUserProfile($id){
+         return $this->userMapper->getProfile($id);
+     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function changeServiceStatus($id) {
+        return $this->userMapper->activeService($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function listUserServices($id) {
+        return $this->userMapper->listServices($id);
+    }
+
+    public function listUserCompanies($id) {
+        return $this->userMapper->listCompanies($id);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function addPrivateKey(UserInterface $user) {
+        return $this->userMapper->addKey();
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function deletePrivateKey(UserInterface $user) {
+        return $this->userMapper->deleteKey();
+    }
+
+    public function loginUser($userid, $passwd){
+        return $this->userMapper->login($userid, $passwd);
+    }
+
+
 }

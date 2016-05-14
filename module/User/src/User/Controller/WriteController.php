@@ -9,6 +9,7 @@
 namespace User\Controller;
 
 use User\Service\UserServiceInterface;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Form\FormInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -67,7 +68,6 @@ class WriteController extends AbstractActionController
             if ($this->userForm->isValid()) {
                 try {
                     $this->userService->saveUser($user);
-
                     return $this->redirect()->toRoute('user');
                 } catch (\Exception $e) {
                     die($e->getMessage());

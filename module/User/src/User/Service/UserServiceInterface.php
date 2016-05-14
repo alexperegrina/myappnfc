@@ -38,8 +38,8 @@ interface UserServiceInterface
     /**
      * @param UserInterface $user
      * @return mixed
-     */
-    public function saveInfoUser(UserInterface $user);
+
+    public function saveInfoUser(UserInterface $user);*/
 
     /**
      * Elimina un User y si no devuelve false.
@@ -48,4 +48,52 @@ interface UserServiceInterface
      * @return bool
      */
     public function deleteUser(UserInterface $user);
+
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function addItem(UserInterface $user);
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function deleteItem(UserInterface $user);
+
+    public function getUserProfile($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function changeServiceStatus($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function listUserServices($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function listUserCompanies($id);
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function addPrivateKey(UserInterface $user);
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     */
+    public function deletePrivateKey(UserInterface $user);
+
+    public function loginUser($userid, $passwd);
+
 }
