@@ -2,25 +2,54 @@
 
 $title = 'Profile';
 $this->headTitle($title);
+
 ?>
 <h1 xmlns="http://www.w3.org/1999/html"><?php echo $this->escapeHtml($title); ?></h1>
-<a href="<?php echo "/user/profile/" . $user->getId() . "/edit"; ?>">Editar</a>
+<a href="<?php echo "/user/edit/" . $user->getId(); ?>">Editar</a>
 <p>
+    <h5><?php echo "Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        if (is_null($user->getUsername())) echo "Not set";
+        else echo $this->escapeHtml($user->getUsername());?></h5>
+
     <h5><?php echo "Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($this->user->getNombre())) echo "Not set";
-        else echo $this->escapeHtml($this->user->getNombre());?></h5>
+        if (is_null($profile['nombre'])) echo "Not set";
+        else echo $this->escapeHtml($profile['nombre']);?></h5>
 
     <h5><?php echo "Surname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($this->user->getApellidos())) echo "Not set";
-        else echo $this->escapeHtml($this->user->getApellidos());?></h5>
+        if (is_null($profile['apellidos'])) echo "Not set";
+        else echo $this->escapeHtml($profile['apellidos']);?></h5>
 
     <h5><?php echo "Date of birth &nbsp;&nbsp;";
-        if (is_null($this->user->getFecha_nacimiento())) echo "Not set";
-        else echo $this->escapeHtml($this->user->getFecha_nacimiento());?></h5>
+        if (is_null($profile['fecha_nacimiento'])) echo "Not set";
+        else echo $this->escapeHtml($profile['fecha_nacimiento']);?></h5>
 
+    <h5><?php echo "Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        if (is_null($user->getMail())) echo "Not set";
+        else echo $this->escapeHtml($user->getMail());?></h5>
 
-<h1><?php echo "Mis etiquetas NFC" ?></h1>
+<br /><br />
+<h1><?php echo "My tags" ?></h1><a href="#">New tag</a>
 
+<?php foreach ($this->companies as $company): ?>
+    <h3><?php echo "Company · " . $company['id_comercializador'] . " "; ?></h3>
+    <a href="<?php echo "/servicio/add"; ?>">Add new service</a><br /><br />
 
-<h1><?php echo "Mis servicios" ?></h1>
+    <table class="table">
+        <tr>
+            <th>Service Name</th>
+            <th>Status</th>
+        </tr>
+        <?php foreach ($this->services as $service): ?>
+            <tr>
+                <?php //print_r($service) ?>
+                <td><?php echo $service['id_servicio']; ?></td>
+                <td>
+                    <input type="button" id="active" value="Active" />
+                    <input type="button" id="inactive" value="Inactive" disabled="disabled" />
+                </td>
+            </tr>
+
+        <?php endforeach; ?>
+    </table>
+<?php endforeach; ?>
 

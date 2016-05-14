@@ -47,15 +47,17 @@ interface UserMapperInterface
      * @param UserInterface $userObject
      * @return UserInterface
      * @throws \Exception
-     */
-    public function saveInfo(UserInterface $userObject);
+
+    public function saveInfo(UserInterface $userObject);*/
+
+    public function getProfile($id);
 
     /**
      * @param $id
      * @param $nfc
      * @return mixed
      */
-    public function addItem($id, $nfc);
+    public function addUserItem($id, $nfc);
 
     /**
      * @param $id
@@ -91,5 +93,6 @@ interface UserMapperInterface
     public function deleteKey($id, $clave);
 
 
+    public function login($userid, $passwd);
 
 }

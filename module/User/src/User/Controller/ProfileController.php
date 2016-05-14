@@ -22,10 +22,9 @@ class ProfileController extends AbstractActionController
 
     protected $profileForm;
 
-    public function __construct(UserServiceInterface $userService, FormInterface $profileForm)
+    public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
-        $this->profileForm    = $profileForm;
     }
 
     /**
@@ -40,11 +39,22 @@ class ProfileController extends AbstractActionController
         }
         
         return new ViewModel(array(
-            'user' => $user
+            'user' => $user,
+            'profile' => $this->userService->getUserProfile($this->params('id')),
+            'companies' => $this->userService->listUserCompanies($this->params('id')),
+            'services' => $this->userService->listUserServices($this->params('id'))
         ));
     }
 
-    public function editAction()
+    public function loginAction()
+    {
+        return new ViewModel(array(
+            'form' => $this->profileForm
+        ));
+    }
+
+
+    /*public function editAction()
     {
 
         $request = $this->getRequest();
@@ -60,7 +70,7 @@ class ProfileController extends AbstractActionController
                     $this->userService->saveInfoUser($user);
 
                     return $this->redirect()->toRoute('user/profile',array('action' => 'profile','id'=> $user->getId_user()));
-                    
+
                 } catch (\Exception $e) {
                     die($e->getMessage());
                 }
@@ -70,6 +80,6 @@ class ProfileController extends AbstractActionController
         return new ViewModel(array(
             'form' => $this->profileForm
         ));
-    }
+    }*/
 
 }

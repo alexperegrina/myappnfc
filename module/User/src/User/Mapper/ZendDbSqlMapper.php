@@ -16,6 +16,7 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Update;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
@@ -61,8 +62,13 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function find($id)
     {
         $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('users');
-        $select->where(array('id = ?' => $id));
+        //$select = $sql->select('users');
+        //$select->where(array('id = ?' => $id));
+
+        $select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user')
+            ->where(array('u.id = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
@@ -105,15 +111,37 @@ class ZendDbSqlMapper implements UserMapperInterface
     {
         $userData = $this->hydrator->extract($userObject);
         unset($userData['id']); // Neither Insert nor Update needs the ID in the array
-        //insertamos el tipo de user
+        $userDI = $userData;
+        $userInfo = array_slice($userData, 3);
         $userData = array_slice($userData, 0, 3);
+
+        //insertamos el tipo de user
         $userData['tipo'] = 'user';
 
         if ($userObject->getId()) {
             // ID present, it's an Update
-            $action = new Update('users');
+            /*$action = new Update('users');
             $action->set($userData);
-            $action->where(array('id = ?' => $userObject->getId()));
+            $action->where(array('id = ?' => $userObject->getId()));*/
+
+            $action = new Update('users');
+            $action->join(array('i' => 'info_user'), 'id = i.id_user')
+                    ->where(array('id = ?' => $userObject->getId()))
+                    ->set($userDI);
+
+
+            $sql = new Sql($this->dbAdapter);
+            $stmt = $sql->prepareStatementForSqlObject($action);
+            $result = $stmt->execute();
+
+            if ($result instanceof ResultInterface) {
+                if ($newId = $result->getGeneratedValue()) {
+                    // When a value has been generated, set it on the object
+                    $userObject->setId($newId);
+                }
+                return $userObject;
+            }
+
         } else {
             // ID NOT present, it's an Insert
             $action = new Insert('users');
@@ -127,28 +155,23 @@ class ZendDbSqlMapper implements UserMapperInterface
                 if ($newId = $result->getGeneratedValue()) {
                     // When a value has been generated, set it on the object
                     $userObject->setId($newId);
+                    $userObject->setId_user($newId);
+                    $userInfo['id_user']=$newId;
                 }
             }
 
             $insertinfo = new Insert('info_user');
-            $insertinfo->values(array('id_user' => $userObject->getId(), 'nombre' => NULL, 'apellidos' => NULL, 'fecha_nacimiento' => NULL));
+            $insertinfo->values($userInfo);
 
             $sql = new Sql($this->dbAdapter);
             $stmt = $sql->prepareStatementForSqlObject($insertinfo);
-            $result = $stmt->execute();
+            $stmt->execute();
 
-        }
-
-        /*if ($result instanceof ResultInterface) {
-            if ($newId = $result->getGeneratedValue()) {
-                // When a value has been generated, set it on the object
-                $userObject->setId($newId);
-            }
             return $userObject;
-        }
-        throw new \Exception("Database error");*/
 
-        return (bool)$result->getAffectedRows();
+        }
+
+        throw new \Exception("Database error");
     }
 
     /**
@@ -167,53 +190,12 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
-     * @param UserInterface $userObject
-     *
-     * @return UserInterface
-     * @throws \Exception
-     */
-    public function saveInfo(UserInterface $userObject)
-    {
-        $userData = $this->hydrator->extract($userObject);
-        unset($userData['id_user']); // Neither Insert nor Update needs the ID in the array
-        $userData = array_slice($userData, 4);
-
-        if ($userObject->getId()) {
-            // ID present, it's an Update
-            $action = new Update('info_user');
-            $action->set($userData);
-            $action->where(array('id_user = ?' => $userObject->getId()));
-            $userObject->setId_user($userObject->getId());
-        } else {
-            throw new \Exception("The user doesn't exist");
-        }
-
-        $sql    = new Sql($this->dbAdapter);
-        $stmt   = $sql->prepareStatementForSqlObject($action);
-        $result = $stmt->execute();
-
-        if ($result instanceof ResultInterface) {
-            if ($newId = $result->getGeneratedValue()) {
-                // When a value has been generated, set it on the object
-
-                $userObject->setId_user($newId);
-                $userObject->setId($newId);
-                print_r($newId);
-            }
-            //\Zend\Debug\Debug::dump($userObject);die();
-            return $userObject;
-        }
-        //\Zend\Debug\Debug::dump('info_user');die();
-        throw new \Exception("Database error");
-    }
-
-    /**
      * @param $id identificador del usuario, $nfc identificador del nfc tag
      *
      * @return UserInterface
      * @throws \Exception
      */
-    public function addItem($id, $nfc)
+    public function addUserItem($id, $nfc)
     {
         //buscar el tag $nfc con el $id
         $sql    = new Sql($this->dbAdapter);
@@ -274,6 +256,20 @@ class ZendDbSqlMapper implements UserMapperInterface
         }
     }
 
+    public function getProfile($id)
+    {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('info_user');
+        $select->where(array('id_user = ?' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        $resultSet = new ResultSet();
+
+        return $resultSet->initialize($result)->toArray()[0];
+    }
+
 
     /**
      * @param $id
@@ -318,6 +314,33 @@ class ZendDbSqlMapper implements UserMapperInterface
     {
         $sql    = new Sql($this->dbAdapter);
         $select = $sql->select('permisos_user_servicio');
+
+        //$select->join(array('i' => 'info_servicio'), // join table with alias
+        //                    'id_servicio = i.id_servicio');
+        $select->where(array('id_user = ?' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+
+        //\Zend\Debug\Debug::dump($stmt);die();
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
+
+            return $list;
+        }
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function listCompanies($id)
+    {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('banco_ids');
         $select->where(array('id_user = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
@@ -328,12 +351,7 @@ class ZendDbSqlMapper implements UserMapperInterface
 
             $list = $resultSet->initialize($result)->toArray();
 
-            //return $list;
-
-            foreach ($list as $item) {
-                print_r("Servicio No.: " . $item['id_servicio'] . "\n");
-                print_r("Activado: " . $item['informacion_total'] . "\n");
-            }
+            return $list;
         }
     }
 
@@ -369,5 +387,19 @@ class ZendDbSqlMapper implements UserMapperInterface
         $result = $stmt->execute();
 
         return (bool)$result->getAffectedRows();
+    }
+
+    public function login($userid, $passwd)
+    {
+        $sql = new Sql($this->dbAdapter);
+        $select = $sql->select('users');
+        $select->where(array('username = ?' => $userid, 'password = ?' => $passwd));
+
+        $stmt = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() == 1) {
+            return true;
+        } else return false;
     }
 }

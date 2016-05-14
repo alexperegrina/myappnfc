@@ -30,6 +30,9 @@ class User implements UserInterface
      */
     protected $mail;
 
+    /**
+     * @var string
+     */
     protected $id_user;
 
     /**
@@ -124,8 +127,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getNombre()
-    {
+    public function getNombre(){
         return $this->nombre;
     }
 
