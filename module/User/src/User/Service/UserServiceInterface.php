@@ -28,6 +28,14 @@ interface UserServiceInterface
     public function findUser($id);
 
     /**
+     * Devulve un unico User a traves del username
+     * 
+     * @param $username
+     * @return mixed
+     */
+    public function findUserByUsername($username);
+
+    /**
      * Guarda un User
      *
      * @param  UserInterface $user
@@ -63,6 +71,14 @@ interface UserServiceInterface
     public function deleteItem(UserInterface $user);
 
     public function getUserProfile($id);
+
+//    /**
+//     * 
+//     * 
+//     * @param $id
+//     * @return mixed
+//     */
+//    public function getUserProfileByUsername($username);
 
     /**
      * @param $id

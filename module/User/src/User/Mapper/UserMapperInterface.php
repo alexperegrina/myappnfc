@@ -20,6 +20,14 @@ interface UserMapperInterface
     public function find($id);
 
     /**
+     * Metodo para cojer el usuario con el username
+     *
+     * @param $username
+     * @return array mixed
+     */
+    public function findByUsername($username);
+
+    /**
      * @return array|UserInterface[]
      */
     public function findAll();
@@ -51,6 +59,7 @@ interface UserMapperInterface
     public function saveInfo(UserInterface $userObject);*/
 
     public function getProfile($id);
+
 
     /**
      * @param $id

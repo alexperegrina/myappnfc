@@ -64,26 +64,42 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function find($id)
     {
         $sql    = new Sql($this->dbAdapter);
-        //$select = $sql->select('users');
-        //$select->where(array('id = ?' => $id));
 
-//        die(Join::JOIN_LEFT);
         $select = $sql->select()
             ->from(array('u' => 'users'))
-//            ->join()
             ->join(array('i' => 'info_user'), 'u.id = i.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
             ->where(array('u.id = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
-//        print_r($stmt);die();
         $result = $stmt->execute();
-//        die("debug");
 
         if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
             return $this->hydrator->hydrate($result->current(), $this->userPrototype);
         }
 
         throw new \InvalidArgumentException("User con ID:{$id} no existe.");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findByUsername($username)
+    {
+        $sql    = new Sql($this->dbAdapter);
+
+        $select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
+            ->where(array('u.username = ?' => $username));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
+            return $this->hydrator->hydrate($result->current(), $this->userPrototype);
+        }
+
+        throw new \InvalidArgumentException("User con username:{$username} no existe.");
     }
 
     /**
@@ -273,8 +289,6 @@ class ZendDbSqlMapper implements UserMapperInterface
 
         $resultSet = new ResultSet();
 
-//        print_r($result->count());die();
-
         if ($result->count() == 1) {
             return $resultSet->initialize($result)->toArray()[0];
         }
@@ -282,6 +296,8 @@ class ZendDbSqlMapper implements UserMapperInterface
             throw new \Exception("The user doesn't info");
         }
     }
+
+    
 
 
     /**

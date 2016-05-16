@@ -42,6 +42,14 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritDoc}
      */
+    public function findUserByUsername($username) {
+        return $this->userMapper->findByUsername($username);
+    }
+    
+
+    /**
+     * {@inheritDoc}
+     */
     public function saveUser(UserInterface $user) {
         return $this->userMapper->save($user);
     }

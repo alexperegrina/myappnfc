@@ -7,7 +7,6 @@ class LoginControllerFactory
     {
         $authService = $controllers->getServiceLocator()->get('Authenticate\Service\AuthServiceInterface');
         
-//        die("hoal");
         return new LoginController($authService);
     }
 }
