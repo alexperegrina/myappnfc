@@ -16,30 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `info_user`
+-- Table structure for table `info_comercializador`
 --
 
-DROP TABLE IF EXISTS `info_user`;
+DROP TABLE IF EXISTS `info_comercializador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `info_user` (
-  `id_user` int(11) NOT NULL,
+CREATE TABLE `info_comercializador` (
+  `id_comercializador` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `apellidos` varchar(45) DEFAULT NULL,
-  `fecha_nacimiento` datetime DEFAULT NULL,
-  UNIQUE KEY `id_user_UNIQUE` (`id_user`),
-  CONSTRAINT `fk_info_user_to_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_comercializador`),
+  CONSTRAINT `fk_info_comercializador_comerzializador` FOREIGN KEY (`id_comercializador`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `info_user`
+-- Dumping data for table `info_comercializador`
 --
 
-LOCK TABLES `info_user` WRITE;
-/*!40000 ALTER TABLE `info_user` DISABLE KEYS */;
-INSERT INTO `info_user` VALUES (13,'alex3','alex3','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `info_user` ENABLE KEYS */;
+LOCK TABLES `info_comercializador` WRITE;
+/*!40000 ALTER TABLE `info_comercializador` DISABLE KEYS */;
+/*!40000 ALTER TABLE `info_comercializador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

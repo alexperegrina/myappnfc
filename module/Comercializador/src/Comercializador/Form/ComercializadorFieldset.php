@@ -36,6 +36,30 @@ class ComercializadorFieldset extends Fieldset
 
         $this->add(array(
             'type' => 'text',
+            'name' => 'nombre',
+            'options' => array(
+                'label' => 'Nombre'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'mail',
+            'options' => array(
+                'label' => 'Mail'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'descripcion',
+            'options' => array(
+                'label' => 'Descripcion'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'text',
             'name' => 'password',
             'options' => array(
                 'label' => 'Password'

@@ -28,6 +28,7 @@ return array(
         'ZF\\Apigility\\Documentation',
         'StatusLib',
         'myappnfc',
+        'Utils'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

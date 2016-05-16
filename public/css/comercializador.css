@@ -1,0 +1,15 @@
+#container_comercializador {
+
+    border: solid 1px black;
+}
+
+#container_info {
+
+}
+
+.comercializador_label {
+    background-color: white;
+    font-weight: bold;
+    width: 140px;
+    float: left;
+}
