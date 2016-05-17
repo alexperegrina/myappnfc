@@ -48,13 +48,6 @@ class UserService implements UserServiceInterface
 
     /**
      * {@inheritDoc}
-
-    public function saveInfoUser(UserInterface $user) {
-        return $this->userMapper->saveInfo($user);
-    }*/
-
-    /**
-     * {@inheritDoc}
      */
     public function deleteUser(UserInterface $user) {
         return $this->userMapper->delete($user);

@@ -27,29 +27,25 @@ $this->headTitle($title);
         if (is_null($user->getMail())) echo "Not set";
         else echo $this->escapeHtml($user->getMail());?></h5>
 
-<br /><br />
+<br />
 <h1><?php echo "My tags" ?></h1><a href="#">New tag</a>
-
-<?php foreach ($this->companies as $company): ?>
-    <h3><?php echo "Company · " . $company['id_comercializador'] . " "; ?></h3>
-    <a href="<?php echo "/servicio/add"; ?>">Add new service</a><br /><br />
-
+<br /><br />
+<h1><?php echo "Services" ?></h1>
+<br />
     <table class="table">
         <tr>
             <th>Service Name</th>
             <th>Status</th>
         </tr>
-        <?php foreach ($this->services as $service): ?>
+        <?php $btn = 1; ?>
+        <?php foreach ($this->services as $service):?>
             <tr>
-                <?php //print_r($service) ?>
-                <td><?php echo $service['id_servicio']; ?></td>
+                <td><?php echo $service['nombre']; ?></td>
                 <td>
-                    <input type="button" id="active" value="Active" />
-                    <input type="button" id="inactive" value="Inactive" disabled="disabled" />
+
                 </td>
             </tr>
 
         <?php endforeach; ?>
     </table>
-<?php endforeach; ?>
 

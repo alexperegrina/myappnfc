@@ -313,11 +313,12 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function listServices($id)
     {
         $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('permisos_user_servicio');
+        /*$select = $sql->select()
+            ->from(array('p' => 'permisos_user_servicio'))
+            ->join(array('i' => 'info_servicio'), 'p.id_servicio = i.id_servicio')
+            ->where(array('p.id_user = ?' => $id));*/
 
-        //$select->join(array('i' => 'info_servicio'), // join table with alias
-        //                    'id_servicio = i.id_servicio');
-        $select->where(array('id_user = ?' => $id));
+        $select = $sql->select("info_servicio");
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
 
@@ -342,6 +343,12 @@ class ZendDbSqlMapper implements UserMapperInterface
         $sql    = new Sql($this->dbAdapter);
         $select = $sql->select('banco_ids');
         $select->where(array('id_user = ?' => $id));
+
+        /*$select = $sql->select()
+            ->from(array('b' => 'banco_ids'))
+            ->join(array('i' => 'info_comercializador'), 'b.id_comercializador = i.id_comercializador')
+            ->where(array('b.id_user = ?' => $id));*/
+
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
