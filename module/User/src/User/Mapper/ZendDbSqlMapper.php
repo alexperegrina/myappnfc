@@ -137,6 +137,9 @@ class ZendDbSqlMapper implements UserMapperInterface
         $userInfo = array_slice($userData, 3);
         $userData = array_slice($userData, 0, 3);
 
+//        print_r($userInfo);
+//        print_r($userData);
+//        die();
         //insertamos el tipo de user
         $userData['tipo'] = 'user';
 
@@ -346,6 +349,31 @@ class ZendDbSqlMapper implements UserMapperInterface
 
         //$select->join(array('i' => 'info_servicio'), // join table with alias
         //                    'id_servicio = i.id_servicio');
+        $select->where(array('id_user = ?' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+
+        //\Zend\Debug\Debug::dump($stmt);die();
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
+
+            return $list;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function listServicesByUsername($id) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('permisos_user_servicio');
+
+        $select->join(array('i' => 'info_servicio'), // join table with alias
+                            'id_servicio = i.id_servicio');
         $select->where(array('id_user = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);

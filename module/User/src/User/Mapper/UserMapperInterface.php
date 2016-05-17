@@ -89,6 +89,12 @@ interface UserMapperInterface
 
     /**
      * @param $id
+     * @return mixed
+     */
+    public function listServicesByUsername($id);
+
+    /**
+     * @param $id
      * @param $clave
      * @return mixed
      */

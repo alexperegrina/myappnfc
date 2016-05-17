@@ -28,8 +28,6 @@ interface UserServiceInterface
     public function findUser($id);
 
     /**
-     * Devulve un unico User a traves del username
-     * 
      * @param $username
      * @return mixed
      */
