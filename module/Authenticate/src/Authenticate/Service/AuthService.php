@@ -9,6 +9,8 @@
 namespace Authenticate\Service;
 
 use Zend\Authentication\AuthenticationService;
+use Zend\Mvc\Controller\AbstractActionController;
+
 
 class AuthService implements AuthServiceInterface
 {
@@ -100,4 +102,23 @@ class AuthService implements AuthServiceInterface
         $this->authService->getStorage()->clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function redireccionByType(AbstractActionController $controller, $type)
+    {
+        switch ($type) {
+            case "comercializador":
+                $controller->redirect()->toRoute('comercializador');
+//                $controller->redirect()->toRoute('comercializador/profile');
+                break;
+            case "user":
+                $controller->redirect()->toRoute('user/profile');
+                break;
+            case "servicio":
+//                $controller->redirect()->toRoute('servicio/profile');
+                $controller->redirect()->toRoute('servicio');
+                break;
+        }
+    }
 }

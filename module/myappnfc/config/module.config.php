@@ -4,6 +4,9 @@ return array(
         'factories' => array(
             'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => 'myappnfc\\V1\\Rpc\\Infousertoid\\InfousertoidControllerFactory',
             'myappnfc\\V1\\Rpc\\Login\\Controller' => 'myappnfc\\V1\\Rpc\\Login\\LoginControllerFactory',
+            'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\ServicesByUserControllerFactory',
+            'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
+            'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => 'myappnfc\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -11,6 +14,8 @@ return array(
             'AuthStorage' => 'Authenticate\\Factory\\Storage\\AuthStorageFactory',
             'AuthService' => 'Authenticate\\Factory\\Storage\\AuthenticationServiceFactory',
             'Authenticate\\Service\\AuthServiceInterface' => 'Authenticate\\Factory\\Service\\AuthServiceFactory',
+            'User\\Mapper\\UserMapperInterface' => 'User\\Factory\\ZendDbSqlMapperFactory',
+            'User\\Service\\UserServiceInterface' => 'User\\Factory\\UserServiceFactory',
         ),
     ),
     'router' => array(
@@ -35,12 +40,45 @@ return array(
                     ),
                 ),
             ),
+            'myappnfc.rpc.services-by-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/servicesbyuser',
+                    'defaults' => array(
+                        'controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller',
+                        'action' => 'servicesByUser',
+                    ),
+                ),
+            ),
+            'myappnfc.rpc.profile-by-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/profilebyuser',
+                    'defaults' => array(
+                        'controller' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller',
+                        'action' => 'profileByUser',
+                    ),
+                ),
+            ),
+            'myappnfc.rpc.save-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/saveuser',
+                    'defaults' => array(
+                        'controller' => 'myappnfc\\V1\\Rpc\\SaveUser\\Controller',
+                        'action' => 'saveUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'myappnfc.rpc.infousertoid',
             1 => 'myappnfc.rpc.login',
+            2 => 'myappnfc.rpc.services-by-user',
+            3 => 'myappnfc.rpc.profile-by-user',
+            5 => 'myappnfc.rpc.save-user',
         ),
     ),
     'zf-rpc' => array(
@@ -59,11 +97,36 @@ return array(
             ),
             'route_name' => 'myappnfc.rpc.login',
         ),
+        'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+            'service_name' => 'ServicesByUser',
+            'http_methods' => array(
+                0 => 'GET',
+            ),
+            'route_name' => 'myappnfc.rpc.services-by-user',
+        ),
+        'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+            'service_name' => 'ProfileByUser',
+            'http_methods' => array(
+                0 => 'GET',
+            ),
+            'route_name' => 'myappnfc.rpc.profile-by-user',
+        ),
+        'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
+            'service_name' => 'SaveUser',
+            'http_methods' => array(
+                0 => 'POST',
+                1 => 'PUT',
+            ),
+            'route_name' => 'myappnfc.rpc.save-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => 'Json',
             'myappnfc\\V1\\Rpc\\Login\\Controller' => 'Json',
+            'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => 'Json',
+            'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => 'Json',
+            'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => array(
@@ -72,6 +135,21 @@ return array(
                 2 => 'application/*+json',
             ),
             'myappnfc\\V1\\Rpc\\Login\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
+            'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
+            'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
+            'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
                 0 => 'application/vnd.myappnfc.v1+json',
                 1 => 'application/json',
                 2 => 'application/*+json',
@@ -86,11 +164,26 @@ return array(
                 0 => 'application/vnd.myappnfc.v1+json',
                 1 => 'application/json',
             ),
+            'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+            ),
+            'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+            ),
+            'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+            ),
         ),
     ),
     'zf-content-validation' => array(
         'myappnfc\\V1\\Rpc\\Login\\Controller' => array(
             'input_filter' => 'myappnfc\\V1\\Rpc\\Login\\Validator',
+        ),
+        'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
+            'input_filter' => 'myappnfc\\V1\\Rpc\\SaveUser\\Validator',
         ),
     ),
     'input_filter_specs' => array(
@@ -108,6 +201,57 @@ return array(
                 'filters' => array(),
                 'name' => 'password',
                 'description' => 'password del usuario a validar',
+            ),
+        ),
+        'myappnfc\\V1\\Rpc\\SaveUser\\Validator' => array(
+            0 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'id',
+                'description' => 'Identificador del usuario, si no se pasa como parametro creara un nuevo usuario',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario, tiene que se unico',
+            ),
+            2 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'password',
+                'description' => 'pasword en MD5',
+            ),
+            3 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'mail',
+                'description' => 'mail del usuario',
+            ),
+            4 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'nombre',
+                'description' => 'Nombre del usuario',
+            ),
+            5 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'apellidos',
+                'description' => 'Apellidos del usuario',
+            ),
+            6 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'fecha_nacimiento',
+                'description' => 'Fecha de nacimiento del usuario, en formato YYYY-mm-dd hh:mm:ss',
             ),
         ),
     ),
@@ -130,6 +274,17 @@ return array(
                         'GET' => true,
                         'POST' => true,
                         'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
+                'actions' => array(
+                    'SaveUser' => array(
+                        'GET' => false,
+                        'POST' => true,
+                        'PUT' => true,
                         'PATCH' => false,
                         'DELETE' => false,
                     ),

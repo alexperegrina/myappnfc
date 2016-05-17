@@ -53,9 +53,11 @@ mysql -u root -proot -e "create database myappnfc";
 echo "Inicializando tablas"
 mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_banco_ids.sql
 mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_claves_notificaciones.sql
+mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_info_comercializador.sql
 mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_info_servicio.sql
 mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_info_user.sql
 mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_permisos_user_servicio.sql
+mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_sessions.sql
 mysql -uroot -proot myappnfc < /var/www/zf/public/BD/myappnfc_users.sql
 
 

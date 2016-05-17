@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `info_user`
+-- Table structure for table `session`
 --
 
-DROP TABLE IF EXISTS `info_user`;
+DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `info_user` (
-  `id_user` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
-  `apellidos` varchar(45) DEFAULT NULL,
-  `fecha_nacimiento` datetime DEFAULT NULL,
-  UNIQUE KEY `id_user_UNIQUE` (`id_user`),
-  CONSTRAINT `fk_info_user_to_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `session` (
+  `id` char(32) NOT NULL DEFAULT '',
+  `name` char(32) NOT NULL DEFAULT '',
+  `modified` int(11) DEFAULT NULL,
+  `lifetime` int(11) DEFAULT NULL,
+  `data` text,
+  PRIMARY KEY (`id`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `info_user`
+-- Dumping data for table `session`
 --
 
-LOCK TABLES `info_user` WRITE;
-/*!40000 ALTER TABLE `info_user` DISABLE KEYS */;
-INSERT INTO `info_user` VALUES (13,'alex3','alex3','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `info_user` ENABLE KEYS */;
+LOCK TABLES `session` WRITE;
+/*!40000 ALTER TABLE `session` DISABLE KEYS */;
+INSERT INTO `session` VALUES ('5bnp19d2ctmpblvr0f0mssfgm0','myappnfc',1460921756,1440,'{\"id\":\"12\",\"username\":\"admin\",\"ip_address\":\"10.0.2.2\",\"user_agent\":\"Mozilla\\/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0) Gecko\\/20100101 Firefox\\/45.0\"}'),('ihjgo1a8naqcn169rdn0ef1gt4','myappnfc',1463321889,1440,'{\"id\":\"12\",\"username\":\"admin\",\"ip_address\":\"10.0.2.2\",\"user_agent\":\"Mozilla\\/5.0 (Macintosh; Intel Mac OS X 10.11; rv:46.0) Gecko\\/20100101 Firefox\\/46.0\"}');
+/*!40000 ALTER TABLE `session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

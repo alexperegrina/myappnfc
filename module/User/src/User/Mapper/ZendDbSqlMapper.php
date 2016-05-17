@@ -15,6 +15,8 @@ use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
+use Zend\Db\Sql\Join;
+use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Update;
@@ -62,12 +64,10 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function find($id)
     {
         $sql    = new Sql($this->dbAdapter);
-        //$select = $sql->select('users');
-        //$select->where(array('id = ?' => $id));
 
         $select = $sql->select()
             ->from(array('u' => 'users'))
-            ->join(array('i' => 'info_user'), 'u.id = i.id_user')
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
             ->where(array('u.id = ?' => $id));
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
@@ -78,6 +78,28 @@ class ZendDbSqlMapper implements UserMapperInterface
         }
 
         throw new \InvalidArgumentException("User con ID:{$id} no existe.");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findByUsername($username)
+    {
+        $sql    = new Sql($this->dbAdapter);
+
+        $select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
+            ->where(array('u.username = ?' => $username));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
+            return $this->hydrator->hydrate($result->current(), $this->userPrototype);
+        }
+
+        throw new \InvalidArgumentException("User con username:{$username} no existe.");
     }
 
     /**
@@ -115,6 +137,9 @@ class ZendDbSqlMapper implements UserMapperInterface
         $userInfo = array_slice($userData, 3);
         $userData = array_slice($userData, 0, 3);
 
+//        print_r($userInfo);
+//        print_r($userData);
+//        die();
         //insertamos el tipo de user
         $userData['tipo'] = 'user';
 
@@ -267,8 +292,15 @@ class ZendDbSqlMapper implements UserMapperInterface
 
         $resultSet = new ResultSet();
 
-        return $resultSet->initialize($result)->toArray()[0];
+        if ($result->count() == 1) {
+            return $resultSet->initialize($result)->toArray()[0];
+        }
+        else {
+            throw new \Exception("The user doesn't info");
+        }
     }
+
+    
 
 
     /**
@@ -349,6 +381,31 @@ class ZendDbSqlMapper implements UserMapperInterface
             $resultSet = new ResultSet();
 
             $list = $resultSet->initialize($result)->toArray();
+            return $list;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function listServicesByUsername($id) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('permisos_user_servicio');
+
+        $select->join(array('i' => 'info_servicio'), // join table with alias
+                            'id_servicio = i.id_servicio');
+        $select->where(array('id_user = ?' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+
+        //\Zend\Debug\Debug::dump($stmt);die();
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
+
             return $list;
         }
     }

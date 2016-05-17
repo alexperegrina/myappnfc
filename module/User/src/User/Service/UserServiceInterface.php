@@ -28,6 +28,12 @@ interface UserServiceInterface
     public function findUser($id);
 
     /**
+     * @param $username
+     * @return mixed
+     */
+    public function findUserByUsername($username);
+
+    /**
      * Guarda un User
      *
      * @param  UserInterface $user

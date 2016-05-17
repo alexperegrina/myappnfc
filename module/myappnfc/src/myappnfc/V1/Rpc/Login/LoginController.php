@@ -13,6 +13,7 @@ class LoginController extends AbstractActionController
     {
         $this->authService = $authService;
     }
+    
     public function loginAction()
     {
         $user = $this->params()->fromQuery('user');
