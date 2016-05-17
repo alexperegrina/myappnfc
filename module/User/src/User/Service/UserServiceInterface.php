@@ -76,6 +76,10 @@ interface UserServiceInterface
      */
     public function listUserServices($id);
 
+    public function listUserInfoServices($id);
+
+    public function listUserTags($id);
+
     /**
      * @param $id
      * @return mixed
@@ -93,7 +97,5 @@ interface UserServiceInterface
      * @return mixed
      */
     public function deletePrivateKey(UserInterface $user);
-
-    public function loginUser($userid, $passwd);
-
+    
 }

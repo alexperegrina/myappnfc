@@ -313,22 +313,42 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function listServices($id)
     {
         $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('permisos_user_servicio');
+        /*$select = $sql->select()
+            ->from(array('p' => 'permisos_user_servicio'))
+            ->join(array('i' => 'info_servicio'), 'p.id_servicio = i.id_servicio', array('nombre'), 'left');*/
 
-        //$select->join(array('i' => 'info_servicio'), // join table with alias
-        //                    'id_servicio = i.id_servicio');
-        $select->where(array('id_user = ?' => $id));
-
+        $select = $sql->select("info_servicio");
         $stmt   = $sql->prepareStatementForSqlObject($select);
 
-        //\Zend\Debug\Debug::dump($stmt);die();
         $result = $stmt->execute();
 
         if ($result->isQueryResult() > 0) {
             $resultSet = new ResultSet();
 
             $list = $resultSet->initialize($result)->toArray();
+            //\Zend\Debug\Debug::dump($list);die();
+            return $list;
+        }
+    }
 
+    /*Informacion sobre los servicios de usuario $id */
+    public function listInfoServices($id) {
+
+        $sql    = new Sql($this->dbAdapter);
+        /*$select = $sql->select()
+            ->from(array('p' => 'permisos_user_servicio'))
+            ->join(array('i' => 'info_servicio'), 'p.id_servicio = i.id_servicio', array('nombre'), 'left');*/
+
+        $select = $sql->select("permisos_user_servicio");
+        $select->where(array('id_user = ? ' => $id));
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
             return $list;
         }
     }
@@ -343,6 +363,29 @@ class ZendDbSqlMapper implements UserMapperInterface
         $select = $sql->select('banco_ids');
         $select->where(array('id_user = ?' => $id));
 
+        /*$select = $sql->select()
+            ->from(array('b' => 'banco_ids'))
+            ->join(array('i' => 'info_comercializador'), 'b.id_comercializador = i.id_comercializador')
+            ->where(array('b.id_user = ?' => $id));*/
+
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
+
+            return $list;
+        }
+    }
+
+    public function listTags($id) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('banco_ids');
+        $select->where(array('id_user = ?' => $id));
+        
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
 
@@ -387,19 +430,5 @@ class ZendDbSqlMapper implements UserMapperInterface
         $result = $stmt->execute();
 
         return (bool)$result->getAffectedRows();
-    }
-
-    public function login($userid, $passwd)
-    {
-        $sql = new Sql($this->dbAdapter);
-        $select = $sql->select('users');
-        $select->where(array('username = ?' => $userid, 'password = ?' => $passwd));
-
-        $stmt = $sql->prepareStatementForSqlObject($select);
-        $result = $stmt->execute();
-
-        if ($result->isQueryResult() == 1) {
-            return true;
-        } else return false;
     }
 }

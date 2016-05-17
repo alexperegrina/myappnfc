@@ -37,49 +37,15 @@ class ProfileController extends AbstractActionController
         } catch (\InvalidArgumentException $e) {
             return $this->redirect()->toRoute('user');
         }
-        
+
         return new ViewModel(array(
             'user' => $user,
             'profile' => $this->userService->getUserProfile($this->params('id')),
             'companies' => $this->userService->listUserCompanies($this->params('id')),
-            'services' => $this->userService->listUserServices($this->params('id'))
+            'services' => $this->userService->listUserServices($this->params('id')),
+            'info_service' => $this->userService->listUserInfoServices($this->params('id')),
+            'tags' => $this->userService->listUserTags($this->params('id'))
         ));
     }
-
-    public function loginAction()
-    {
-        return new ViewModel(array(
-            'form' => $this->profileForm
-        ));
-    }
-
-
-    /*public function editAction()
-    {
-
-        $request = $this->getRequest();
-        $user    = $this->userService->findUser($this->params('id'));
-
-        $this->profileForm->bind($user);
-
-        if ($request->isPost()) {
-            $this->profileForm->setData($request->getPost());
-
-            if ($this->profileForm->isValid()) {
-                try {
-                    $this->userService->saveInfoUser($user);
-
-                    return $this->redirect()->toRoute('user/profile',array('action' => 'profile','id'=> $user->getId_user()));
-
-                } catch (\Exception $e) {
-                    die($e->getMessage());
-                }
-            }
-        }
-
-        return new ViewModel(array(
-            'form' => $this->profileForm
-        ));
-    }*/
-
+    
 }

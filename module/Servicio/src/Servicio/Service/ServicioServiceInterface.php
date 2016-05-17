@@ -43,4 +43,6 @@ interface ServicioServiceInterface
      * @return bool
      */
     public function deleteServicio(ServicioInterface $servicio);
+    
+    public function findServiceByUsernameId($id);
 }

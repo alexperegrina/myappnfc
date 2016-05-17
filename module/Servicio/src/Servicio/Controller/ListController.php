@@ -31,7 +31,7 @@ class ListController extends AbstractActionController
     {
         
         return new ViewModel(array(
-            'servicios' => $this->servicioService->findAllServicio()
+            'servicios' => $this->servicioService->findAllServicio(),
         ));
 
     }

@@ -103,16 +103,6 @@ return array(
                             )
                         ),
                     ),
-                    'login' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route'    => '/login',
-                            'defaults' => array(
-                                'controller' => 'User\Controller\Profile',
-                                'action'     => 'login'
-                            )
-                        )
-                    )
                 ),
             )
         )

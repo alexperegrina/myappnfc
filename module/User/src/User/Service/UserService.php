@@ -48,13 +48,6 @@ class UserService implements UserServiceInterface
 
     /**
      * {@inheritDoc}
-
-    public function saveInfoUser(UserInterface $user) {
-        return $this->userMapper->saveInfo($user);
-    }*/
-
-    /**
-     * {@inheritDoc}
      */
     public function deleteUser(UserInterface $user) {
         return $this->userMapper->delete($user);
@@ -100,8 +93,17 @@ class UserService implements UserServiceInterface
         return $this->userMapper->listServices($id);
     }
 
+    public function listUserInfoServices($id) {
+        return $this->userMapper->listInfoServices($id);
+    }
+
+
     public function listUserCompanies($id) {
         return $this->userMapper->listCompanies($id);
+    }
+
+    public function listUserTags($id) {
+        return $this->userMapper->listTags($id);
     }
 
     /**
@@ -119,10 +121,5 @@ class UserService implements UserServiceInterface
     public function deletePrivateKey(UserInterface $user) {
         return $this->userMapper->deleteKey();
     }
-
-    public function loginUser($userid, $passwd){
-        return $this->userMapper->login($userid, $passwd);
-    }
-
 
 }

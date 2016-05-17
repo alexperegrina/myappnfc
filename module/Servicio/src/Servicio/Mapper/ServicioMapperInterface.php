@@ -40,4 +40,6 @@ interface ServicioMapperInterface
      * @throws \Exception
      */
     public function delete(ServicioInterface $servicioObject);
+    
+    public function findServiceByUsername($id);
 }
