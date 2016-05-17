@@ -55,4 +55,8 @@ class ServicioService implements ServicioServiceInterface
     public function deleteServicio(ServicioInterface $servicio) {
         return $this->servicioMapper->delete($servicio);
     }
+
+    public function findServiceByUsernameId($id) {
+        return $this->servicioMapper->findServiceByUsername($id);
+    }
 }

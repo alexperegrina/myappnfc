@@ -78,6 +78,10 @@ interface UserMapperInterface
      */
     public function listServices($id);
 
+    public function listInfoServices($id);
+
+    public function listTags($id);
+
     /**
      * @param $id
      * @param $clave
@@ -91,8 +95,4 @@ interface UserMapperInterface
      * @return mixed
      */
     public function deleteKey($id, $clave);
-
-
-    public function login($userid, $passwd);
-
 }

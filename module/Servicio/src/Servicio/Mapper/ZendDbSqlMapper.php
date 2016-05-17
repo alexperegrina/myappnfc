@@ -12,6 +12,7 @@ use Servicio\Model\ServicioInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
@@ -149,5 +150,25 @@ class ZendDbSqlMapper implements ServicioMapperInterface
         $result = $stmt->execute();
 
         return (bool)$result->getAffectedRows();
+    }
+    
+    public function findServiceByUsername($id) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(array('p' => 'permisos_user_servicio'), 'u.id = p.id_user')
+            ->join(array('i' => 'info_servicio'), 'i.id_servicio = p.id_servicio')
+            ->where(array('u.id = ?' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+        //$resultSet = new ResultSet();
+        //$list = $resultSet->initialize($result)->toArray();
+
+        if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
+            return $this->hydrator->hydrate($result->current(), $this->userPrototype);
+        }
+
+        throw new \InvalidArgumentException("User con ID:{$id} no existe.");
     }
 }
