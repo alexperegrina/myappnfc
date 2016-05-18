@@ -26,8 +26,6 @@ interface UserMapperInterface
 
     /**
      * @param UserInterface $userObject
-     *
-     * @param UserInterface $userObject
      * @return UserInterface
      * @throws \Exception
      */
@@ -35,15 +33,12 @@ interface UserMapperInterface
 
     /**
      * @param UserInterface $userObject
-     *
      * @return bool
      * @throws \Exception
      */
     public function delete(UserInterface $userObject);
 
     /**
-     * @param UserInterface $userObject
-     *
      * @param UserInterface $userObject
      * @return UserInterface
      * @throws \Exception
@@ -78,21 +73,35 @@ interface UserMapperInterface
      */
     public function listServices($id);
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function listInfoServices($id);
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function listTags($id);
 
     /**
      * @param $id
-     * @param $clave
      * @return mixed
      */
-    public function addKey($id, $clave);
+    public function listCompanies($id);
 
     /**
      * @param $id
-     * @param $clave
+     * @param $key
      * @return mixed
      */
-    public function deleteKey($id, $clave);
+    public function addKey($id, $key);
+
+    /**
+     * @param $id
+     * @param $key
+     * @return mixed
+     */
+    public function deleteKey($id, $key);
 }

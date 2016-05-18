@@ -16,7 +16,6 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
-use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Update;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
@@ -54,6 +53,7 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
+     * Devuelve el perfil de usuario $id
      * @param int|string $id
      *
      * @return UserInterface
@@ -61,9 +61,7 @@ class ZendDbSqlMapper implements UserMapperInterface
      */
     public function find($id)
     {
-        $sql    = new Sql($this->dbAdapter);
-        //$select = $sql->select('users');
-        //$select->where(array('id = ?' => $id));
+        $sql = new Sql($this->dbAdapter);
 
         $select = $sql->select()
             ->from(array('u' => 'users'))
@@ -81,14 +79,20 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
+     * Devuelve un array de perfiles de todos los usuarios
      * @return array|UserInterface[]
      */
     public function findAll()
     {
-
         $sql    = new Sql($this->dbAdapter);
+        /*$select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user')
+            ->where(array('tipo = "user"'));*/
+
         $select = $sql->select('users');
-        $select->where(array('tipo = "user"'));
+        $select->where('tipo = "user"');
+
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
 
@@ -102,6 +106,7 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
+     * Crea un usuario nuevo o actualiza uno existente
      * @param UserInterface $userObject
      *
      * @return UserInterface
@@ -128,7 +133,6 @@ class ZendDbSqlMapper implements UserMapperInterface
             $action->join(array('i' => 'info_user'), 'id = i.id_user')
                     ->where(array('id = ?' => $userObject->getId()))
                     ->set($userDI);
-
 
             $sql = new Sql($this->dbAdapter);
             $stmt = $sql->prepareStatementForSqlObject($action);
@@ -168,14 +172,15 @@ class ZendDbSqlMapper implements UserMapperInterface
             $stmt->execute();
 
             return $userObject;
-
         }
 
         throw new \Exception("Database error");
     }
 
     /**
-     * {@inheritDoc}
+     * Borra un usuario
+     * @param UserInterface $userObject
+     * @return Numero de filas afectadas
      */
     public function delete(UserInterface $userObject)
     {
@@ -190,7 +195,9 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
-     * @param $id identificador del usuario, $nfc identificador del nfc tag
+     * Añade una etiqueta nueva ¢nfc al usuario $id
+     * @param $id identificador del usuario
+     * @param $nfc identificador del nfc tag
      *
      * @return UserInterface
      * @throws \Exception
@@ -205,13 +212,16 @@ class ZendDbSqlMapper implements UserMapperInterface
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
 
-        if ($result->isQueryResult() == 1) {
+        $resultSet = new ResultSet();
+        $list = $resultSet->initialize($result)->toArray();
+
+        if (count($list) != 0) {
             // el tag existe
             $resultSet = new ResultSet();
             $list = $resultSet->initialize($result)->toArray();
 
             //si el tag ya está asignado a un usuario salta expcepción
-            if (!is_null($list[0]['id_user'])) throw new \Exception("The tag is already assigned to another user");
+            if (!is_null($list['id_user'])) throw new \Exception("The tag is already assigned to another user");
 
             $action = new Update('banco_ids');
             $action->set(array('id_user' => $id));
@@ -223,11 +233,13 @@ class ZendDbSqlMapper implements UserMapperInterface
 
             return (bool)$result->getAffectedRows();
         } else {
-            throw new \Exception("The user doesn't exist");
+            //throw new \Exception("The tag doesn't exist");
+            echo "The tag doesn't exist";
         }
     }
 
     /**
+     * Borra una etiqueta $nfc al usuario $id
      * @param $id
      * @param $nfc
      * @return bool
@@ -235,7 +247,7 @@ class ZendDbSqlMapper implements UserMapperInterface
      */
     public function deleteUserItem($id, $nfc)
     {
-        $sql    = new Sql($this->dbAdapter);
+        /*$sql    = new Sql($this->dbAdapter);
         $select = $sql->select('banco_ids');
         $select->where(array('id = ?' => $nfc, 'id_user = ?' => $id));
 
@@ -253,9 +265,23 @@ class ZendDbSqlMapper implements UserMapperInterface
             return (bool)$result->getAffectedRows();
         } else {
             throw new \Exception("The tag is not assigned to the user");
-        }
+        }*/
+
+        $select = new Delete('banco_ids');
+        $select->where(array('id = ?' => $nfc, 'id_user = ?' => $id));
+
+        $sql    = new Sql($this->dbAdapter);
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        return (bool)$result->getAffectedRows();
     }
 
+    /**
+     * Devuelve el perfil de usuario $id
+     * @param $id
+     * @return array
+     */
     public function getProfile($id)
     {
         $sql    = new Sql($this->dbAdapter);
@@ -272,10 +298,13 @@ class ZendDbSqlMapper implements UserMapperInterface
 
 
     /**
-     * @param $id
+     * Cambia el estado del servicio $id_servicio segun el valor array[2]
+     * @param $username
+     * @param array[@id_servicio, activo/inactivo]
      * @return array
+     * @throws \Exception
      */
-    public function activeService($id)
+    public function activeService($username)
     {
         //buscar servicio $servicio del usuario $id
         $sql    = new Sql($this->dbAdapter);
@@ -308,7 +337,10 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
+     * Devuelve la lista de los servicios disponibles
      * @param $id
+     * @return array
+     * @throws \Exception
      */
     public function listServices($id)
     {
@@ -329,9 +361,17 @@ class ZendDbSqlMapper implements UserMapperInterface
             //\Zend\Debug\Debug::dump($list);die();
             return $list;
         }
+        else {
+            throw new \Exception("The services can't be retrieved");
+        }
     }
 
-    /*Informacion sobre los servicios de usuario $id */
+    /**
+     * Devuelve la informacion sobre los servicios relacionados al usuario $id
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
     public function listInfoServices($id) {
 
         $sql    = new Sql($this->dbAdapter);
@@ -351,11 +391,16 @@ class ZendDbSqlMapper implements UserMapperInterface
             $list = $resultSet->initialize($result)->toArray();
             return $list;
         }
+        else {
+            throw new \Exception("The user doesn't have any service");
+        }
     }
 
     /**
+     * Devuelve la lista de los comercializadores
      * @param $id
      * @return array
+     * @throws \Exception
      */
     public function listCompanies($id)
     {
@@ -379,8 +424,17 @@ class ZendDbSqlMapper implements UserMapperInterface
 
             return $list;
         }
+        else {
+            throw new \Exception("The user is not a member of any company");
+        }
     }
 
+    /**
+     * Devuelve la lista de las etiquetas que tiene el usuario $id
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
     public function listTags($id) {
         $sql    = new Sql($this->dbAdapter);
         $select = $sql->select('banco_ids');
@@ -396,17 +450,21 @@ class ZendDbSqlMapper implements UserMapperInterface
 
             return $list;
         }
+        else {
+            throw new \Exception("The user doesn't have any tag");
+        }
     }
 
     /**
+     * Añade la clave privada $key al usuario $id
      * @param $id
-     * @param $clave
+     * @param $key
      * @return bool
      */
-    public function addKey($id, $clave)
+    public function addKey($id, $key)
     {
         $action = new Insert('claves_notificaciones');
-        $action->values(array('id_user = ?' => $id, 'clave = ?' => $clave));
+        $action->values(array('id_user = ?' => $id, 'clave = ?' => $key));
 
         $sql    = new Sql($this->dbAdapter);
         $stmt   = $sql->prepareStatementForSqlObject($action);
@@ -416,14 +474,15 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
+     * Borra la clave privada $key al usuario $id
      * @param $id
-     * @param $clave
+     * @param $key
      * @return bool
      */
-    public function deleteKey($id, $clave)
+    public function deleteKey($id, $key)
     {
         $action = new Delete('claves_notificaciones');
-        $action->where(array('id_user = ?' => $id, 'clave = ?' => $clave));
+        $action->where(array('id_user = ?' => $id, 'clave = ?' => $key));
 
         $sql    = new Sql($this->dbAdapter);
         $stmt   = $sql->prepareStatementForSqlObject($action);

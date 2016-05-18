@@ -38,6 +38,18 @@ class ProfileController extends AbstractActionController
             return $this->redirect()->toRoute('user');
         }
 
+        $request = $this->getRequest();
+
+        //\Zend\Debug\Debug::dump($request);die();
+        if ($request->isPost()) {
+
+            $tag = $request->getPost('tag', 'Add');
+
+            $this->userService->addItem($this->params('id'), $tag);
+
+            //return $this->redirect()->toRoute('user/profile/'.$this->params('id'));
+        }
+
         return new ViewModel(array(
             'user' => $user,
             'profile' => $this->userService->getUserProfile($this->params('id')),

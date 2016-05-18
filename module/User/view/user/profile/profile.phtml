@@ -28,7 +28,14 @@ $this->headTitle($title);
         else echo $this->escapeHtml($user->getMail());?></h5>
 
 <br />
-<h1><?php echo "My tags" ?></h1><a href="#">New tag</a>
+<h1><?php echo "My tags" ?></h1>
+
+<form action="<?php echo $this->url('user/profile', array(), true) ?>" method="post">
+    <p>Add new tag</p>
+    <input type="text" name="tag" >
+    <input type="submit" value="Add">
+</form>
+
 <br /><br />
 <table class="table">
     <tr>
@@ -36,7 +43,7 @@ $this->headTitle($title);
     </tr>
     <?php foreach ($this->tags as $tag):?>
         <tr>
-            <td><?php echo tag['id']; ?></td>
+            <td><?php echo $tag['id']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
@@ -50,35 +57,49 @@ $this->headTitle($title);
         </tr>
         <?php foreach ($this->services as $service):?>
             <tr>
-                <td><?php echo $service['nombre']; ?></td>
+                <td><?php echo $service['nombre']; $i=0;?></td>
                 <td>
-                    <?php $par1 = "bt".$service['id_servicio']."_active" ?>
-                    <?php $par2 = "bt".$service['id_servicio']."_inactive" ?>
-                    <input type="button" class="btn1" value="Active" />
-                    <input type="button" class="btn2" value="Inactive" disabled="disabled" />
-
+                    <?php foreach ($this->info_service as $info): ?>
+                        <?php
+                        if($info['id_servicio'] == $service['id_servicio']) {
+                            if ($info['informacion_total'] == 0) {
+                                echo "<button type='button' class='btn active' value='active'>Active</button>";
+                                $i = 1;
+                                break;
+                            }
+                        }
+                        ;?>
+                        <?php $par1 = "bt".$service['id_servicio']."_active" ?>
+                        <?php $par2 = "bt".$service['id_servicio']."_inactive" ?>
+                        <!--<input type="button" class="bt1" value="Active" />
+                        <input type="button" class="bt2" value="Inactive" disabled="disabled" />-->
+                    <?php endforeach;
+                    if ($i==0) echo '<button type="button" class="btn inactive" value="inactive">Inactive</button>';
+                    ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
 
-<?php
-$this->inlineScript()->captureStart();
+
+<?php $this->inlineScript()->captureStart();
 echo <<<JS
-
-var theParent = document.getElementById('theDude');
-theParent.addEventListener('click', changeStatus, false);
-
-function changeStatus(e) {
-    if (e.target !== e.currentTarget) {
-        var clickedItem = e.target.class;
-        $(clickedItem).attr("disabled", "disabled");
-        
-    }
-    e.stopPropagation();
-    }
+$("button.btn").click(function() {
+    $(this).toggleClass("active inactive");
+    
+    if($(this).text() == 'Active')
+       {
+           $(this).text('Inactive');
+           $(this).val('inactive');
+       }
+       else
+       {
+           $(this).text('Active');
+           $(this).valueOf('active');
+       };
+});
 JS;
-$this->inlineScript()->captureEnd();
-?>
+$this->inlineScript()->captureEnd(); ?>
+
 
 
