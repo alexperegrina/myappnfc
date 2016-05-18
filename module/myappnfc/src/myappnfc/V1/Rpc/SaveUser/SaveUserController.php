@@ -20,17 +20,16 @@ class SaveUserController extends AbstractActionController
         /**
          * Cojemos lo parametros de entrada
          */
+        $data = $this->bodyParams();
 
-        $id = $this->params()->fromQuery('id');
-        $username = $this->params()->fromQuery('username');
-        $password = $this->params()->fromQuery('password');
-        $mail = $this->params()->fromQuery('mail');
+        $id = $data['id'];
+        $username = $data['username'];
+        $password = $data['password'];
+        $mail = $data['mail'];
 //        $id_user = $this->params()->fromQuery('id_user');
-        $nombre = $this->params()->fromQuery('nombre');
-        $apellidos = $this->params()->fromQuery('apellidos');
-        $fecha_nacimiento = $this->params()->fromQuery('fecha_nacimiento');
-
-
+        $nombre = $data['nombre'];
+        $apellidos = $data['apellidos'];
+        $fecha_nacimiento = $data['fecha_nacimiento'];
 
         /**
          * Creamos el usuario

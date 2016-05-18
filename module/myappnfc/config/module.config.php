@@ -103,6 +103,7 @@ return array(
             'service_name' => 'ProfileByUser',
             'http_methods' => array(
                 0 => 'GET',
+                1 => 'POST',
             ),
             'route_name' => 'myappnfc.rpc.profile-by-user',
         ),
@@ -192,6 +193,9 @@ return array(
         'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
             'input_filter' => 'myappnfc\\V1\\Rpc\\SaveUser\\Validator',
         ),
+        'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+            'input_filter' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\Validator',
+        ),
     ),
     'input_filter_specs' => array(
         'myappnfc\\V1\\Rpc\\Login\\Validator' => array(
@@ -261,6 +265,15 @@ return array(
                 'description' => 'Fecha de nacimiento del usuario, en formato YYYY-mm-dd hh:mm:ss',
             ),
         ),
+        'myappnfc\\V1\\Rpc\\ProfileByUser\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario',
+            ),
+        ),
     ),
     'zf-mvc-auth' => array(
         'authorization' => array(
@@ -292,6 +305,17 @@ return array(
                         'GET' => false,
                         'POST' => true,
                         'PUT' => true,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+                'actions' => array(
+                    'ProfileByUser' => array(
+                        'GET' => true,
+                        'POST' => true,
+                        'PUT' => false,
                         'PATCH' => false,
                         'DELETE' => false,
                     ),
