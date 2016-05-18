@@ -111,7 +111,6 @@ return array(
             'service_name' => 'SaveUser',
             'http_methods' => array(
                 0 => 'POST',
-                1 => 'PUT',
             ),
             'route_name' => 'myappnfc.rpc.save-user',
         ),
@@ -196,6 +195,9 @@ return array(
         'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
             'input_filter' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\Validator',
         ),
+        'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+            'input_filter' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\Validator',
+        ),
     ),
     'input_filter_specs' => array(
         'myappnfc\\V1\\Rpc\\Login\\Validator' => array(
@@ -274,6 +276,15 @@ return array(
                 'description' => 'username del usuario',
             ),
         ),
+        'myappnfc\\V1\\Rpc\\ServicesByUser\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario',
+            ),
+        ),
     ),
     'zf-mvc-auth' => array(
         'authorization' => array(
@@ -315,6 +326,17 @@ return array(
                     'ProfileByUser' => array(
                         'GET' => true,
                         'POST' => true,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+                'actions' => array(
+                    'ServicesByUser' => array(
+                        'GET' => true,
+                        'POST' => false,
                         'PUT' => false,
                         'PATCH' => false,
                         'DELETE' => false,

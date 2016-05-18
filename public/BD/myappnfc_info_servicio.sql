@@ -37,6 +37,7 @@ CREATE TABLE `info_servicio` (
 
 LOCK TABLES `info_servicio` WRITE;
 /*!40000 ALTER TABLE `info_servicio` DISABLE KEYS */;
+INSERT INTO `info_servicio` VALUES (30,'servicio','servicio'),(31,'servicio2','servicio2'),(32,'servicio3','servicio3');
 /*!40000 ALTER TABLE `info_servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-18 23:25:41
+-- Dump completed on 2016-05-19  1:45:02

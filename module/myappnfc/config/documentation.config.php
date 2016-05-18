@@ -57,4 +57,47 @@ return array(
             'description' => 'Servicio para cojer la información del usuario',
         ),
     ),
+    'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
+        'description' => 'Servicio para guardar modificar un usuario o añadir un usuario, si se introduce con id se modifica y si no tiene id se añadira',
+        'POST' => array(
+            'description' => 'Servicio para guardar modificar un usuario o añadir un usuario, si se introduce con id se modifica y si no tiene id se añadira',
+            'request' => '{
+   "id": "Identificador del usuario, si no se pasa como parametro creara un nuevo usuario",
+   "username": "username del usuario, tiene que se unico",
+   "password": "pasword en MD5",
+   "mail": "mail del usuario",
+   "nombre": "Nombre del usuario",
+   "apellidos": "Apellidos del usuario",
+   "fecha_nacimiento": "Fecha de nacimiento del usuario, en formato YYYY-mm-dd hh:mm:ss"
+}',
+            'response' => '{
+  "response": "true o false, segun si se a podido modificar/añadir a la bd"
+}',
+        ),
+    ),
+    'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+        'description' => 'Servicio para obtener todos los servicios del sistema indicando para el usuari con username pasado por parametro si el servicio lo tiene activado o no',
+        'GET' => array(
+            'description' => 'Servicio para obtener todos los servicios del sistema indicando para el usuari con username pasado por parametro si el servicio lo tiene activado o no',
+            'response' => '{
+  "servicios": [
+    {
+      "username": "servicio",
+      "nombre": "servicio",
+      "activado": true
+    },
+    {
+      "username": "servicio2",
+      "nombre": "servicio2",
+      "activado": false
+    },
+    {
+      "username": "servicio3",
+      "nombre": "servicio3",
+      "activado": false
+    }
+  ]
+}',
+        ),
+    ),
 );
