@@ -28,8 +28,10 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `tipo` set('user','comercializador','servicio') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `mail_UNIQUE` (`mail`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +40,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'alex','alex','alexperegrina@gmail.com','servicio'),(3,'alex2','alex2','alex2','comercializador'),(5,'alex3','alex3','alex3','user'),(6,'userUser','userUser','userUser','user'),(7,'alexServicio','alexServicio','alexServicio','servicio'),(8,'userComerci','userComerci','userComerci','comercializador'),(9,'a','a','a','comercializador'),(10,'b','b','b',''),(11,'r','r','r','comercializador'),(12,'admin','21232f297a57a5a743894a0e4a801fc3','admin','comercializador'),(13,'alex3','alex3','alex3','user');
+INSERT INTO `users` VALUES (26,'admin','21232f297a57a5a743894a0e4a801fc3','admin','comercializador');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-15 16:37:30
+-- Dump completed on 2016-05-18 23:25:40

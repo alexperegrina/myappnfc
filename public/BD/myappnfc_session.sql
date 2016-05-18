@@ -38,7 +38,7 @@ CREATE TABLE `session` (
 
 LOCK TABLES `session` WRITE;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
-INSERT INTO `session` VALUES ('5bnp19d2ctmpblvr0f0mssfgm0','myappnfc',1460921756,1440,'{\"id\":\"12\",\"username\":\"admin\",\"ip_address\":\"10.0.2.2\",\"user_agent\":\"Mozilla\\/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0) Gecko\\/20100101 Firefox\\/45.0\"}'),('ihjgo1a8naqcn169rdn0ef1gt4','myappnfc',1463321889,1440,'{\"id\":\"12\",\"username\":\"admin\",\"ip_address\":\"10.0.2.2\",\"user_agent\":\"Mozilla\\/5.0 (Macintosh; Intel Mac OS X 10.11; rv:46.0) Gecko\\/20100101 Firefox\\/46.0\"}');
+INSERT INTO `session` VALUES ('ihjgo1a8naqcn169rdn0ef1gt4','myappnfc',1463606565,1440,'{\"id\":\"26\",\"username\":\"admin\",\"ip_address\":\"10.0.2.2\",\"user_agent\":\"Mozilla\\/5.0 (Macintosh; Intel Mac OS X 10.11; rv:46.0) Gecko\\/20100101 Firefox\\/46.0\"}');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-15 16:37:30
+-- Dump completed on 2016-05-18 23:25:41

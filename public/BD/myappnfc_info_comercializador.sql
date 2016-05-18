@@ -37,6 +37,7 @@ CREATE TABLE `info_comercializador` (
 
 LOCK TABLES `info_comercializador` WRITE;
 /*!40000 ALTER TABLE `info_comercializador` DISABLE KEYS */;
+INSERT INTO `info_comercializador` VALUES (26,'admin','admin');
 /*!40000 ALTER TABLE `info_comercializador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-15 16:37:30
+-- Dump completed on 2016-05-18 23:25:41
