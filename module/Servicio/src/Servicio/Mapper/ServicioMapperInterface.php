@@ -40,6 +40,12 @@ interface ServicioMapperInterface
      * @throws \Exception
      */
     public function delete(ServicioInterface $servicioObject);
-    
-    public function findServiceByUsername($id);
+
+    /**
+     * Metodo para cojer todos los servicios con el username
+     * 
+     * @param $id
+     * @return mixed
+     */
+    public function findServicesByUsername($id);
 }

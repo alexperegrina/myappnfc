@@ -1,31 +1,27 @@
 <?php
 namespace myappnfc\V1\Rpc\ServicesByUser;
 
+use Servicio\Service\ServicioServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use ZF\ContentNegotiation\ViewModel;
-use User\Service\UserServiceInterface;
-use User\Model\User;
 
 class ServicesByUserController extends AbstractActionController
 {
-    protected $userService;
+    protected $servicioService;
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(ServicioServiceInterface $servicioService)
     {
-        $this->userService = $userService;
+        $this->servicioService = $servicioService;
     }
     
     public function servicesByUserAction()
     {
         $username = $this->params()->fromQuery('username');
 
-        /**
-         * @var User
-         */
-        $user = $this->userService->findUserByUsername($username);
+        $servicesUser = $this->servicioService->findAllServicesByUsername($username);
 
         return new ViewModel(array(
-            'user' => $user->toArray(),
+            'servicios' => $servicesUser,
         ));
     }
 }

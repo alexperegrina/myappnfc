@@ -16,6 +16,8 @@ return array(
             'Authenticate\\Service\\AuthServiceInterface' => 'Authenticate\\Factory\\Service\\AuthServiceFactory',
             'User\\Mapper\\UserMapperInterface' => 'User\\Factory\\ZendDbSqlMapperFactory',
             'User\\Service\\UserServiceInterface' => 'User\\Factory\\UserServiceFactory',
+            'Servicio\\Mapper\\ServicioMapperInterface' => 'Servicio\\Factory\\ZendDbSqlMapperFactory',
+            'Servicio\\Service\\ServicioServiceInterface' => 'Servicio\\Factory\\ServicioServiceFactory',
         ),
     ),
     'router' => array(
@@ -40,16 +42,6 @@ return array(
                     ),
                 ),
             ),
-            'myappnfc.rpc.services-by-user' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/servicesbyuser',
-                    'defaults' => array(
-                        'controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller',
-                        'action' => 'servicesByUser',
-                    ),
-                ),
-            ),
             'myappnfc.rpc.profile-by-user' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -70,15 +62,25 @@ return array(
                     ),
                 ),
             ),
+            'myappnfc.rpc.services-by-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/servicesbyuser',
+                    'defaults' => array(
+                        'controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller',
+                        'action' => 'servicesByUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'myappnfc.rpc.infousertoid',
             1 => 'myappnfc.rpc.login',
-            2 => 'myappnfc.rpc.services-by-user',
             3 => 'myappnfc.rpc.profile-by-user',
             5 => 'myappnfc.rpc.save-user',
+            7 => 'myappnfc.rpc.services-by-user',
         ),
     ),
     'zf-rpc' => array(
@@ -97,13 +99,6 @@ return array(
             ),
             'route_name' => 'myappnfc.rpc.login',
         ),
-        'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
-            'service_name' => 'ServicesByUser',
-            'http_methods' => array(
-                0 => 'GET',
-            ),
-            'route_name' => 'myappnfc.rpc.services-by-user',
-        ),
         'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
             'service_name' => 'ProfileByUser',
             'http_methods' => array(
@@ -118,6 +113,13 @@ return array(
                 1 => 'PUT',
             ),
             'route_name' => 'myappnfc.rpc.save-user',
+        ),
+        'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+            'service_name' => 'ServicesByUser',
+            'http_methods' => array(
+                0 => 'GET',
+            ),
+            'route_name' => 'myappnfc.rpc.services-by-user',
         ),
     ),
     'zf-content-negotiation' => array(
@@ -143,6 +145,9 @@ return array(
                 0 => 'application/vnd.myappnfc.v1+json',
                 1 => 'application/json',
                 2 => 'application/*+json',
+                3 => 'application/vnd.myappnfc.v1+json',
+                4 => 'application/json',
+                5 => 'application/*+json',
             ),
             'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
                 0 => 'application/vnd.myappnfc.v1+json',
@@ -167,6 +172,8 @@ return array(
             'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => array(
                 0 => 'application/vnd.myappnfc.v1+json',
                 1 => 'application/json',
+                2 => 'application/vnd.myappnfc.v1+json',
+                3 => 'application/json',
             ),
             'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => array(
                 0 => 'application/vnd.myappnfc.v1+json',

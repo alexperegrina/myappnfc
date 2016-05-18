@@ -49,5 +49,21 @@ class ServicioFieldset extends Fieldset
                 'label' => 'Mail'
             )
         ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'nombre',
+            'options' => array(
+                'label' => 'Nombre'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'descripcion',
+            'options' => array(
+                'label' => 'Descripcion'
+            )
+        ));
     }
 }

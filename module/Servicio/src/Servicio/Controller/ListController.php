@@ -29,10 +29,9 @@ class ListController extends AbstractActionController
 
     public function indexAction()
     {
-        
+        $this->servicioService->findAllServicesByUsername("alex");
         return new ViewModel(array(
             'servicios' => $this->servicioService->findAllServicio(),
         ));
-
     }
 }
