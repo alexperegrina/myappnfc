@@ -97,7 +97,7 @@ class ComercializadorService implements ComercializadorServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function usernamevalid($username) {
+    public function usernameValid($username) {
 
         $row = $this->comercializadorMapper->getRowByUsername($username);
 //        print_r(count(count($row) == 0 ? true : false));die();

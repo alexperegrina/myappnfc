@@ -78,7 +78,7 @@ class AuthController extends AbstractActionController
                         $request->getServer('HTTP_USER_AGENT')
                     );
                     
-                    $this->authService->redireccionByType($this, $user->tipo);
+                    $this->authService->redireccionByType($this, $user->id, $user->tipo);
 
                 } else {
                     $viewModel->setVariable('error', 'Login Error');

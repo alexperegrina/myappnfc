@@ -103,5 +103,13 @@ interface UserServiceInterface
      * @return mixed
      */
     public function deletePrivateKey(UserInterface $user);
+
+    /**
+     * Metodo para validar si un username ya esta siendo utilizado
+     *
+     * @param $username
+     * @return bool
+     */
+    public function usernameValid($username);
     
 }

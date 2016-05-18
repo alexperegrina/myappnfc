@@ -98,7 +98,7 @@ class WriteController extends AbstractActionController
 
 
 //                print_r(false);die();
-                if(!$this->comercializadorService->usernamevalid(
+                if(!$this->comercializadorService->usernameValid(
                     $this->comercializadorForm->getData()->getUsername())) {
 //                    die("dentro de error");
                     $error = "El username ya es utilizado";

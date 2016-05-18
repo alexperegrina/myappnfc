@@ -67,5 +67,5 @@ interface ComercializadorServiceInterface
      * @param $username
      * @return bool
      */
-    public function usernamevalid($username);
+    public function usernameValid($username);
 }

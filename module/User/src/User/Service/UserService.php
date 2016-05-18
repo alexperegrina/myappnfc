@@ -51,6 +51,11 @@ class UserService implements UserServiceInterface
      * {@inheritDoc}
      */
     public function saveUser(UserInterface $user) {
+        // esta marranada hay que quitarla cuando se quite el atribuot id_user
+        if($user->getId_user() == null) {
+            $user->getId_user($user->getId());
+        }
+        // fin marranada
         return $this->userMapper->save($user);
     }
 
@@ -126,6 +131,15 @@ class UserService implements UserServiceInterface
      */
     public function deletePrivateKey(UserInterface $user) {
         return $this->userMapper->deleteKey();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function usernameValid($username) {
+
+        $row = $this->userMapper->getRowByUsername($username);
+        return count($row) == 0 ? true : false;
     }
 
 }

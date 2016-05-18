@@ -105,7 +105,7 @@ class AuthService implements AuthServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function redireccionByType(AbstractActionController $controller, $type)
+    public function redireccionByType(AbstractActionController $controller, $idUser, $type)
     {
         switch ($type) {
             case "comercializador":
@@ -113,7 +113,12 @@ class AuthService implements AuthServiceInterface
 //                $controller->redirect()->toRoute('comercializador/profile');
                 break;
             case "user":
-                $controller->redirect()->toRoute('user/profile');
+//                die("user/profile/$idUser");
+//                $controller->redirect()->toRoute("user/profile/27");
+//                $controller->redirect()->toRoute('user/profile/27', array(
+//                    'profile' => '27'
+//                ));
+                $controller->redirect()->toRoute('user');
                 break;
             case "servicio":
 //                $controller->redirect()->toRoute('servicio/profile');

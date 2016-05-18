@@ -65,10 +65,11 @@ interface AuthServiceInterface
 
     /**
      * @param AbstractActionController $controller
+     * @param $idUser
      * @param $type
      * @return mixed
      */
-    public function redireccionByType(AbstractActionController $controller, $type);
+    public function redireccionByType(AbstractActionController $controller, $idUser, $type);
     
     
 }

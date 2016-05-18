@@ -110,4 +110,12 @@ interface UserMapperInterface
      * @return mixed
      */
     public function deleteKey($id, $clave);
+
+    /**
+     * Metodo para cojer un usuario con un cierto username
+     *
+     * @param $username
+     * @return array
+     */
+    public function getRowByUsername($username) ;
 }

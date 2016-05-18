@@ -488,4 +488,24 @@ class ZendDbSqlMapper implements UserMapperInterface
 
         return (bool)$result->getAffectedRows();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRowByUsername($username) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('users');
+        $select->where(array('username = ?' => $username));
+
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        $resultSet = new ResultSet;
+        if ($result instanceof ResultInterface && $result->isQueryResult()) {
+            $resultSet->initialize($result);
+        }
+
+        return $resultSet->toArray();
+    }
 }
