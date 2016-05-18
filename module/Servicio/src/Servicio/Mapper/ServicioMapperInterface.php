@@ -48,4 +48,12 @@ interface ServicioMapperInterface
      * @return mixed
      */
     public function findServicesByUsername($id);
+
+    /**
+     * Metodo para cojer un usuario con un cierto username
+     *
+     * @param $username
+     * @return array
+     */
+    public function getRowByUsername($username) ;
 }

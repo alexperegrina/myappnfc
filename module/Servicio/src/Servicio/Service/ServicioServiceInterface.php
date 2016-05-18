@@ -60,4 +60,12 @@ interface ServicioServiceInterface
      * @return array de string username, string nombre, boolean activado
      */
     public function findAllServicesByUsername($username);
+
+    /**
+     * Metodo para validar si un username ya esta siendo utilizado
+     *
+     * @param $username
+     * @return bool
+     */
+    public function usernameValid($username);
 }

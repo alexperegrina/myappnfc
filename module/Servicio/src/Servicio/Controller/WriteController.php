@@ -80,5 +80,51 @@ class WriteController extends AbstractActionController
             'form' => $this->servicioForm
         ));
     }
+
+    public function signinAction() {
+        $error = "";
+
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+
+            $this->servicioForm->setData($request->getPost());
+
+            if ($this->servicioForm->isValid()) {
+                //comprovamos que ya exista un usuario con este username
+
+
+//                print_r(false);die();
+                if(!$this->servicioService->usernameValid(
+                    $this->servicioForm->getData()->getUsername())) {
+//                    die("dentro de error");
+                    $error = "El username ya es utilizado";
+                }
+                else {
+                    try {
+
+                        //encriptamos el password
+                        $passwordOld = $this->servicioForm->getData()->getPassword();
+                        $passwordNew = md5($passwordOld);
+                        $this->servicioForm->getData()->setPassword($passwordNew);
+
+                        $this->servicioService->saveServicio($this->servicioForm->getData());
+
+                        return $this->redirect()->toRoute('authenticate');
+                    } catch (\Exception $e) {
+                        // Some DB Error happened, log it and let the user know
+                        die($e->getMessage());
+                    }
+                }
+            }
+        }
+
+        $this->servicioForm->get('submit')->setValue('Sign In');
+
+        return new ViewModel(array(
+            'form' => $this->servicioForm,
+            'error' => $error
+        ));
+    }
     
 }

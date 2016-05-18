@@ -17,6 +17,7 @@ return array(
             'Servicio\Controller\List'      => 'Servicio\Factory\ListControllerFactory',
             'Servicio\Controller\Write'     => 'Servicio\Factory\WriteControllerFactory',
             'Servicio\Controller\Delete'    => 'Servicio\Factory\DeleteControllerFactory',
+            'Servicio\Controller\Profile'   => 'Servicio\Factory\ProfileControllerFactory',
         )
     ),
 
@@ -86,6 +87,29 @@ return array(
                             ),
                             'constraints' => array(
                                 'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'profile' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/profile/:id',
+                            'defaults' => array(
+                                'controller' => 'Servicio\Controller\Profile',
+                                'action'     => 'profile'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'signin' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/signin',
+                            'defaults' => array(
+                                'controller' => 'Servicio\Controller\Write',
+                                'action'     => 'signin'
                             )
                         )
                     ),

@@ -1,0 +1,73 @@
+<?php
+
+$title = 'Profile';
+$this->headTitle($title);
+
+?>
+<h1 xmlns="http://www.w3.org/1999/html"><?php echo $this->escapeHtml($title); ?></h1>
+<div id="container_comercializador">
+
+    <h2>Información</h2>
+    <a href="<?php echo "/servicio/edit/" . $user->getId(); ?>">Editar</a>
+    <div id="container_info">
+
+        <div id="item_info_comercializador">
+            <div class="comercializador_label">Username</div>
+            <span>
+                <?php
+                if (is_null($user->getUsername())) echo "Not set";
+                else echo $this->escapeHtml($user->getUsername());
+                ?>
+            </span>
+        </div>
+
+        <div id="item_info_comercializador">
+            <div class="comercializador_label">Nombre</div>
+            <span>
+                <?php
+                if (is_null($user->getNombre())) echo "Not set";
+                else echo $this->escapeHtml($user->getNombre());
+                ?>
+            </span>
+        </div>
+
+        <div id="item_info_comercializador">
+            <div class="comercializador_label">Mail</div>
+            <span>
+                <?php
+                if (is_null($user->getMail())) echo "Not set";
+                else echo $this->escapeHtml($user->getMail());
+                ?>
+            </span>
+        </div>
+
+        <div id="item_info_comercializador">
+            <div class="comercializador_label">Descripcion</div>
+            <span>
+                <?php
+                if (is_null($user->getDescripcion())) echo "Not set";
+                else echo $this->escapeHtml($user->getDescripcion());
+                ?>
+            </span>
+        </div>
+
+    </div>
+<!---->
+<!--    <h2>ID</h2>-->
+<!--    <a href="--><?php //echo "/comercializador/solicitarid/" . $user->getId(); ?><!--">Solicitar</a>-->
+<!--    <div id="container_id">-->
+<!--        <table class="table">-->
+<!--            <tr>-->
+<!--                <th>Id</th>-->
+<!--                <th>Asignado</th>-->
+<!--            </tr>-->
+<!--            --><?php //foreach ($this->ids as $id): ?>
+<!--                <tr>-->
+<!--                    <td>--><?php //echo $this->escapeHtml($id['id']); ?><!--</td>-->
+<!--                    <td>--><?php //echo $id['id_user'] != "" ?  "1" : "0";  ?><!--</td>-->
+<!--                </tr>-->
+<!--            --><?php //endforeach; ?>
+<!--        </table>-->
+<!--    </div>-->
+
+</div>

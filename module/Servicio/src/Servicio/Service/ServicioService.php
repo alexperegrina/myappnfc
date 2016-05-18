@@ -91,4 +91,12 @@ class ServicioService implements ServicioServiceInterface
 
         return $services;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function usernameValid($username) {
+        $row = $this->servicioMapper->getRowByUsername($username);
+        return count($row) == 0 ? true : false;
+    }
 }
