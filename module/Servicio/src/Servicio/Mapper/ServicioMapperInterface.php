@@ -18,6 +18,13 @@ interface ServicioMapperInterface
      * @throws \InvalidArgumentException
      */
     public function find($id);
+    
+    /**
+     * @param int|string $username
+     * @return ServicioInterface
+     * @throws \InvalidArgumentException
+     */
+    public function findByUsername($username);
 
     /**
      * @return array|ServicioInterface[]
@@ -46,6 +53,7 @@ interface ServicioMapperInterface
      * 
      * @param $id
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     public function findServicesByUsername($id);
 

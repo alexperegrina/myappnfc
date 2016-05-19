@@ -22,8 +22,9 @@ interface UserMapperInterface
     /**
      * Metodo para cojer el usuario con el username
      *
-     * @param $username
-     * @return array mixed
+     * @param string $username
+     * @return UserInterface
+     * @throws \InvalidArgumentException
      */
     public function findByUsername($username);
 
@@ -118,4 +119,25 @@ interface UserMapperInterface
      * @return array
      */
     public function getRowByUsername($username) ;
+
+
+    /**
+     * @param int|string $id
+     * @return bool
+     */
+    public function deleteAllPermisionServicesById($id);
+
+    /**
+     * @param String $username
+     * @return bool
+     */
+    public function deleteAllPermisionServicesByUsername($username);
+
+    /**
+     * Metodo para insertar en la tabla de permisos_user_servicio los servicios pasado como parametro
+     *
+     * @param string $username
+     * @param array strings $servicios, se pasa un array con los ids de los servicios que queremos activados.
+     */
+    public function insertPermisionsServicesActivesByUsername($username, $servicios);
 }

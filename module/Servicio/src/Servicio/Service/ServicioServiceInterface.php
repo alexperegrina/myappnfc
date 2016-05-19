@@ -48,7 +48,7 @@ interface ServicioServiceInterface
      * Metodo para cojer todos los servicios con el username
      *
      * @param $id
-     * @return mixed
+     * @return ServicioInterface
      */
     public function findServiceByUsername($username);
 

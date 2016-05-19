@@ -51,7 +51,7 @@ class UserService implements UserServiceInterface
      * {@inheritDoc}
      */
     public function saveUser(UserInterface $user) {
-        // esta marranada hay que quitarla cuando se quite el atribuot id_user
+        // esta marranada hay que quitarla cuando se quite el atributo id_user
         if($user->getId_user() == null) {
             $user->getId_user($user->getId());
         }
@@ -140,6 +140,14 @@ class UserService implements UserServiceInterface
 
         $row = $this->userMapper->getRowByUsername($username);
         return count($row) == 0 ? true : false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function replacePermisionServices($username, $services) {
+        $this->userMapper->deleteAllPermisionServicesByUsername($username);
+        return $this->userMapper->insertPermisionsServicesActivesByUsername($username, $services);
     }
 
 }

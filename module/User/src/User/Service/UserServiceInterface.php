@@ -111,5 +111,14 @@ interface UserServiceInterface
      * @return bool
      */
     public function usernameValid($username);
+
+    /**
+     * Metodo para activar los servicios pasados como parametro, El metodo automaticamente elimina todos los
+     * permisos para este usuario y los vuelve a insertar.
+     *
+     * @param $id
+     * @param array $string $Services, id de los servicios que queremos activar.
+     */
+    public function replacePermisionServices($username, $services);
     
 }

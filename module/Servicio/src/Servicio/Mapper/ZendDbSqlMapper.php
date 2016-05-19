@@ -56,10 +56,7 @@ class ZendDbSqlMapper implements ServicioMapperInterface
     }
 
     /**
-     * @param int|string $id
-     *
-     * @return ServicioInterface
-     * @throws \InvalidArgumentException
+     * {@inheritDoc}
      */
     public function find($id)
     {
@@ -83,7 +80,31 @@ class ZendDbSqlMapper implements ServicioMapperInterface
     }
 
     /**
-     * @return array|ServicioInterface[]
+     * {@inheritDoc}
+     */
+    public function findByUsername($username)
+    {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(
+                array('i' => 'info_servicio'),
+                'u.id = i.id_servicio',
+                Select::SQL_STAR, Join::JOIN_LEFT)
+            ->where(array('u.username = ?' => $username));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
+            return $this->hydrator->hydrate($result->current(), $this->servicioPrototype);
+        }
+
+        throw new \InvalidArgumentException("Servicio con username:{$username} no existe.");
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function findAll()
     {
@@ -111,10 +132,7 @@ class ZendDbSqlMapper implements ServicioMapperInterface
     }
 
     /**
-     * @param ServicioInterface $servicioObject
-     *
-     * @return ServicioInterface
-     * @throws \Exception
+     * {@inheritDoc}
      */
     public function save(ServicioInterface $servicioObject)
     {

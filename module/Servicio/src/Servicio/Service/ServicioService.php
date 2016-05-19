@@ -60,7 +60,7 @@ class ServicioService implements ServicioServiceInterface
      * {@inheritDoc}
      */
     public function findServiceByUsername($username) {
-        return $this->servicioMapper->findServiceByUsername($username);
+        return $this->servicioMapper->findByUsername($username);
     }
 
     /**

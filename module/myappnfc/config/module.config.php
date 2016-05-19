@@ -7,6 +7,7 @@ return array(
             'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\ServicesByUserControllerFactory',
             'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
             'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => 'myappnfc\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
+            'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -72,6 +73,16 @@ return array(
                     ),
                 ),
             ),
+            'myappnfc.rpc.set-services-by-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/setservicebyuser',
+                    'defaults' => array(
+                        'controller' => 'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller',
+                        'action' => 'setServicesByUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -81,6 +92,7 @@ return array(
             3 => 'myappnfc.rpc.profile-by-user',
             5 => 'myappnfc.rpc.save-user',
             7 => 'myappnfc.rpc.services-by-user',
+            8 => 'myappnfc.rpc.set-services-by-user',
         ),
     ),
     'zf-rpc' => array(
@@ -121,6 +133,13 @@ return array(
             ),
             'route_name' => 'myappnfc.rpc.services-by-user',
         ),
+        'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
+            'service_name' => 'SetServicesByUser',
+            'http_methods' => array(
+                0 => 'POST',
+            ),
+            'route_name' => 'myappnfc.rpc.set-services-by-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
@@ -129,6 +148,7 @@ return array(
             'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => 'Json',
             'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => 'Json',
             'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => 'Json',
+            'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => array(
@@ -159,6 +179,11 @@ return array(
                 1 => 'application/json',
                 2 => 'application/*+json',
             ),
+            'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => array(
@@ -180,6 +205,10 @@ return array(
                 1 => 'application/json',
             ),
             'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => array(
+                0 => 'application/vnd.myappnfc.v1+json',
+                1 => 'application/json',
+            ),
+            'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
                 0 => 'application/vnd.myappnfc.v1+json',
                 1 => 'application/json',
             ),

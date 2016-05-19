@@ -508,4 +508,50 @@ class ZendDbSqlMapper implements UserMapperInterface
 
         return $resultSet->toArray();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteAllPermisionServicesById($id)
+    {
+        $action = new Delete('permisos_user_servicio');
+        $action->where(array('id_user = ?' => $id));
+
+        $sql    = new Sql($this->dbAdapter);
+        $stmt   = $sql->prepareStatementForSqlObject($action);
+//        print_r($stmt);die();
+        $result = $stmt->execute();
+
+        return (bool)$result->getAffectedRows();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteAllPermisionServicesByUsername($username) 
+    {
+        $user = $this->findByUsername($username);
+        return $this->deleteAllPermisionServicesById($user->getId());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function insertPermisionsServicesActivesByUsername($username, $servicios) 
+    {
+        $user = $this->findByUsername($username);
+
+        foreach ($servicios AS $servicio) {
+            $action = new Insert('permisos_user_servicio');
+            $action->values(array(
+                'id_user' => $user->getId(),
+                'id_servicio' => $servicio,
+                'informacion_total' => true));
+
+            $sql    = new Sql($this->dbAdapter);
+            $stmt   = $sql->prepareStatementForSqlObject($action);
+            $result = $stmt->execute();
+        }
+        return true;
+    }
 }
