@@ -20,7 +20,7 @@ class ProfileController extends AbstractActionController
      */
     protected $userService;
 
-    protected $profileForm;
+    //protected $profileForm;
 
     public function __construct(UserServiceInterface $userService)
     {
@@ -40,23 +40,23 @@ class ProfileController extends AbstractActionController
 
         $request = $this->getRequest();
 
-        //\Zend\Debug\Debug::dump($request);die();
         if ($request->isPost()) {
-
-            $tag = $request->getPost('tag', 'Add');
-
-            $this->userService->addItem($this->params('id'), $tag);
-
-            //return $this->redirect()->toRoute('user/profile/'.$this->params('id'));
+            print_r($request->getContent());
+            if (!is_null($request->getPost('tag'))) $this->userService->addItem($user->getId(), $request->getPost());
+            if (!is_null($request->getPost('cambiar_estado'))) {
+                if ($request->getPost() == "Active") $this->userService->changeServiceStatus($user->getUsername(), [79, 0]);
+                else $this->userService->changeServiceStatus($user->getUsername(), [79, 1]);
+            }
         }
+            //return $this->redirect()->toRoute('user/profile');
 
         return new ViewModel(array(
             'user' => $user,
-            'profile' => $this->userService->getUserProfile($this->params('id')),
-            'companies' => $this->userService->listUserCompanies($this->params('id')),
-            'services' => $this->userService->listUserServices($this->params('id')),
-            'info_service' => $this->userService->listUserInfoServices($this->params('id')),
-            'tags' => $this->userService->listUserTags($this->params('id'))
+            'profile' => $this->userService->getUserProfile($user->getId()),
+            'companies' => $this->userService->listUserCompanies($user->getId()),
+            'services' => $this->userService->listUserServices($user->getId()),
+            'info_service' => $this->userService->listUserInfoServices($user->getId()),
+            'tags' => $this->userService->listUserTags($user->getId())
         ));
     }
     

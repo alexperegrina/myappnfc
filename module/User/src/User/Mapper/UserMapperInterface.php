@@ -65,7 +65,7 @@ interface UserMapperInterface
      * @param $id
      * @return mixed
      */
-    public function activeService($id);
+    public function activeService($username, $array_servicio);
 
     /**
      * @param $id

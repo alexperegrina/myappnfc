@@ -233,8 +233,7 @@ class ZendDbSqlMapper implements UserMapperInterface
 
             return (bool)$result->getAffectedRows();
         } else {
-            //throw new \Exception("The tag doesn't exist");
-            echo "The tag doesn't exist";
+            throw new \Exception("The tag doesn't exist");
         }
     }
 
@@ -304,35 +303,40 @@ class ZendDbSqlMapper implements UserMapperInterface
      * @return array
      * @throws \Exception
      */
-    public function activeService($username)
+    public function activeService($username, $array_servicio)
     {
         //buscar servicio $servicio del usuario $id
         $sql    = new Sql($this->dbAdapter);
-        $select = $sql->select('permisos_user_servicio');
-        $select->columns(array('informacion_total'));
-        $select->where(array('id_user = ?' => $id /*, 'id_servicio = ?' => $servicio*/));
 
-        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $select = $sql->select()
+           ->from(array('u' => 'users'))
+           ->join(array('p' => 'permisos_user_servicio'), 'p.id_user = u.id', array('informacion_total'), 'left')
+           ->where(array('u.username = ?' => $username, 'p.id_servicio = ?' => $array_servicio[0]));
+
+        $stmt = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
-        
-        if ($result->isQueryResult() == 1) {
+        $resultSet = new ResultSet();
+        $state = $resultSet->initialize($result)->toArray();
+        $state = $state[0]['informacion_total'];
+
+        //\Zend\Debug\Debug::dump($array_servicio[1]);die();
+
+        if ($result->getAffectedRows() == 1) {
             //si el usuario con el servicio existe cambiar el estado
-            $resultSet = new ResultSet();
-            $list = $resultSet->initialize($result)->toArray();
-            $activar = !($list[0]['informacion_total']);
-
             $action = new Update('permisos_user_servicio');
-            $action->set(array('informacion_total' => $activar));
-            $action->where(array('id_user = ?' => $id /*, 'id_servicio = ?' => $servicio*/));
-
+            $action->join(array('u' => 'users'), 'id_user = u.id')
+                    ->where(array('u.username = ?' => $username, 'id_servicio = ?' => $array_servicio[0]))
+                    ->set(array('informacion_total' => !$state));
             $sql    = new Sql($this->dbAdapter);
             $stmt   = $sql->prepareStatementForSqlObject($action);
             $result = $stmt->execute();
+            //print_r($resultSet->initialize($result)->toArray());
+            //\Zend\Debug\Debug::dump($array_servicio[0]);die();
 
             return (bool)$result->getAffectedRows();
         }
         else {
-            throw new \Exception("The user doesn't have such service");
+            die("The user doesn't have such service");
         }
     }
 
