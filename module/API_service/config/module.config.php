@@ -2,12 +2,12 @@
 return array(
     'controllers' => array(
         'factories' => array(
-            'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => 'myappnfc\\V1\\Rpc\\Infousertoid\\InfousertoidControllerFactory',
-            'myappnfc\\V1\\Rpc\\Login\\Controller' => 'myappnfc\\V1\\Rpc\\Login\\LoginControllerFactory',
-            'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\ServicesByUserControllerFactory',
-            'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
-            'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => 'myappnfc\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
-            'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
+            'API_service\\V1\\Rpc\\Infousertoid\\Controller' => 'API_service\\V1\\Rpc\\Infousertoid\\InfousertoidControllerFactory',
+            'API_service\\V1\\Rpc\\Login\\Controller' => 'API_service\\V1\\Rpc\\Login\\LoginControllerFactory',
+            'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\ServicesByUser\\ServicesByUserControllerFactory',
+            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
+            'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
+            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
             'API_service\\V1\\Rpc\\Login\\Controller' => 'API_service\\V1\\Rpc\\Login\\LoginControllerFactory',
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
@@ -182,6 +182,107 @@ return array(
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
+            ),
+        ),
+    ),
+    'zf-content-validation' => array(
+        'API_service\\V1\\Rpc\\Login\\Controller' => array(
+            'input_filter' => 'API_service\\V1\\Rpc\\Login\\Validator',
+        ),
+        'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
+            'input_filter' => 'API_service\\V1\\Rpc\\SaveUser\\Validator',
+        ),
+        'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+            'input_filter' => 'API_service\\V1\\Rpc\\ProfileByUser\\Validator',
+        ),
+        'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+            'input_filter' => 'API_service\\V1\\Rpc\\ServicesByUser\\Validator',
+        ),
+    ),
+    'input_filter_specs' => array(
+        'API_service\\V1\\Rpc\\Login\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'user',
+                'description' => 'user a identificar',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'password',
+                'description' => 'password del usuario a validar',
+            ),
+        ),
+        'API_service\\V1\\Rpc\\SaveUser\\Validator' => array(
+            0 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'id',
+                'description' => 'Identificador del usuario, si no se pasa como parametro creara un nuevo usuario',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario, tiene que se unico',
+            ),
+            2 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'password',
+                'description' => 'pasword en MD5',
+            ),
+            3 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'mail',
+                'description' => 'mail del usuario',
+            ),
+            4 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'nombre',
+                'description' => 'Nombre del usuario',
+            ),
+            5 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'apellidos',
+                'description' => 'Apellidos del usuario',
+            ),
+            6 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'fecha_nacimiento',
+                'description' => 'Fecha de nacimiento del usuario, en formato YYYY-mm-dd hh:mm:ss',
+            ),
+        ),
+        'API_service\\V1\\Rpc\\ProfileByUser\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario',
+            ),
+        ),
+        'API_service\\V1\\Rpc\\ServicesByUser\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario',
             ),
         ),
     ),
