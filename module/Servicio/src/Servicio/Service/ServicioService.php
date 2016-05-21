@@ -25,12 +25,8 @@ class ServicioService implements ServicioServiceInterface
      */
     public function __construct(ServicioMapperInterface $servicioMapper)
     {
-//        die(getcwd()."*****");
         $this->pathHtpaswd = getcwd()."/data/module/htpasswd_service";
-
-        
         $this->servicioMapper = $servicioMapper;
-
     }
 
     /**

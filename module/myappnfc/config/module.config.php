@@ -26,7 +26,7 @@ return array(
             'myappnfc.rpc.infousertoid' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/infousertoid',
+                    'route' => '/infousertoid_old',
                     'defaults' => array(
                         'controller' => 'myappnfc\\V1\\Rpc\\Infousertoid\\Controller',
                         'action' => 'infousertoid',
@@ -36,7 +36,7 @@ return array(
             'myappnfc.rpc.login' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/loginuser',
+                    'route' => '/loginuser_old',
                     'defaults' => array(
                         'controller' => 'myappnfc\\V1\\Rpc\\Login\\Controller',
                         'action' => 'login',
@@ -46,7 +46,7 @@ return array(
             'myappnfc.rpc.profile-by-user' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/profilebyuser',
+                    'route' => '/profilebyuser__old',
                     'defaults' => array(
                         'controller' => 'myappnfc\\V1\\Rpc\\ProfileByUser\\Controller',
                         'action' => 'profileByUser',
@@ -56,7 +56,7 @@ return array(
             'myappnfc.rpc.save-user' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/saveuser',
+                    'route' => '/saveuser__old',
                     'defaults' => array(
                         'controller' => 'myappnfc\\V1\\Rpc\\SaveUser\\Controller',
                         'action' => 'saveUser',
@@ -66,7 +66,7 @@ return array(
             'myappnfc.rpc.services-by-user' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/servicesbyuser',
+                    'route' => '/servicesbyuser_old',
                     'defaults' => array(
                         'controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller',
                         'action' => 'servicesByUser',
@@ -76,7 +76,7 @@ return array(
             'myappnfc.rpc.set-services-by-user' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/setservicebyuser',
+                    'route' => '/setservicebyuser_old',
                     'defaults' => array(
                         'controller' => 'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller',
                         'action' => 'setServicesByUser',

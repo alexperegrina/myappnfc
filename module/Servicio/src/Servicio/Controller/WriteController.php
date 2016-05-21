@@ -103,10 +103,10 @@ class WriteController extends AbstractActionController
                 else {
                     try {
 
-                        //encriptamos el password
-                        $passwordOld = $this->servicioForm->getData()->getPassword();
-                        $passwordNew = md5($passwordOld);
-                        $this->servicioForm->getData()->setPassword($passwordNew);
+//                        //encriptamos el password
+//                        $passwordOld = $this->servicioForm->getData()->getPassword();
+//                        $passwordNew = md5($passwordOld);
+//                        $this->servicioForm->getData()->setPassword($passwordNew);
 
                         $this->servicioService->saveServicio($this->servicioForm->getData());
 
