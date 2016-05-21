@@ -10,6 +10,7 @@ return array(
             'myappnfc\\V1\\Rpc\\SaveUser\\Controller' => 'myappnfc\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
             'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
             'API_service\\V1\\Rpc\\Login\\Controller' => 'API_service\\V1\\Rpc\\Login\\LoginControllerFactory',
+            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -45,12 +46,23 @@ return array(
                     ),
                 ),
             ),
+            'api_service.rpc.profile-by-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/profilebyuser',
+                    'defaults' => array(
+                        'controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\Controller',
+                        'action' => 'profileByUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'api_service.rpc.test',
             1 => 'api_service.rpc.login',
+            2 => 'api_service.rpc.profile-by-user',
         ),
     ),
     'zf-rpc' => array(
@@ -68,11 +80,19 @@ return array(
             ),
             'route_name' => 'api_service.rpc.login',
         ),
+        'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+            'service_name' => 'ProfileByUser',
+            'http_methods' => array(
+                0 => 'GET',
+            ),
+            'route_name' => 'api_service.rpc.profile-by-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\Login\\Controller' => 'Json',
+            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => array(
@@ -81,6 +101,11 @@ return array(
                 2 => 'application/*+json',
             ),
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
+            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
                 2 => 'application/*+json',
@@ -95,6 +120,10 @@ return array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
             ),
+            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+            ),
         ),
     ),
     'zf-mvc-auth' => array(
@@ -102,6 +131,17 @@ return array(
             'API_service\\V1\\Rpc\\Test\\Controller' => array(
                 'actions' => array(
                     'Test' => array(
+                        'GET' => true,
+                        'POST' => false,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+                'actions' => array(
+                    'ProfileByUser' => array(
                         'GET' => true,
                         'POST' => false,
                         'PUT' => false,
