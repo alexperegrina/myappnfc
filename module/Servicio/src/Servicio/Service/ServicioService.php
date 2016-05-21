@@ -21,12 +21,18 @@ class ServicioService implements ServicioServiceInterface
     protected $servicioMapper;
 
     /**
+     * @var Htpasswd
+     */
+    protected $htpasswd;
+
+    /**
      * @param ServicioMapperInterface $servicioMapper
      */
     public function __construct(ServicioMapperInterface $servicioMapper)
     {
         $this->pathHtpaswd = getcwd()."/data/module/htpasswd_service";
         $this->servicioMapper = $servicioMapper;
+        $this->htpasswd = new Htpasswd($this->pathHtpaswd);
     }
 
     /**
@@ -49,23 +55,25 @@ class ServicioService implements ServicioServiceInterface
     public function saveServicio(ServicioInterface $servicio)
     {
 
-        $user = $this->servicioMapper->save($servicio);
-        $htpasswd = new Htpasswd($this->pathHtpaswd);
+        $servicio = $this->servicioMapper->save($servicio);
 
-        if($htpasswd->user_exists($user->getUsername())) {
-            $htpasswd->user_update($user->getUsername(), $user->getPassword());
+        if($this->htpasswd->user_exists($servicio->getUsername())) {
+            $this->htpasswd->user_update($servicio->getUsername(), $servicio->getPassword());
         }
         else {
-            $htpasswd->user_add($user->getUsername(), $user->getPassword());
+            $this->htpasswd->user_add($servicio->getUsername(), $servicio->getPassword());
         }
 
-        return $user;
+        return $servicio;
     }
 
     /**
      * {@inheritDoc}
      */
     public function deleteServicio(ServicioInterface $servicio) {
+        if($this->htpasswd->user_exists($servicio->getUsername())) {
+            $this->htpasswd->user_delete($servicio->getUsername());
+        }
         return $this->servicioMapper->delete($servicio);
     }
 
