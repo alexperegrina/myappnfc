@@ -12,6 +12,7 @@ return array(
             'API_service\\V1\\Rpc\\Login\\Controller' => 'API_service\\V1\\Rpc\\Login\\LoginControllerFactory',
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
+            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -67,6 +68,16 @@ return array(
                     ),
                 ),
             ),
+            'api_service.rpc.set-services-by-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/setservicebyuser',
+                    'defaults' => array(
+                        'controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\Controller',
+                        'action' => 'setServicesByUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -75,6 +86,7 @@ return array(
             1 => 'api_service.rpc.login',
             2 => 'api_service.rpc.profile-by-user',
             3 => 'api_service.rpc.save-user',
+            4 => 'api_service.rpc.set-services-by-user',
         ),
     ),
     'zf-rpc' => array(
@@ -107,6 +119,14 @@ return array(
             ),
             'route_name' => 'api_service.rpc.save-user',
         ),
+        'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
+            'service_name' => 'SetServicesByUser',
+            'http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'route_name' => 'api_service.rpc.set-services-by-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
@@ -114,6 +134,7 @@ return array(
             'API_service\\V1\\Rpc\\Login\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'Json',
+            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => array(
@@ -136,6 +157,11 @@ return array(
                 1 => 'application/json',
                 2 => 'application/*+json',
             ),
+            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => array(
@@ -151,6 +177,10 @@ return array(
                 1 => 'application/json',
             ),
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+            ),
+            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
             ),
@@ -183,6 +213,17 @@ return array(
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
                 'actions' => array(
                     'SaveUser' => array(
+                        'GET' => true,
+                        'POST' => true,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => array(
+                'actions' => array(
+                    'SetServicesByUser' => array(
                         'GET' => true,
                         'POST' => true,
                         'PUT' => false,
