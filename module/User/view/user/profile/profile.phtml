@@ -7,28 +7,35 @@ $this->headTitle($title);
 <h1 xmlns="http://www.w3.org/1999/html"><?php echo $this->escapeHtml($title); ?></h1>
 <a href="<?php echo "/user/edit/" . $user->getId(); ?>">Editar</a>
 <p>
-    <h5><?php echo "Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($user->getUsername())) echo "Not set";
-        else echo $this->escapeHtml($user->getUsername());?></h5>
+<h5><?php echo "Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    if (is_null($user->getUsername())) echo "Not set";
+    else echo $this->escapeHtml($user->getUsername());?></h5>
 
-    <h5><?php echo "Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($profile['nombre'])) echo "Not set";
-        else echo $this->escapeHtml($profile['nombre']);?></h5>
+<h5><?php echo "Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    if (is_null($profile['nombre'])) echo "Not set";
+    else echo $this->escapeHtml($profile['nombre']);?></h5>
 
-    <h5><?php echo "Surname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        if (is_null($profile['apellidos'])) echo "Not set";
-        else echo $this->escapeHtml($profile['apellidos']);?></h5>
+<h5><?php echo "Surname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    if (is_null($profile['apellidos'])) echo "Not set";
+    else echo $this->escapeHtml($profile['apellidos']);?></h5>
 
-<!--    <h5>--><?php //echo "Date of birth &nbsp;&nbsp;";
-//        if (is_null($profile['fecha_nacimiento'])) echo "Not set";
-//        else echo $this->escapeHtml($profile['fecha_nacimiento']);?><!--</h5>-->
-<!---->
-<!--    <h5>--><?php //echo "Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-//        if (is_null($user->getMail())) echo "Not set";
-//        else echo $this->escapeHtml($user->getMail());?><!--</h5>-->
+<h5><?php echo "Date of birth &nbsp;&nbsp;";
+    if (is_null($profile['fecha_nacimiento'])) echo "Not set";
+    else echo $this->escapeHtml($profile['fecha_nacimiento']);?></h5>
+
+<h5><?php echo "Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    if (is_null($user->getMail())) echo "Not set";
+    else echo $this->escapeHtml($user->getMail());?></h5>
 
 <br />
-<h1><?php echo "My tags" ?></h1><a href="#">New tag</a>
+<h1><?php echo "My tags" ?></h1>
+
+<form action="<?php echo $this->url('user/profile', array(), true) ?>" method="post">
+    <p>Add new tag</p>
+    <input type="text" name="tag" >
+    <input type="submit" value="Add">
+</form>
+
 <br /><br />
 <table class="table">
     <tr>
@@ -36,49 +43,61 @@ $this->headTitle($title);
     </tr>
     <?php foreach ($this->tags as $tag):?>
         <tr>
-            <td><?php echo tag['id']; ?></td>
+            <td><?php echo $tag['id']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
 
 <h1><?php echo "Services" ?></h1>
 <br />
-    <table id="theDude" class="table">
+<table class="table">
+    <tr>
+        <th>Service Name</th>
+        <th>Status</th>
+    </tr>
+    <?php foreach ($this->services as $service):?>
         <tr>
-            <th>Service Name</th>
-            <th>Status</th>
+            <td><?php echo $service['nombre']; $i=0;?></td>
+            <td>
+                <?php foreach ($this->info_service as $info): ?>
+                <?php $par = $service['id_servicio'] ?>
+
+                <form action="<?php echo $this->url('user/profile', array(), true) ?>" method="post">
+
+                    <?php if($info['id_servicio'] == $service['id_servicio']) {
+                        if ($info['informacion_total'] == 1) {
+
+                            echo "<input type='submit' class='btn active' name='cambiar_estado' value='Active'>";
+
+                            $i = 1;
+                            break;
+                        }
+                    }
+                    ;?>
+                    <?php endforeach;
+                    if ($i==0) echo "<input type='submit' class='btn inactive' name='cambiar_estado' value='Inactive'>";
+                    ?>
+                </form>
+            </td>
         </tr>
-        <?php foreach ($this->services as $service):?>
-            <tr>
-                <td><?php echo $service['nombre']; ?></td>
-                <td>
-                    <?php $par1 = "bt".$service['id_servicio']."_active" ?>
-                    <?php $par2 = "bt".$service['id_servicio']."_inactive" ?>
-                    <input type="button" class="btn1" value="Active" />
-                    <input type="button" class="btn2" value="Inactive" disabled="disabled" />
+    <?php endforeach; ?>
+</table>
 
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-
-<?php
-$this->inlineScript()->captureStart();
+<?php $this->inlineScript()->captureStart();
 echo <<<JS
-
-var theParent = document.getElementById('theDude');
-theParent.addEventListener('click', changeStatus, false);
-
-function changeStatus(e) {
-    if (e.target !== e.currentTarget) {
-        var clickedItem = e.target.class;
-        $(clickedItem).attr("disabled", "disabled");
-        
-    }
-    e.stopPropagation();
-    }
+$("button.btn").click(function() {
+    $(this).toggleClass("active inactive");
+    if($(this).val() == 'Active')
+       {
+           $(this).val('Inactive');
+       }
+       else
+       {
+           $(this).val('Active');
+       };
+});
 JS;
-$this->inlineScript()->captureEnd();
-?>
+$this->inlineScript()->captureEnd(); ?>
+
 
 

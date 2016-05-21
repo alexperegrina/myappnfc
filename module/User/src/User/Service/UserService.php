@@ -67,70 +67,88 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserInterface $user
+     * @param $nfc tag
+     * @return mixed
      */
-    public function addItem(UserInterface $user) {
-        return $this->userMapper->addUserItem($user);
+    public function addItem($id, $nfc) {
+        return $this->userMapper->addUserItem($id, $nfc);
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserInterface $user
+     * @param $nfc tag
+     * @return mixed
      */
-    public function deleteItem(UserInterface $user) {
-        return $this->userMapper->deleteUserItem($user);
+    public function deleteItem($id, $nfc) {
+        return $this->userMapper->deleteUserItem($id, $nfc);
     }
 
     /**
-     * {@inheritDoc}
+     * @param User $id
+     * @return mixed
      */
      public function getUserProfile($id){
          return $this->userMapper->getProfile($id);
      }
 
     /**
-     * @param $id
+     * @param $username
+     * @param array[$id_servicio, status]
      * @return mixed
      */
-    public function changeServiceStatus($id) {
-        return $this->userMapper->activeService($id);
+    public function changeServiceStatus($username, $array_servicio) {
+        return $this->userMapper->activeService($username, $array_servicio);
     }
 
     /**
-     * {@inheritDoc}
+     * @param User $id
+     * @return mixed
      */
     public function listUserServices($id) {
         return $this->userMapper->listServices($id);
     }
 
     /**
-     * {@inheritDoc}
+     * @param User $id
+     * @return mixed
      */
     public function listUserInfoServices($id) {
         return $this->userMapper->listInfoServices($id);
     }
 
-
+    /**
+     * @param User $id
+     * @return mixed
+     */
     public function listUserCompanies($id) {
         return $this->userMapper->listCompanies($id);
     }
 
+    /**
+     * @param User $id
+     * @return mixed
+     */
     public function listUserTags($id) {
         return $this->userMapper->listTags($id);
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserInterface $user
+     * @param $key
+     * @return mixed
      */
-    public function addPrivateKey(UserInterface $user) {
-        return $this->userMapper->addKey();
+    public function addPrivateKey(UserInterface $user, $key) {
+        return $this->userMapper->addKey($user, $key);
     }
 
     /**
      * @param UserInterface $user
+     * @param $key
      * @return mixed
      */
-    public function deletePrivateKey(UserInterface $user) {
-        return $this->userMapper->deleteKey();
+    public function deletePrivateKey(UserInterface $user, $key) {
+        return $this->userMapper->deleteKey($user, $key);
     }
 
     /**
