@@ -2,7 +2,6 @@
 return array(
     'controllers' => array(
         'factories' => array(
-            'API_service\\V1\\Rpc\\Test\\Controller' => 'API_service\\V1\\Rpc\\Test\\TestControllerFactory',
             'myappnfc\\V1\\Rpc\\Infousertoid\\Controller' => 'myappnfc\\V1\\Rpc\\Infousertoid\\InfousertoidControllerFactory',
             'myappnfc\\V1\\Rpc\\Login\\Controller' => 'myappnfc\\V1\\Rpc\\Login\\LoginControllerFactory',
             'myappnfc\\V1\\Rpc\\ServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\ServicesByUser\\ServicesByUserControllerFactory',
@@ -29,16 +28,6 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'api_service.rpc.test' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/test',
-                    'defaults' => array(
-                        'controller' => 'API_service\\V1\\Rpc\\Test\\Controller',
-                        'action' => 'test',
-                    ),
-                ),
-            ),
             'api_service.rpc.login' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -93,7 +82,6 @@ return array(
     ),
     'zf-versioning' => array(
         'uri' => array(
-            0 => 'api_service.rpc.test',
             1 => 'api_service.rpc.login',
             2 => 'api_service.rpc.profile-by-user',
             3 => 'api_service.rpc.save-user',
@@ -102,13 +90,6 @@ return array(
         ),
     ),
     'zf-rpc' => array(
-        'API_service\\V1\\Rpc\\Test\\Controller' => array(
-            'service_name' => 'Test',
-            'http_methods' => array(
-                0 => 'GET',
-            ),
-            'route_name' => 'api_service.rpc.test',
-        ),
         'API_service\\V1\\Rpc\\Login\\Controller' => array(
             'service_name' => 'Login',
             'http_methods' => array(
@@ -126,8 +107,7 @@ return array(
         'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
             'service_name' => 'SaveUser',
             'http_methods' => array(
-                0 => 'GET',
-                1 => 'POST',
+                0 => 'POST',
             ),
             'route_name' => 'api_service.rpc.save-user',
         ),
@@ -149,7 +129,6 @@ return array(
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
-            'API_service\\V1\\Rpc\\Test\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\Login\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'Json',
@@ -157,11 +136,6 @@ return array(
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
-            'API_service\\V1\\Rpc\\Test\\Controller' => array(
-                0 => 'application/vnd.api_service.v1+json',
-                1 => 'application/json',
-                2 => 'application/*+json',
-            ),
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
@@ -189,10 +163,6 @@ return array(
             ),
         ),
         'content_type_whitelist' => array(
-            'API_service\\V1\\Rpc\\Test\\Controller' => array(
-                0 => 'application/vnd.api_service.v1+json',
-                1 => 'application/json',
-            ),
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
@@ -217,17 +187,6 @@ return array(
     ),
     'zf-mvc-auth' => array(
         'authorization' => array(
-            'API_service\\V1\\Rpc\\Test\\Controller' => array(
-                'actions' => array(
-                    'Test' => array(
-                        'GET' => true,
-                        'POST' => false,
-                        'PUT' => false,
-                        'PATCH' => false,
-                        'DELETE' => false,
-                    ),
-                ),
-            ),
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
                 'actions' => array(
                     'ProfileByUser' => array(
@@ -255,6 +214,17 @@ return array(
                     'SetServicesByUser' => array(
                         'GET' => true,
                         'POST' => true,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+                'actions' => array(
+                    'ServicesByUser' => array(
+                        'GET' => true,
+                        'POST' => false,
                         'PUT' => false,
                         'PATCH' => false,
                         'DELETE' => false,
