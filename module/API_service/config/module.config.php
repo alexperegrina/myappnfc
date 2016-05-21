@@ -11,6 +11,7 @@ return array(
             'myappnfc\\V1\\Rpc\\SetServicesByUser\\Controller' => 'myappnfc\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
             'API_service\\V1\\Rpc\\Login\\Controller' => 'API_service\\V1\\Rpc\\Login\\LoginControllerFactory',
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
+            'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -56,6 +57,16 @@ return array(
                     ),
                 ),
             ),
+            'api_service.rpc.save-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/saveuser',
+                    'defaults' => array(
+                        'controller' => 'API_service\\V1\\Rpc\\SaveUser\\Controller',
+                        'action' => 'saveUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -63,6 +74,7 @@ return array(
             0 => 'api_service.rpc.test',
             1 => 'api_service.rpc.login',
             2 => 'api_service.rpc.profile-by-user',
+            3 => 'api_service.rpc.save-user',
         ),
     ),
     'zf-rpc' => array(
@@ -87,12 +99,21 @@ return array(
             ),
             'route_name' => 'api_service.rpc.profile-by-user',
         ),
+        'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
+            'service_name' => 'SaveUser',
+            'http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'route_name' => 'api_service.rpc.save-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\Login\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'Json',
+            'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => array(
@@ -110,6 +131,11 @@ return array(
                 1 => 'application/json',
                 2 => 'application/*+json',
             ),
+            'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'API_service\\V1\\Rpc\\Test\\Controller' => array(
@@ -121,6 +147,10 @@ return array(
                 1 => 'application/json',
             ),
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+            ),
+            'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
             ),
@@ -144,6 +174,17 @@ return array(
                     'ProfileByUser' => array(
                         'GET' => true,
                         'POST' => false,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\SaveUser\\Controller' => array(
+                'actions' => array(
+                    'SaveUser' => array(
+                        'GET' => true,
+                        'POST' => true,
                         'PUT' => false,
                         'PATCH' => false,
                         'DELETE' => false,
