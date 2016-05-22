@@ -407,6 +407,17 @@ return array(
                     ),
                 ),
             ),
+            'API_service\\V1\\Rpc\\Login\\Controller' => array(
+                'actions' => array(
+                    'Login' => array(
+                        'GET' => true,
+                        'POST' => false,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
         ),
     ),
 );
