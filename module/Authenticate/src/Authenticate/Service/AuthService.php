@@ -109,20 +109,13 @@ class AuthService implements AuthServiceInterface
     {
         switch ($type) {
             case "comercializador":
-                $controller->redirect()->toRoute('comercializador');
-//                $controller->redirect()->toRoute('comercializador/profile');
+                $controller->redirect()->toRoute('comercializador/profile', array('id'=>$idUser));
                 break;
             case "user":
-//                die("user/profile/$idUser");
-//                $controller->redirect()->toRoute("user/profile/27");
-//                $controller->redirect()->toRoute('user/profile/27', array(
-//                    'profile' => '27'
-//                ));
-                $controller->redirect()->toRoute('user');
+                $controller->redirect()->toRoute('user/profile', array('id'=>$idUser));
                 break;
             case "servicio":
-//                $controller->redirect()->toRoute('servicio/profile');
-                $controller->redirect()->toRoute('servicio');
+                $controller->redirect()->toRoute('servicio/profile', array('id'=>$idUser));
                 break;
         }
     }
