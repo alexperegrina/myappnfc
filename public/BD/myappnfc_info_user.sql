@@ -38,7 +38,7 @@ CREATE TABLE `info_user` (
 
 LOCK TABLES `info_user` WRITE;
 /*!40000 ALTER TABLE `info_user` DISABLE KEYS */;
-INSERT INTO `info_user` VALUES (27,'user','user','0000-00-00 00:00:00'),(28,'user2','user2','0000-00-00 00:00:00');
+INSERT INTO `info_user` VALUES (27,'test22','test22 test22','1989-11-26 13:00:00'),(28,'user2','user2','0000-00-00 00:00:00'),(52,'userinsert','userinsert userinsert','1989-11-26 13:00:00');
 /*!40000 ALTER TABLE `info_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-19  1:45:01
+-- Dump completed on 2016-05-22 17:57:49

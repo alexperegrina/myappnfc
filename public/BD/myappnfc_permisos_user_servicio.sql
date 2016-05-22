@@ -30,9 +30,9 @@ CREATE TABLE `permisos_user_servicio` (
   PRIMARY KEY (`id`),
   KEY `fk_permisos_to_user_idx` (`id_user`),
   KEY `fk_permisos_to_servicio_idx` (`id_servicio`),
-  CONSTRAINT `fk_permiso_to_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_permiso_to_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_permiso_to_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_permiso_to_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `permisos_user_servicio` (
 
 LOCK TABLES `permisos_user_servicio` WRITE;
 /*!40000 ALTER TABLE `permisos_user_servicio` DISABLE KEYS */;
-INSERT INTO `permisos_user_servicio` VALUES (1,27,30,1);
+INSERT INTO `permisos_user_servicio` VALUES (10,27,30,1),(11,27,31,1);
 /*!40000 ALTER TABLE `permisos_user_servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-19  1:45:02
+-- Dump completed on 2016-05-22 17:57:50

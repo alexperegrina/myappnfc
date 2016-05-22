@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `claves_notificaciones`;
 CREATE TABLE `claves_notificaciones` (
   `id_user` int(11) DEFAULT NULL,
   `clave` varchar(45) NOT NULL,
+  PRIMARY KEY (`clave`),
   KEY `fk_claves_to_user_idx` (`id_user`),
   CONSTRAINT `fk_claves_to_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -36,6 +37,7 @@ CREATE TABLE `claves_notificaciones` (
 
 LOCK TABLES `claves_notificaciones` WRITE;
 /*!40000 ALTER TABLE `claves_notificaciones` DISABLE KEYS */;
+INSERT INTO `claves_notificaciones` VALUES (27,'aaaaaaaaa'),(27,'bbbb'),(27,'ccc'),(27,'ttttttt'),(27,'tttttttaa');
 /*!40000 ALTER TABLE `claves_notificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-19  1:45:02
+-- Dump completed on 2016-05-22 17:57:50
