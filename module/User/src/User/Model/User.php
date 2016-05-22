@@ -51,6 +51,11 @@ class User implements UserInterface
     protected $fecha_nacimiento;
 
     /**
+     * @var string
+     */
+    protected $tipo;
+
+    /**
      * {@inheritDoc}
      */
     public function getId()
@@ -114,6 +119,9 @@ class User implements UserInterface
         $this->mail = $mail;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getId_user()
     {
         return $this->id_user;
@@ -125,7 +133,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getNombre(){
         return $this->nombre;
@@ -140,7 +148,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getApellidos()
     {
@@ -156,7 +164,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return int
+     * {@inheritDoc}
      */
     public function getFecha_nacimiento()
     {
@@ -171,6 +179,21 @@ class User implements UserInterface
         $this->fecha_nacimiento = $fecha_nacimiento;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
+    /**
+     * @return array
+     */
     public function toArray() {
         return get_object_vars($this);
     }

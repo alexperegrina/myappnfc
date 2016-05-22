@@ -25,7 +25,8 @@ class DeleteControllerFactory implements FactoryInterface
     {
         $realServiceLocator = $serviceLocator->getServiceLocator();
         $userService = $realServiceLocator->get('User\Service\UserServiceInterface');
+        $authService = $serviceLocator->getServiceLocator()->get('Authenticate\Service\AuthServiceInterface');
 
-        return new DeleteController($userService);
+        return new DeleteController($userService, $authService);
     }
 }

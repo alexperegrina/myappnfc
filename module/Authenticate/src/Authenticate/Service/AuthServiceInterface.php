@@ -8,6 +8,7 @@
 
 namespace Authenticate\Service;
 
+use Authenticate\Model\Session;
 use Zend\Mvc\Controller\AbstractActionController;
 
 
@@ -70,6 +71,13 @@ interface AuthServiceInterface
      * @return mixed
      */
     public function redireccionByType(AbstractActionController $controller, $idUser, $type);
+
+
+    /**
+     * Metodo para cojer la session activa
+     * @return Session mixed
+     */
+    public function getSession();
     
     
 }

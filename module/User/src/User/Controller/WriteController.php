@@ -13,6 +13,7 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Form\FormInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Authenticate\Service\AuthServiceInterface;
 
 class WriteController extends AbstractActionController
 {
@@ -23,16 +24,22 @@ class WriteController extends AbstractActionController
 
     protected $userForm;
 
+    protected $authService;
+
     public function __construct(
         UserServiceInterface $userService,
-        FormInterface $userForm
+        FormInterface $userForm,
+        AuthServiceInterface $authService
     ) {
         $this->userService = $userService;
         $this->userForm    = $userForm;
+        $this->authService = $authService;
     }
 
     public function addAction()
     {
+        $this->redirectUserNormal(-1);
+
         $request = $this->getRequest();
 
         if ($request->isPost()) {
@@ -57,6 +64,8 @@ class WriteController extends AbstractActionController
 
     public function editAction()
     {
+        $this->redirectUserNormal($this->params('id'));
+
         $request = $this->getRequest();
         $user    = $this->userService->findUser($this->params('id'));
 
@@ -93,8 +102,6 @@ class WriteController extends AbstractActionController
             if ($this->userForm->isValid()) {
                 //comprovamos que ya exista un usuario con este username
 
-
-//                print_r(false);die();
                 if(!$this->userService->usernameValid(
                     $this->userForm->getData()->getUsername())) {
 //                    die("dentro de error");
@@ -104,10 +111,10 @@ class WriteController extends AbstractActionController
                 else {
                     try {
 
-                        //encriptamos el password
-                        $passwordOld = $this->userForm->getData()->getPassword();
-                        $passwordNew = md5($passwordOld);
-                        $this->userForm->getData()->setPassword($passwordNew);
+//                        //encriptamos el password
+//                        $passwordOld = $this->userForm->getData()->getPassword();
+//                        $passwordNew = md5($passwordOld);
+//                        $this->userForm->getData()->setPassword($passwordNew);
 
                         $this->userService->saveUser($this->userForm->getData());
 
@@ -126,5 +133,19 @@ class WriteController extends AbstractActionController
             'form' => $this->userForm,
             'error' => $error
         ));
+    }
+
+    private function redirectUserNormal($id) {
+
+        if (!$this->authService->logged()) {
+            return $this->redirect()->toRoute('authenticate');
+        }
+
+        $session = $this->authService->getSession();
+        $user = $this->userService->findUserByUsername($session->getUsername());
+
+        if($user->getTipo() != 'admin' && $id != $user->getId()) {
+            $this->authService->redireccionByType($this, $user->getId(), $user->getTipo());
+        }
     }
 }

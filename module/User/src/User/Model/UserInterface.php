@@ -49,4 +49,9 @@ interface UserInterface
      * @return int
      */
     public function getFecha_nacimiento();
+
+    /**
+     * @return string
+     */
+    public function getTipo();
 }

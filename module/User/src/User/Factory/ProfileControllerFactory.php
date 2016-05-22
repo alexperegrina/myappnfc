@@ -28,11 +28,12 @@ class ProfileControllerFactory implements FactoryInterface
         $realServiceLocator = $serviceLocator->getServiceLocator();
         $userService = $realServiceLocator->get('User\Service\UserServiceInterface');
         //$userInsertForm = $realServiceLocator->get('FormElementManager')->get('User\Form\ProfileForm');
-
+        $authService = $serviceLocator->getServiceLocator()->get('Authenticate\Service\AuthServiceInterface');
 
         return new ProfileController(
-            $userService
-            //$userInsertForm
+            $userService,
+            //$userInsertForm,
+            $authService
         );
     }
 }

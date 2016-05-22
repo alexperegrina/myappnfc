@@ -27,7 +27,7 @@ interface UserServiceInterface
 
     /**
      * @param $username
-     * @return mixed
+     * @return UserInterface mixed
      */
     public function findUserByUsername($username);
 

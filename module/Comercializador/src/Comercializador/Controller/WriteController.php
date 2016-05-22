@@ -107,10 +107,10 @@ class WriteController extends AbstractActionController
                 else {
                     try {
 
-                        //encriptamos el password
-                        $passwordOld = $this->comercializadorForm->getData()->getPassword();
-                        $passwordNew = md5($passwordOld);
-                        $this->comercializadorForm->getData()->setPassword($passwordNew);
+//                        //encriptamos el password
+//                        $passwordOld = $this->comercializadorForm->getData()->getPassword();
+//                        $passwordNew = md5($passwordOld);
+//                        $this->comercializadorForm->getData()->setPassword($passwordNew);
 
                         $this->comercializadorService->saveComercializador($this->comercializadorForm->getData());
 

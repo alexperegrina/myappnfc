@@ -27,7 +27,8 @@ class ListControllerFactory implements FactoryInterface
         $realServiceLocator = $serviceLocator->getServiceLocator();
 
         $userService = $realServiceLocator->get('User\Service\UserServiceInterface');
+        $authService = $serviceLocator->getServiceLocator()->get('Authenticate\Service\AuthServiceInterface');
         
-        return new ListController($userService);
+        return new ListController($userService, $authService);
     }
 }

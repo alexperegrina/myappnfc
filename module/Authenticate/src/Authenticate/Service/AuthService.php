@@ -8,6 +8,7 @@
 
 namespace Authenticate\Service;
 
+use Authenticate\Model\Session;
 use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -118,5 +119,12 @@ class AuthService implements AuthServiceInterface
                 $controller->redirect()->toRoute('servicio/profile', array('id'=>$idUser));
                 break;
         }
+    }
+
+    public function getSession() {
+        $a = $this->authService->getStorage()->read();
+
+        $session = new Session($a['id'], $a['username'], $a['ip_address'], $a['user_agent']);
+        return $session;
     }
 }

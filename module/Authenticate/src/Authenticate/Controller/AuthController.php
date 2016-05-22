@@ -15,16 +15,22 @@ namespace Authenticate\Controller;
 use Authenticate\Service\AuthServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use User\Model\User;
+use User\Service\UserServiceInterface;
 
 class AuthController extends AbstractActionController
 {
     protected $authService;
 
+    /**
+     * @var \User\Service\UserServiceInterface
+     */
+    protected $userService;
+
     //we will inject authService via factory
-    public function __construct(AuthServiceInterface $authService)
+    public function __construct(AuthServiceInterface $authService, UserServiceInterface $userService)
     {
         $this->authService = $authService;
+        $this->userService = $userService;
     }
 
     public function indexAction()
@@ -32,9 +38,10 @@ class AuthController extends AbstractActionController
 
 
 
-        if ($this->authService->logged()) {
-            return $this->redirect()->toRoute('authenticate/success');
-        }
+//        if ($this->authService->logged()) {
+//            return $this->redirect()->toRoute('authenticate/success');
+//        }
+        $this->personalRedirect();
 
         $form = $this->getServiceLocator()
             ->get('FormElementManager')
@@ -91,5 +98,22 @@ class AuthController extends AbstractActionController
     {
         $this->authService->clear();
         return $this->redirect()->toRoute('authenticate');
+    }
+
+    private function personalRedirect()
+    {
+
+        if ($this->authService->logged()) {
+            $session = $this->authService->getSession();
+            $user = $this->userService->findUserByUsername($session->getUsername());
+
+            if($user->getTipo() != 'admin') {
+//            die($user->getId());
+                $this->authService->redireccionByType($this, $user->getId(), $user->getTipo());
+            }
+            else {
+                return $this->redirect()->toRoute('user');
+            }
+        }
     }
 }

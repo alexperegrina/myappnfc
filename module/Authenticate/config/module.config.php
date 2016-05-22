@@ -28,6 +28,9 @@ $default =  array(
             'AuthStorage' => 'Authenticate\Factory\Storage\AuthStorageFactory',
             'AuthService' => 'Authenticate\Factory\Storage\AuthenticationServiceFactory',
             'Authenticate\Service\AuthServiceInterface' => 'Authenticate\Factory\Service\AuthServiceFactory',
+            'User\Mapper\UserMapperInterface'   => 'User\Factory\ZendDbSqlMapperFactory',
+            'User\Service\UserServiceInterface' => 'User\Factory\UserServiceFactory',
+            'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory',
         ),
     ),
 

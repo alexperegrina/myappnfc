@@ -10,6 +10,7 @@ namespace User\Controller;
 use User\Service\UserServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Authenticate\Service\AuthServiceInterface;
 
 class ProfileController extends AbstractActionController
 {
@@ -20,9 +21,12 @@ class ProfileController extends AbstractActionController
 
     //protected $profileForm;
 
-    public function __construct(UserServiceInterface $userService)
+    protected $authService;
+
+    public function __construct(UserServiceInterface $userService, AuthServiceInterface $authService)
     {
         $this->userService = $userService;
+        $this->authService = $authService;
     }
 
     /**
@@ -30,6 +34,9 @@ class ProfileController extends AbstractActionController
      */
     public function profileAction()
     {
+
+        $this->redirectUserNormal($this->params('id'));
+
         try {
             $user = $this->userService->findUser($this->params('id'));
         } catch (\InvalidArgumentException $e) {
@@ -56,6 +63,20 @@ class ProfileController extends AbstractActionController
             'info_service' => $this->userService->listUserInfoServices($user->getId()),
             'tags' => $this->userService->listUserTags($user->getId())
         ));
+    }
+
+    private function redirectUserNormal($id) {
+        
+        if (!$this->authService->logged()) {
+            return $this->redirect()->toRoute('authenticate');
+        }
+
+        $session = $this->authService->getSession();
+        $user = $this->userService->findUserByUsername($session->getUsername());
+        
+        if($user->getTipo() != 'admin' && $id != $user->getId()) {
+            $this->authService->redireccionByType($this, $user->getId(), $user->getTipo());
+        }
     }
     
 }
