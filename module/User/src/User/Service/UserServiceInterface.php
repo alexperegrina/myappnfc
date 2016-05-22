@@ -91,6 +91,14 @@ interface UserServiceInterface
     public function listUserInfoServices($id);
 
     /**
+     * Metodo para cojer todos los tokens de un usuario con el username
+     * 
+     * @param string $username
+     * @return mixed
+     */
+    public function findKeysByUsername($username);
+    
+    /**
      * Lista las etiquetas de usuario
      * @param $id
      * @return mixed

@@ -76,7 +76,7 @@ interface UserMapperInterface
      * @param $id
      * @return mixed
      */
-    public function activeService($username, $array_servicio);
+    public function activeService($id);
 
     /**
      * @param $id
@@ -145,4 +145,21 @@ interface UserMapperInterface
      * @param array strings $servicios, se pasa un array con los ids de los servicios que queremos activados.
      */
     public function insertPermisionsServicesActivesByUsername($username, $servicios);
+
+    /**
+     * Metodo para cojer todos los tokens de un usuario con el id
+     *
+     * @param int $id
+     * @return array
+     * @throws \Exception
+     */
+    public function findKeysById($id);
+
+    /**
+     * Metodo para cojer todos los tokens de un usuario con el username
+     *
+     * @param $username
+     * @return array
+     */
+    public function findKeysByUsername($username);
 }

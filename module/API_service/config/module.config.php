@@ -8,11 +8,7 @@ return array(
             'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
             'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
-            'API_service\\V1\\Rpc\\Login\\Controller' => 'API_service\\V1\\Rpc\\Login\\LoginControllerFactory',
-            'API_service\\V1\\Rpc\\ProfileByUser\\Controller' => 'API_service\\V1\\Rpc\\ProfileByUser\\ProfileByUserControllerFactory',
-            'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
-            'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
-            'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\ServicesByUser\\ServicesByUserControllerFactory',
+            'API_service\\V1\\Rpc\\TokensUser\\Controller' => 'API_service\\V1\\Rpc\\TokensUser\\TokensUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -78,6 +74,16 @@ return array(
                     ),
                 ),
             ),
+            'api_service.rpc.tokens-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/tokensuser',
+                    'defaults' => array(
+                        'controller' => 'API_service\\V1\\Rpc\\TokensUser\\Controller',
+                        'action' => 'tokensUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -87,6 +93,7 @@ return array(
             3 => 'api_service.rpc.save-user',
             4 => 'api_service.rpc.set-services-by-user',
             5 => 'api_service.rpc.services-by-user',
+            0 => 'api_service.rpc.tokens-user',
         ),
     ),
     'zf-rpc' => array(
@@ -126,6 +133,13 @@ return array(
             ),
             'route_name' => 'api_service.rpc.services-by-user',
         ),
+        'API_service\\V1\\Rpc\\TokensUser\\Controller' => array(
+            'service_name' => 'TokensUser',
+            'http_methods' => array(
+                0 => 'GET',
+            ),
+            'route_name' => 'api_service.rpc.tokens-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
@@ -134,6 +148,7 @@ return array(
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => 'Json',
+            'API_service\\V1\\Rpc\\TokensUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
@@ -161,6 +176,11 @@ return array(
                 1 => 'application/json',
                 2 => 'application/*+json',
             ),
+            'API_service\\V1\\Rpc\\TokensUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
@@ -180,6 +200,10 @@ return array(
                 1 => 'application/json',
             ),
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+            ),
+            'API_service\\V1\\Rpc\\TokensUser\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
             ),

@@ -317,9 +317,8 @@ class ZendDbSqlMapper implements UserMapperInterface
 
 
     /**
-     * Cambia el estado del servicio $id_servicio segun el valor array[2]
-     * @param $username
-     * @param array[@id_servicio, activo/inactivo]
+     * Cambia el estado del servicio $id_servicio
+     * @param $id
      * @return array
      * @throws \Exception
      */
@@ -363,7 +362,9 @@ class ZendDbSqlMapper implements UserMapperInterface
         $sql    = new Sql($this->dbAdapter);
         /*$select = $sql->select()
             ->from(array('p' => 'permisos_user_servicio'))
-            ->join(array('i' => 'info_servicio'), 'p.id_servicio = i.id_servicio', array('nombre'), 'left');*/
+            ->join(array('i' => 'info_servicio'),
+                    'p.id_servicio = i.id_servicio',
+                    array('nombre'), 'left');*/
 
         $select = $sql->select("info_servicio");
         $stmt   = $sql->prepareStatementForSqlObject($select);
@@ -493,6 +494,53 @@ class ZendDbSqlMapper implements UserMapperInterface
         }
         else {
             throw new \Exception("The user doesn't have any tag");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findKeysById($id) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('claves_notificaciones');
+        $select->where(array('id_user = ?' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
+
+            return $list;
+        }
+        else {
+            throw new \Exception("The user doesn't have any tag");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findKeysByUsername($username) {
+        $sql    = new Sql($this->dbAdapter);
+        $select = $sql->select('claves_notificaciones');
+        $select->columns(array('clave'));
+        $select->join(array('u' => 'users'), // join table with alias
+            'id_user = u.id', array());
+        $select->where(array('u.username = ?' => $username));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+
+        $result = $stmt->execute();
+
+        if ($result->isQueryResult() > 0) {
+            $resultSet = new ResultSet();
+
+            $list = $resultSet->initialize($result)->toArray();
+
+            return $list;
         }
     }
 

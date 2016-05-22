@@ -126,6 +126,13 @@ class UserService implements UserServiceInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findKeysByUsername($username) {
+        return $this->userMapper->findKeysByUsername($username);
+    }
+
+    /**
      * @param User $id
      * @return mixed
      */
