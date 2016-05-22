@@ -9,6 +9,7 @@ return array(
             'API_service\\V1\\Rpc\\SaveUser\\Controller' => 'API_service\\V1\\Rpc\\SaveUser\\SaveUserControllerFactory',
             'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
             'API_service\\V1\\Rpc\\TokensUser\\Controller' => 'API_service\\V1\\Rpc\\TokensUser\\TokensUserControllerFactory',
+            'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => 'API_service\\V1\\Rpc\\SetTokenUser\\SetTokenUserControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -84,6 +85,16 @@ return array(
                     ),
                 ),
             ),
+            'api_service.rpc.set-token-user' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/settokenuser',
+                    'defaults' => array(
+                        'controller' => 'API_service\\V1\\Rpc\\SetTokenUser\\Controller',
+                        'action' => 'setTokenUser',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -94,6 +105,7 @@ return array(
             4 => 'api_service.rpc.set-services-by-user',
             5 => 'api_service.rpc.services-by-user',
             0 => 'api_service.rpc.tokens-user',
+            6 => 'api_service.rpc.set-token-user',
         ),
     ),
     'zf-rpc' => array(
@@ -140,6 +152,13 @@ return array(
             ),
             'route_name' => 'api_service.rpc.tokens-user',
         ),
+        'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => array(
+            'service_name' => 'SetTokenUser',
+            'http_methods' => array(
+                0 => 'POST',
+            ),
+            'route_name' => 'api_service.rpc.set-token-user',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
@@ -149,6 +168,7 @@ return array(
             'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\TokensUser\\Controller' => 'Json',
+            'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
@@ -181,6 +201,11 @@ return array(
                 1 => 'application/json',
                 2 => 'application/*+json',
             ),
+            'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
@@ -204,6 +229,10 @@ return array(
                 1 => 'application/json',
             ),
             'API_service\\V1\\Rpc\\TokensUser\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+            ),
+            'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
             ),
@@ -348,6 +377,28 @@ return array(
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => array(
                 'actions' => array(
                     'ServicesByUser' => array(
+                        'GET' => true,
+                        'POST' => false,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => array(
+                'actions' => array(
+                    'SetTokenUser' => array(
+                        'GET' => false,
+                        'POST' => true,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\TokensUser\\Controller' => array(
+                'actions' => array(
+                    'TokensUser' => array(
                         'GET' => true,
                         'POST' => false,
                         'PUT' => false,

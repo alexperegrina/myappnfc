@@ -553,7 +553,7 @@ class ZendDbSqlMapper implements UserMapperInterface
     public function addKey($id, $key)
     {
         $action = new Insert('claves_notificaciones');
-        $action->values(array('id_user = ?' => $id, 'clave = ?' => $key));
+        $action->values(array('id_user' => $id, 'clave' => $key));
 
         $sql    = new Sql($this->dbAdapter);
         $stmt   = $sql->prepareStatementForSqlObject($action);

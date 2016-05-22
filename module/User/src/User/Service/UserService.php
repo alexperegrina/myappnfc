@@ -146,7 +146,20 @@ class UserService implements UserServiceInterface
      * @return mixed
      */
     public function addPrivateKey(UserInterface $user, $key) {
-        return $this->userMapper->addKey($user, $key);
+        $keysUser = $this->userMapper->findKeysById($user->getId());
+        
+        $valid = true;
+        foreach ($keysUser AS $keyUser) {
+            if($key == $keyUser['clave']) {
+                $valid = false;
+            }
+        }
+        
+        if(!$valid) {
+            throw new \Exception("El token ya esta siendo utilizado");
+        }
+        
+        return $this->userMapper->addKey($user->getId(), $key);
     }
 
     /**
