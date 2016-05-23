@@ -34,8 +34,12 @@ class ProfileController extends AbstractActionController
      */
     public function profileAction()
     {
-
-        $this->redirectUserNormal($this->params('id'));
+        
+        $tipo = $this->redirectUserNormal($this->params('id'));
+        
+        if($tipo != 'admin') {
+            $this->layout('layout/user');
+        }
 
         try {
             $user = $this->userService->findUser($this->params('id'));
@@ -77,6 +81,8 @@ class ProfileController extends AbstractActionController
         if($user->getTipo() != 'admin' && $id != $user->getId()) {
             $this->authService->redireccionByType($this, $user->getId(), $user->getTipo());
         }
+        
+        return $user->getTipo();
     }
     
 }
