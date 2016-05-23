@@ -41,14 +41,12 @@ class ProfileController extends AbstractActionController
         $request = $this->getRequest();
 
         if ($request->isPost()) {
-            print_r($request->getContent());
             if (!is_null($request->getPost('tag'))) $this->userService->addItem($user->getId(), $request->getPost());
             if (!is_null($request->getPost('cambiar_estado'))) {
-                if ($request->getPost() == "Active") $this->userService->changeServiceStatus($user->getUsername(), [79, 0]);
-                else $this->userService->changeServiceStatus($user->getUsername(), [79, 1]);
+                if ($request->getPost() == "Active") $this->userService->changeServiceStatus($user->getUsername(), $this->params('id_servicio'));
+                else $this->userService->changeServiceStatus($user->getUsername(), $this->params('id_servicio'));
             }
         }
-            //return $this->redirect()->toRoute('user/profile');
 
         return new ViewModel(array(
             'user' => $user,

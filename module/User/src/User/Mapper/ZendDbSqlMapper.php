@@ -303,7 +303,7 @@ class ZendDbSqlMapper implements UserMapperInterface
      * @return array
      * @throws \Exception
      */
-    public function activeService($username, $array_servicio)
+    public function activeService($username, $id_servicio)
     {
         //buscar servicio $servicio del usuario $id
         $sql    = new Sql($this->dbAdapter);
@@ -311,21 +311,22 @@ class ZendDbSqlMapper implements UserMapperInterface
         $select = $sql->select()
            ->from(array('u' => 'users'))
            ->join(array('p' => 'permisos_user_servicio'), 'p.id_user = u.id', array('informacion_total'), 'left')
-           ->where(array('u.username = ?' => $username, 'p.id_servicio = ?' => $array_servicio[0]));
+           ->where(array('u.username = ?' => $username, 'p.id_servicio = ?' => $id_servicio));
 
         $stmt = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
-        $resultSet = new ResultSet();
-        $state = $resultSet->initialize($result)->toArray();
-        $state = $state[0]['informacion_total'];
 
         //\Zend\Debug\Debug::dump($array_servicio[1]);die();
 
         if ($result->getAffectedRows() == 1) {
+
+            $resultSet = new ResultSet();
+            $state = $resultSet->initialize($result)->toArray();
+            $state = $state[0]['informacion_total'];
             //si el usuario con el servicio existe cambiar el estado
             $action = new Update('permisos_user_servicio');
             $action->join(array('u' => 'users'), 'id_user = u.id')
-                    ->where(array('u.username = ?' => $username, 'id_servicio = ?' => $array_servicio[0]))
+                    ->where(array('u.username = ?' => $username, 'id_servicio = ?' => $id_servicio))
                     ->set(array('informacion_total' => !$state));
             $sql    = new Sql($this->dbAdapter);
             $stmt   = $sql->prepareStatementForSqlObject($action);

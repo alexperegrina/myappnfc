@@ -84,8 +84,8 @@ class UserService implements UserServiceInterface
      * @param array[$id_servicio, status]
      * @return mixed
      */
-    public function changeServiceStatus($username, $array_servicio) {
-        return $this->userMapper->activeService($username, $array_servicio);
+    public function changeServiceStatus($username, $id_servicio) {
+        return $this->userMapper->activeService($username, $id_servicio);
     }
 
     /**
