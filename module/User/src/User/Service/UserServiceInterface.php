@@ -26,6 +26,12 @@ interface UserServiceInterface
     public function findUser($id);
 
     /**
+     * @param $username
+     * @return mixed
+     */
+    public function findUserByUsername($username);
+
+    /**
      * Crea un User nuevo o actualiza uno existente
      * @param  UserInterface $user
      * @return UserInterface
@@ -85,6 +91,14 @@ interface UserServiceInterface
     public function listUserInfoServices($id);
 
     /**
+     * Metodo para cojer todos los tokens de un usuario con el username
+     * 
+     * @param string $username
+     * @return mixed
+     */
+    public function findKeysByUsername($username);
+    
+    /**
      * Lista las etiquetas de usuario
      * @param $id
      * @return mixed
@@ -101,7 +115,6 @@ interface UserServiceInterface
     /**
      * Añade una clave privada $key al usuario $user
      * @param UserInterface $user
-     * @param $key
      * @return mixed
      */
     public function addPrivateKey(UserInterface $user, $key);
@@ -113,5 +126,22 @@ interface UserServiceInterface
      * @return mixed
      */
     public function deletePrivateKey(UserInterface $user, $key);
+
+    /**
+     * Metodo para validar si un username ya esta siendo utilizado
+     *
+     * @param $username
+     * @return bool
+     */
+    public function usernameValid($username);
+
+    /**
+     * Metodo para activar los servicios pasados como parametro, El metodo automaticamente elimina todos los
+     * permisos para este usuario y los vuelve a insertar.
+     *
+     * @param $id
+     * @param array $string $Services, id de los servicios que queremos activar.
+     */
+    public function replacePermisionServices($username, $services);
     
 }

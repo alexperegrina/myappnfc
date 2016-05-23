@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `myappnfc` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `myappnfc`;
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: myappnfc
 -- ------------------------------------------------------
--- Server version	5.6.28-0ubuntu0.15.10.1
+-- Server version	5.5.47-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +38,7 @@ CREATE TABLE `info_user` (
 
 LOCK TABLES `info_user` WRITE;
 /*!40000 ALTER TABLE `info_user` DISABLE KEYS */;
+INSERT INTO `info_user` VALUES (27,'test22','test22 test22','1989-11-26 13:00:00'),(28,'user2','user2','0000-00-00 00:00:00'),(52,'userinsert','userinsert userinsert','1989-11-26 13:00:00');
 /*!40000 ALTER TABLE `info_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-10 17:09:03
+-- Dump completed on 2016-05-22 17:57:49

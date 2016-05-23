@@ -1,0 +1,50 @@
+<h1>Sign In</h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url());
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+?>
+
+<a href="/user/signin" class="btn btn-default" role="button">User</a>
+<a href="/comercializador/signin" class="btn btn-default active" role="button">Comercializador</a>
+<a href="/servicio/signin" class="btn btn-default" role="button">Servicio</a>
+
+<div class="form_element">
+        <?php
+        $name = $form->get('post-fieldset')->get('username');
+        echo $this->formRow($name);
+        ?></div>
+<div class="form_element">
+    <?php
+    $name = $form->get('post-fieldset')->get('password');
+    echo $this->formRow($name);
+    ?></div>
+
+<div class="form_element">
+    <?php
+    $subject = $form->get('post-fieldset')->get('nombre');
+    echo $this->formRow($subject);
+    ?></div>
+
+<div class="form_element">
+    <?php
+    $subject = $form->get('post-fieldset')->get('mail');
+    echo $this->formRow($subject);
+    ?></div>
+
+<div class="form_element">
+    <?php
+    $subject = $form->get('post-fieldset')->get('descripcion');
+    echo $this->formRow($subject);
+    ?></div>
+
+<?php echo $this->formElement($form->get('submit')) ?>
+
+<?php
+
+echo $this->form()->closeTag();
+
+echo $this->error; 

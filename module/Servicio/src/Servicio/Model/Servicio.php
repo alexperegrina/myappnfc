@@ -32,6 +32,18 @@ class Servicio implements ServicioInterface
     protected $mail;
 
     /**
+     * @var string
+     */
+    protected $nombre;
+
+    /**
+     * @var string
+     */
+    protected $descripcion;
+
+
+
+    /**
      * {@inheritDoc}
      */
     public function getId()
@@ -94,4 +106,37 @@ class Servicio implements ServicioInterface
     {
         $this->mail = $mail;
     }
+    //
+    /**
+     * {@inheritDoc}
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * @param string $nombre
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * @param string $descripcion
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    }
+
 }

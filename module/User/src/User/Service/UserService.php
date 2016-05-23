@@ -33,21 +33,34 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param User $id
+     * {@inheritDoc}
      */
     public function findUser($id) {
         return $this->userMapper->find($id);
     }
 
     /**
-     * @param UserInterface $user
+     * {@inheritDoc}
+     */
+    public function findUserByUsername($username) {
+        return $this->userMapper->findByUsername($username);
+    }
+    
+
+    /**
+     * {@inheritDoc}
      */
     public function saveUser(UserInterface $user) {
+        // esta marranada hay que quitarla cuando se quite el atributo id_user
+        if($user->getId_user() == null) {
+            $user->getId_user($user->getId());
+        }
+        // fin marranada
         return $this->userMapper->save($user);
     }
 
     /**
-     * @param UserInterface $user
+     * {@inheritDoc}
      */
     public function deleteUser(UserInterface $user) {
         return $this->userMapper->delete($user);
@@ -113,6 +126,13 @@ class UserService implements UserServiceInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findKeysByUsername($username) {
+        return $this->userMapper->findKeysByUsername($username);
+    }
+
+    /**
      * @param User $id
      * @return mixed
      */
@@ -126,7 +146,20 @@ class UserService implements UserServiceInterface
      * @return mixed
      */
     public function addPrivateKey(UserInterface $user, $key) {
-        return $this->userMapper->addKey($user, $key);
+        $keysUser = $this->userMapper->findKeysById($user->getId());
+        
+        $valid = true;
+        foreach ($keysUser AS $keyUser) {
+            if($key == $keyUser['clave']) {
+                $valid = false;
+            }
+        }
+        
+        if(!$valid) {
+            throw new \Exception("El token ya esta siendo utilizado");
+        }
+        
+        return $this->userMapper->addKey($user->getId(), $key);
     }
 
     /**
@@ -136,6 +169,23 @@ class UserService implements UserServiceInterface
      */
     public function deletePrivateKey(UserInterface $user, $key) {
         return $this->userMapper->deleteKey($user, $key);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function usernameValid($username) {
+
+        $row = $this->userMapper->getRowByUsername($username);
+        return count($row) == 0 ? true : false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function replacePermisionServices($username, $services) {
+        $this->userMapper->deleteAllPermisionServicesByUsername($username);
+        return $this->userMapper->insertPermisionsServicesActivesByUsername($username, $services);
     }
 
 }

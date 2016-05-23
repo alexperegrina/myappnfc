@@ -68,6 +68,7 @@ class WriteController extends AbstractActionController
 
             if ($this->comercializadorForm->isValid()) {
                 try {
+                    
                     $this->comercializadorService->saveComercializador($comercializador);
 
                     return $this->redirect()->toRoute('comercializador');
@@ -80,6 +81,53 @@ class WriteController extends AbstractActionController
 
         return new ViewModel(array(
             'form' => $this->comercializadorForm
+        ));
+    }
+
+    public function signinAction() {
+        $error = "";
+
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+
+            $this->comercializadorForm->setData($request->getPost());
+
+            if ($this->comercializadorForm->isValid()) {
+                //comprovamos que ya exista un usuario con este username
+
+
+//                print_r(false);die();
+                if(!$this->comercializadorService->usernameValid(
+                    $this->comercializadorForm->getData()->getUsername())) {
+//                    die("dentro de error");
+                    $error = "El username ya es utilizado";
+
+                }
+                else {
+                    try {
+
+                        //encriptamos el password
+                        $passwordOld = $this->comercializadorForm->getData()->getPassword();
+                        $passwordNew = md5($passwordOld);
+                        $this->comercializadorForm->getData()->setPassword($passwordNew);
+
+                        $this->comercializadorService->saveComercializador($this->comercializadorForm->getData());
+
+                        return $this->redirect()->toRoute('authenticate');
+                    } catch (\Exception $e) {
+                        // Some DB Error happened, log it and let the user know
+                        die($e->getMessage());
+                    }
+                }
+            }
+        }
+
+        $this->comercializadorForm->get('submit')->setValue('Sign In');
+
+        return new ViewModel(array(
+            'form' => $this->comercializadorForm,
+            'error' => $error
         ));
     }
     

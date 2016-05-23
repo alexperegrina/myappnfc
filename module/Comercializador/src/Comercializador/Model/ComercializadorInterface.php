@@ -31,4 +31,14 @@ interface ComercializadorInterface
      * @return string
      */
     public function getMail();
+
+    /**
+     * @return string
+     */
+    public function getNombre();
+
+    /**
+     * @return string
+     */
+    public function getDescripcion();
 }

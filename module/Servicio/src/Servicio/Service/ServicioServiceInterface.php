@@ -43,6 +43,29 @@ interface ServicioServiceInterface
      * @return bool
      */
     public function deleteServicio(ServicioInterface $servicio);
-    
-    public function findServiceByUsernameId($id);
+
+    /**
+     * Metodo para cojer todos los servicios con el username
+     *
+     * @param $id
+     * @return ServicioInterface
+     */
+    public function findServiceByUsername($username);
+
+    /**
+     * Metodo para cojer todos los servicios indicando si esta activo o no para el usuario con username
+     * Pasado por parametros
+     * 
+     * @param string $username
+     * @return array de string username, string nombre, boolean activado
+     */
+    public function findAllServicesByUsername($username);
+
+    /**
+     * Metodo para validar si un username ya esta siendo utilizado
+     *
+     * @param $username
+     * @return bool
+     */
+    public function usernameValid($username);
 }

@@ -18,6 +18,13 @@ interface ServicioMapperInterface
      * @throws \InvalidArgumentException
      */
     public function find($id);
+    
+    /**
+     * @param int|string $username
+     * @return ServicioInterface
+     * @throws \InvalidArgumentException
+     */
+    public function findByUsername($username);
 
     /**
      * @return array|ServicioInterface[]
@@ -40,6 +47,21 @@ interface ServicioMapperInterface
      * @throws \Exception
      */
     public function delete(ServicioInterface $servicioObject);
-    
-    public function findServiceByUsername($id);
+
+    /**
+     * Metodo para cojer todos los servicios con el username
+     * 
+     * @param $id
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    public function findServicesByUsername($id);
+
+    /**
+     * Metodo para cojer un usuario con un cierto username
+     *
+     * @param $username
+     * @return array
+     */
+    public function getRowByUsername($username) ;
 }

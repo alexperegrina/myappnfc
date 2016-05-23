@@ -43,4 +43,29 @@ interface ComercializadorServiceInterface
      * @return bool
      */
     public function deleteComercializador(ComercializadorInterface $comercializador);
+    
+    /**
+     *  Metodo para crear y asignar un cierto numero de identificadors a un comercializador
+     * 
+     * @param ComercializadorInterface $comercializador
+     * @param int $cantidad
+     * @return mixed
+     */
+    public function solicitarIds(ComercializadorInterface $comercializador, $cantidad);
+
+    /**
+     * Metodo para consultar los ids asignados a un comercializador
+     *
+     * @param ComercializadorInterface $comercializador
+     * @return string[]
+     */
+    public function findIdsComercializador(ComercializadorInterface $comercializador);
+
+    /**
+     * Metodo para validar si un username ya esta siendo utilizado
+     *
+     * @param $username
+     * @return bool
+     */
+    public function usernameValid($username);
 }

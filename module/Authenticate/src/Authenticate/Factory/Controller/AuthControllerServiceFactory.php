@@ -20,7 +20,10 @@ class AuthControllerServiceFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $authService = $serviceLocator->getServiceLocator()->get('AuthService');
+
+//        $authService = $serviceLocator->getServiceLocator()->get('AuthService');
+        $authService = $serviceLocator->getServiceLocator()->get('Authenticate\Service\AuthServiceInterface');
+        
         $controller = new AuthController($authService);
 
         return $controller;

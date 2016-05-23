@@ -20,7 +20,9 @@ return array(
         'factories' => array(
             'Comercializador\Controller\List' => 'Comercializador\Factory\ListControllerFactory',
             'Comercializador\Controller\Write' => 'Comercializador\Factory\WriteControllerFactory',
-            'Comercializador\Controller\Delete' => 'Comercializador\Factory\DeleteControllerFactory'
+            'Comercializador\Controller\Delete' => 'Comercializador\Factory\DeleteControllerFactory',
+            'Comercializador\Controller\Profile' => 'Comercializador\Factory\ProfileControllerFactory',
+            'Comercializador\Controller\Id' => 'Comercializador\Factory\IdControllerFactory',
         )
     ),
 
@@ -92,6 +94,42 @@ return array(
                             ),
                             'constraints' => array(
                                 'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'profile' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/profile/:id',
+                            'defaults' => array(
+                                'controller' => 'Comercializador\Controller\Profile',
+                                'action'     => 'profile'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'solicitarid' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/solicitarid/:id',
+                            'defaults' => array(
+                                'controller' => 'Comercializador\Controller\Id',
+                                'action'     => 'solicitar'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'signin' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/signin',
+                            'defaults' => array(
+                                'controller' => 'Comercializador\Controller\Write',
+                                'action'     => 'signin'
                             )
                         )
                     ),

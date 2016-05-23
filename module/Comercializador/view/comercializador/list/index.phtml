@@ -25,6 +25,7 @@ $this->headTitle($title);
                 <!--                <a href="--><?php //echo $this->url('comercializador', array('action' => 'delete', 'id' => $comercializador->getId())); ?><!--">Delete</a>-->
                 <a href=comercializador/edit/<?php echo $comercializador->getId(); ?>>Edit</a>
                 <a href=comercializador/delete/<?php echo $comercializador->getId(); ?>>Delete</a>
+                <a href=comercializador/profile/<?php echo $comercializador->getId(); ?>>Profile</a>
             </td>
         </tr>
     <?php endforeach; ?>

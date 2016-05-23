@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `myappnfc` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `myappnfc`;
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: myappnfc
 -- ------------------------------------------------------
--- Server version	5.6.28-0ubuntu0.15.10.1
+-- Server version	5.5.47-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,14 +23,16 @@ DROP TABLE IF EXISTS `permisos_user_servicio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permisos_user_servicio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `id_servicio` int(11) DEFAULT NULL,
   `informacion_total` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `fk_permisos_to_user_idx` (`id_user`),
   KEY `fk_permisos_to_servicio_idx` (`id_servicio`),
-  CONSTRAINT `fk_permisos_to_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_permisos_to_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_permiso_to_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_permiso_to_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `permisos_user_servicio` (
 
 LOCK TABLES `permisos_user_servicio` WRITE;
 /*!40000 ALTER TABLE `permisos_user_servicio` DISABLE KEYS */;
+INSERT INTO `permisos_user_servicio` VALUES (10,27,30,1),(11,27,31,1);
 /*!40000 ALTER TABLE `permisos_user_servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-10 17:09:09
+-- Dump completed on 2016-05-22 17:57:50

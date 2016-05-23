@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `myappnfc` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `myappnfc`;
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: myappnfc
 -- ------------------------------------------------------
--- Server version	5.6.28-0ubuntu0.15.10.1
+-- Server version	5.5.47-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,8 +28,10 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `tipo` set('user','comercializador','servicio') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `mail_UNIQUE` (`mail`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (26,'admin','21232f297a57a5a743894a0e4a801fc3','admin','comercializador'),(27,'user','user','test22@gmail.com','user'),(28,'user2','7e58d63b60197ceb55a1c487989a3720','user2','user'),(30,'servicio','842b1c521c6fdd195f85419d3d08db7b','servicio','servicio'),(31,'servicio2','4c810bb334c8a49d451abcf3236bd304','servicio2','servicio'),(39,'g','b2f5ff47436671b6e533d8dc3614845d','g','servicio'),(50,'test','test','test','servicio'),(51,'test2','test2','test2','servicio'),(52,'userinsert','userinsert','userinsert@gmail.com','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-10 17:09:05
+-- Dump completed on 2016-05-22 17:57:50

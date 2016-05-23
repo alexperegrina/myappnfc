@@ -103,6 +103,16 @@ return array(
                             )
                         ),
                     ),
+                    'signin' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/signin',
+                            'defaults' => array(
+                                'controller' => 'User\Controller\Write',
+                                'action'     => 'signin'
+                            )
+                        )
+                    ),
                 ),
             )
         )
