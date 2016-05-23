@@ -220,20 +220,8 @@ class ZendDbSqlMapper implements ServicioMapperInterface
     public function findServicesByUsername($username) {
         $sql    = new Sql($this->dbAdapter);
 
-
         $select = $sql->select()
             ->from(array('u' => 'users'))
-//            ->columns(array('id', 'username', 'password', 'mail'))
-            ->join(array('p' => 'permisos_user_servicio'),
-                   'u.id = p.id_user',
-                    array())
-            ->join(array('i' => 'info_servicio'), 'i.id_servicio = p.id_servicio',
-                array('id' =>'id_servicio','nombre', 'descripcion'))
-            ->where(array('u.username = ?' => $username));
-
-        $select = $sql->select()
-            ->from(array('u' => 'users'))
-//            ->columns(array('id', 'username', 'password', 'mail'))
             ->columns(array())
             ->join(array('p' => 'permisos_user_servicio'),
                 'u.id = p.id_user',
@@ -242,19 +230,8 @@ class ZendDbSqlMapper implements ServicioMapperInterface
             ->join(array('s' => 'users'), 's.id = p.id_servicio', array('id', 'username', 'password', 'mail'))
             ->where(array('u.username = ?' => $username));
 
-
-
-//        SELECT i.id_servicio, i.nombre, i.descripcion
-//        FROM users as u
-//        JOIN permisos_user_servicio as p on u.id = p.id_user
-//        LEFT JOIN info_servicio as i on i.id_servicio = p.id_servicio
-//        LEFT JOIN users as s on s.id = p.id_servicio
-//        WHERE u.username = 'alex'
-
         $stmt   = $sql->prepareStatementForSqlObject($select);
-//print_r($stmt);die();
         $result = $stmt->execute();
-
 
         if ($result instanceof ResultInterface && $result->isQueryResult()) {
             $resultSet = new HydratingResultSet($this->hydrator, $this->servicioPrototype);
@@ -268,7 +245,7 @@ class ZendDbSqlMapper implements ServicioMapperInterface
 //            return $this->hydrator->hydrate($result->current(), $this->servicioPrototype);
 //        }
 
-        throw new \InvalidArgumentException("User con username:{$username} no existe.");
+//        throw new \InvalidArgumentException("User con username:{$username} no existe.");
     }
 
 

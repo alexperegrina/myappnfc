@@ -5,7 +5,8 @@ class ProfileByUserControllerFactory
 {
     public function __invoke($controllers)
     {
-        $service = $controllers->getServiceLocator()->get('User\Service\UserServiceInterface');
-        return new ProfileByUserController($service);
+        $userService = $controllers->getServiceLocator()->get('User\Service\UserServiceInterface');
+        $serviceService = $controllers->getServiceLocator()->get('Servicio\Service\ServicioServiceInterface');
+        return new ProfileByUserController($userService, $serviceService);
     }
 }

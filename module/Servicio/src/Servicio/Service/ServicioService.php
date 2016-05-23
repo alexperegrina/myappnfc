@@ -87,7 +87,7 @@ class ServicioService implements ServicioServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function findAllServicesByUsername($username) 
+    public function findAllServicesByUsername($username)
     {
         $servicesResult = array();
 
@@ -119,5 +119,21 @@ class ServicioService implements ServicioServiceInterface
     public function usernameValid($username) {
         $row = $this->servicioMapper->getRowByUsername($username);
         return count($row) == 0 ? true : false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function serviceUserHasPermission($usernameUser, $usernameService) {
+        $servicesUser = $this->findAllServicesByUsername($usernameUser, true);
+        $valido = false;
+
+        foreach ($servicesUser AS $service) {
+            if($service['username'] == $usernameService) {
+                $valido = $service['activado'];
+            }
+        }
+        
+        return $valido;
     }
 }

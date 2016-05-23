@@ -68,4 +68,13 @@ interface ServicioServiceInterface
      * @return bool
      */
     public function usernameValid($username);
+
+    /**
+     * Metodo para saber si un servicio tiene permiso para este usuario
+     *
+     * @param string $usernameUser
+     * @param string $usernameService
+     * @return boolean
+     */
+    public function serviceUserHasPermission($usernameUser, $usernameService);
 }
