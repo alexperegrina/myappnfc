@@ -45,6 +45,13 @@ class UserService implements UserServiceInterface
     public function findUserByUsername($username) {
         return $this->userMapper->findByUsername($username);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findUserByIdNFC($id) {
+        return $this->userMapper->findByIdNFC($id);
+    }
     
 
     /**

@@ -32,6 +32,13 @@ interface UserServiceInterface
     public function findUserByUsername($username);
 
     /**
+     * Metodo para cojer el perfil de un usuario con un ID del un NFC
+     * @param string $id
+     * @return UserInterface
+     */
+    public function findUserByIdNFC($id);
+
+    /**
      * Crea un User nuevo o actualiza uno existente
      * @param  UserInterface $user
      * @return UserInterface

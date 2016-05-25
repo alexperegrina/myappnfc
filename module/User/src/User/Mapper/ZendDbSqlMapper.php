@@ -104,6 +104,28 @@ class ZendDbSqlMapper implements UserMapperInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findByIdNFC($id) {
+        $sql    = new Sql($this->dbAdapter);
+
+        $select = $sql->select()
+            ->from(array('u' => 'users'))
+            ->join(array('i' => 'info_user'), 'u.id = i.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
+            ->join(array('id' => 'banco_ids'), 'u.id = id.id_user', Select::SQL_STAR, Join::JOIN_LEFT)
+            ->where(array('id.id' => $id));
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if ($result instanceof ResultInterface && $result->isQueryResult() && $result->getAffectedRows()) {
+            return $this->hydrator->hydrate($result->current(), $this->userPrototype);
+        }
+
+        throw new \InvalidArgumentException("En el banco de id no existe $id");
+    }
+
+    /**
      * Devuelve un array de perfiles de todos los usuarios
      * @return array|UserInterface[]
      */

@@ -10,6 +10,7 @@ return array(
             'API_service\\V1\\Rpc\\SetServicesByUser\\Controller' => 'API_service\\V1\\Rpc\\SetServicesByUser\\SetServicesByUserControllerFactory',
             'API_service\\V1\\Rpc\\TokensUser\\Controller' => 'API_service\\V1\\Rpc\\TokensUser\\TokensUserControllerFactory',
             'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => 'API_service\\V1\\Rpc\\SetTokenUser\\SetTokenUserControllerFactory',
+            'API_service\\V1\\Rpc\\TokensUserById\\Controller' => 'API_service\\V1\\Rpc\\TokensUserById\\TokensUserByIdControllerFactory',
         ),
     ),
     'service_manager' => array(
@@ -95,6 +96,16 @@ return array(
                     ),
                 ),
             ),
+            'api_service.rpc.tokens-user-by-id' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/tokensuserbyid',
+                    'defaults' => array(
+                        'controller' => 'API_service\\V1\\Rpc\\TokensUserById\\Controller',
+                        'action' => 'tokensUserById',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -106,6 +117,7 @@ return array(
             5 => 'api_service.rpc.services-by-user',
             0 => 'api_service.rpc.tokens-user',
             6 => 'api_service.rpc.set-token-user',
+            7 => 'api_service.rpc.tokens-user-by-id',
         ),
     ),
     'zf-rpc' => array(
@@ -159,6 +171,13 @@ return array(
             ),
             'route_name' => 'api_service.rpc.set-token-user',
         ),
+        'API_service\\V1\\Rpc\\TokensUserById\\Controller' => array(
+            'service_name' => 'TokensUserById',
+            'http_methods' => array(
+                0 => 'GET',
+            ),
+            'route_name' => 'api_service.rpc.tokens-user-by-id',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
@@ -169,6 +188,7 @@ return array(
             'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\TokensUser\\Controller' => 'Json',
             'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => 'Json',
+            'API_service\\V1\\Rpc\\TokensUserById\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
@@ -206,6 +226,11 @@ return array(
                 1 => 'application/json',
                 2 => 'application/*+json',
             ),
+            'API_service\\V1\\Rpc\\TokensUserById\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ),
         ),
         'content_type_whitelist' => array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
@@ -236,6 +261,10 @@ return array(
                 0 => 'application/vnd.api_service.v1+json',
                 1 => 'application/json',
             ),
+            'API_service\\V1\\Rpc\\TokensUserById\\Controller' => array(
+                0 => 'application/vnd.api_service.v1+json',
+                1 => 'application/json',
+            ),
         ),
     ),
     'zf-content-validation' => array(
@@ -250,6 +279,12 @@ return array(
         ),
         'API_service\\V1\\Rpc\\ServicesByUser\\Controller' => array(
             'input_filter' => 'API_service\\V1\\Rpc\\ServicesByUser\\Validator',
+        ),
+        'API_service\\V1\\Rpc\\TokensUser\\Controller' => array(
+            'input_filter' => 'API_service\\V1\\Rpc\\TokensUser\\Validator',
+        ),
+        'API_service\\V1\\Rpc\\SetTokenUser\\Controller' => array(
+            'input_filter' => 'API_service\\V1\\Rpc\\SetTokenUser\\Validator',
         ),
     ),
     'input_filter_specs' => array(
@@ -338,6 +373,31 @@ return array(
                 'description' => 'username del usuario',
             ),
         ),
+        'API_service\\V1\\Rpc\\TokensUser\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario',
+            ),
+        ),
+        'API_service\\V1\\Rpc\\SetTokenUser\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'username',
+                'description' => 'username del usuario',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'token',
+                'description' => 'token a relacionar con el user',
+            ),
+        ),
     ),
     'zf-mvc-auth' => array(
         'authorization' => array(
@@ -410,6 +470,17 @@ return array(
             'API_service\\V1\\Rpc\\Login\\Controller' => array(
                 'actions' => array(
                     'Login' => array(
+                        'GET' => true,
+                        'POST' => false,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ),
+                ),
+            ),
+            'API_service\\V1\\Rpc\\TokensUserById\\Controller' => array(
+                'actions' => array(
+                    'TokensUserById' => array(
                         'GET' => true,
                         'POST' => false,
                         'PUT' => false,

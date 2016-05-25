@@ -29,6 +29,14 @@ interface UserMapperInterface
     public function findByUsername($username);
 
     /**
+     * Metodo para cojer el perfil de un usuario con un ID del un NFC
+     * 
+     * @param $id
+     * @return mixed
+     */
+    public function findByIdNFC($id);
+
+    /**
      * @return array|UserInterface[]
      */
     public function findAll();
