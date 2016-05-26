@@ -140,7 +140,7 @@ class ZendDbSqlMapper implements UserMapperInterface
         $userInfo = $this->multiSelectArray($userData, array('nombre', 'apellidos', 'fecha_nacimiento'));
 
         //insertamos el tipo de user
-        $userData['tipo'] = 'user';
+        $user['tipo'] = 'user';
         if ($userObject->getId()) {
             // ID present, it's an Update
             /*$action = new Update('users');
