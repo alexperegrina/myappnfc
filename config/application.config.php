@@ -24,12 +24,13 @@ return array(
         'Servicio',
         'User',
         'Authenticate',
-        'Status',
-        'ZF\\Apigility\\Documentation',
+        19 => 'ZF\\Apigility\\Documentation',
         'StatusLib',
-        'myappnfc',
-        'Utils',
+        22 => 'Utils',
         'API_service',
+        'API_comercializador',
+        'API_user',
+        'API_admin',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
