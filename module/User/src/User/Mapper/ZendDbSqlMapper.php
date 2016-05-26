@@ -136,8 +136,9 @@ class ZendDbSqlMapper implements UserMapperInterface
         $userData = $this->hydrator->extract($userObject);
         unset($userData['id']); // Neither Insert nor Update needs the ID in the array
         $userDI = $userData;
-        $userInfo = array_slice($userData, 3);
-        $userData = array_slice($userData, 0, 3);
+        $user = $this->multiSelectArray($userData, array('username', 'password', 'mail', 'tipo'));
+        $userInfo = $this->multiSelectArray($userData, array('nombre', 'apellidos', 'fecha_nacimiento'));
+
         //insertamos el tipo de user
         $userData['tipo'] = 'user';
         if ($userObject->getId()) {
@@ -162,7 +163,7 @@ class ZendDbSqlMapper implements UserMapperInterface
         } else {
             // ID NOT present, it's an Insert
             $action = new Insert('users');
-            $action->values($userData);
+            $action->values($user);
             $sql = new Sql($this->dbAdapter);
             $stmt = $sql->prepareStatementForSqlObject($action);
             $result = $stmt->execute();
@@ -176,6 +177,7 @@ class ZendDbSqlMapper implements UserMapperInterface
             }
             $insertinfo = new Insert('info_user');
             $insertinfo->values($userInfo);
+            
             $sql = new Sql($this->dbAdapter);
             $stmt = $sql->prepareStatementForSqlObject($insertinfo);
             $stmt->execute();
@@ -545,4 +547,32 @@ class ZendDbSqlMapper implements UserMapperInterface
         }
         return true;
     }
+
+    //******************************************
+    //*******  Metodos privados  ***************
+    //******************************************
+
+
+    /**
+     * Metodo para cojer multiples valores de un array, si no estan las key en el array
+     * crea la nueva posicion en la respuesta y lo deja vacio.
+     *
+     * @param $array
+     * @param $keys
+     * @return array
+     */
+    private function multiSelectArray($array,$keys) {
+        $result = array();
+        foreach ($keys as $key) {
+            if(array_key_exists($key, $array)) {
+                $result[$key] = $array[$key];
+            }
+            else {
+                $result[$key] = "";
+            }
+
+        }
+        return $result;
+    }
+
 }
