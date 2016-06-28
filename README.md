@@ -124,4 +124,4 @@ Notas Alex:
 
 Recomendación: para crear los servicios mejor hacerlos desde la url
     http://0.0.0.0:8080/apigility/ui
-Ya que habeces desde la url normal da problemas con los servicios.
+Ya que a veces desde la url normal da problemas con los servicios.
